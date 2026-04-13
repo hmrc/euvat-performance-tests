@@ -18,17 +18,16 @@ package uk.gov.hmrc.perftests.euvat.simulations
 
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
+import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
+import uk.gov.hmrc.perftests.euvat.requests.LandingPagesRequests._
 
-class CisSimulation extends Simulation with PerformanceTestRunner {
+class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
-  setup("org-landing-pages", "OLP ").withRequests(
+  setup("test-journey", "Test journey").withRequests(
     getAuthPage,
-    postManageAuthPage("Organisation", "EZ00100"),
+    postAuthPage("Organisation", " "),
     getSession,
-    getManageFrontend,
-    getSignIntoCISPage,
-    getSignIntoCISRouting,
-    getCisReturnDashboardPage
+    getEUVATLandingPage
   )
 
   runSimulation()

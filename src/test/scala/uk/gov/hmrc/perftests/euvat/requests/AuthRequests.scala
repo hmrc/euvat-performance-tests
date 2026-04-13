@@ -35,9 +35,9 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
     .check(css("[data-session-id=\"authToken\"] > code").saveAs("accessToken"))
     .check(css("[data-session-id=\"sessionId\"] > code").saveAs("sessionId"))
 
-  def postManageAuthPage(affinityGroup: String, taxOfficeReference: String): HttpRequestBuilder = {
+  def postAuthPage(affinityGroup: String, taxOfficeReference: String): HttpRequestBuilder = {
     val baseFormParams      = Map(
-      "redirectionUrl"     -> euvatManageFrontendUrl,
+      "redirectionUrl"     -> euvatMgmtFrontendUrl,
       "credentialStrength" -> "strong",
       "confidenceLevel"    -> "50",
       "affinityGroup"      -> affinityGroup,
@@ -47,10 +47,10 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
       case "Organisation" =>
         Map(
           "authorityId"                         -> "",
-          "enrolment[0].name"                   -> "HMRC-CIS-ORG",
-          "enrolment[0].taxIdentifier[0].name"  -> "TaxOfficeNumber",
-          "enrolment[0].taxIdentifier[0].value" -> "754",
-          "enrolment[0].taxIdentifier[1].name"  -> "TaxOfficeReference",
+          "enrolment[0].name"                   -> "",
+          "enrolment[0].taxIdentifier[0].name"  -> "",
+          "enrolment[0].taxIdentifier[0].value" -> "",
+          "enrolment[0].taxIdentifier[1].name"  -> "",
           "enrolment[0].taxIdentifier[1].value" -> taxOfficeReference,
           "enrolment[0].state"                  -> "Activated"
         )
@@ -63,7 +63,7 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
           "enrolment[0].state"                  -> "Activated"
         )
     }
-    val expectedRedirectUrl = euvatManageFrontendUrl
+    val expectedRedirectUrl = euvatMgmtFrontendUrl
     http("[post] gg-sign-in")
       .post(baseUrlAuthLoginStub + "/auth-login-stub/gg-sign-in")
       .disableFollowRedirect

@@ -23,15 +23,9 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object LandingPagesRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
-  val getManageFrontend: HttpRequestBuilder =
-    http("[get ] Manage Frontend")
-      .get(euvatManageFrontendUrl)
-      .check(status.is(303))
-
-  val getSignIntoCISPage: HttpRequestBuilder =
+  val getEUVATLandingPage: HttpRequestBuilder =
     http("[get ] EUVAT Landing page")
-      .get(euvatManageFrontendUrl + "/sign-into-cis")
+      .get(euvatMgmtFrontendUrl)
       .check(status.is(200))
-
 
 }

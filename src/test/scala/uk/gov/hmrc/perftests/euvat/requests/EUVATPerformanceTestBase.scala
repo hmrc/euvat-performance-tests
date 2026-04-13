@@ -22,11 +22,10 @@ trait EUVATPerformanceTestBase extends ServicesConfiguration {
 
   val baseUrlAuthLoginStub: String = baseUrlFor("auth-login-stub")
 
-  val euvatFrontendHost: String = baseUrlFor("euvat-mgmt-frontend")
-  val euvatFrontendUrl: String  = euvatFrontendHost + s"/construction-industry-scheme"
+  val euvatMgmtHost: String        = baseUrlFor("euvat-mgmt-frontend")
+  val euvatMgmtFrontendUrl: String = euvatMgmtHost + s"/euvat-mgmt-frontend"
 
-  val euvatManageHost: String        = baseUrlFor("cis-manage-frontend")
-  val euvatManageFrontendUrl: String = euvatManageHost + s"/construction-industry-scheme/management"
-
+  val euvatFilingFrontendHost: String = baseUrlFor("euvat-filing-frontend")
+  val euvatFilingFrontendUrl: String  = euvatFilingFrontendHost + s"/euvat-filing-frontend"
 
 }

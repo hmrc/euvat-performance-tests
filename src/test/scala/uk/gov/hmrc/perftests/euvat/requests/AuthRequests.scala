@@ -1,0 +1,75 @@
+/*
+ * Copyright 2025 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.perftests.euvat.requests
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import io.gatling.http.request.builder.HttpRequestBuilder
+import uk.gov.hmrc.performance.conf.ServicesConfiguration
+
+object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
+
+  val getAuthPage: HttpRequestBuilder = http("[get ] gg-sign-in")
+    .get(baseUrlAuthLoginStub + "/auth-login-stub/gg-sign-in")
+    .disableFollowRedirect
+    .check(status.is(200))
+    .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val getSession: HttpRequestBuilder = http("[get ] auth session")
+    .get(baseUrlAuthLoginStub + "/auth-login-stub/session")
+    .check(status.is(200))
+    .check(css("[data-session-id=\"authToken\"] > code").saveAs("accessToken"))
+    .check(css("[data-session-id=\"sessionId\"] > code").saveAs("sessionId"))
+
+  def postAuthPage(affinityGroup: String, taxOfficeReference: String): HttpRequestBuilder = {
+    val baseFormParams      = Map(
+      "redirectionUrl"     -> euvatMgmtFrontendUrl,
+      "credentialStrength" -> "strong",
+      "confidenceLevel"    -> "50",
+      "affinityGroup"      -> affinityGroup,
+      "csrfToken"          -> "#{csrfToken}"
+    )
+    val enrolmentParams     = affinityGroup match {
+      case "Organisation" =>
+        Map(
+          "authorityId"                         -> "",
+          "enrolment[0].name"                   -> "",
+          "enrolment[0].taxIdentifier[0].name"  -> "",
+          "enrolment[0].taxIdentifier[0].value" -> "",
+          "enrolment[0].taxIdentifier[1].name"  -> "",
+          "enrolment[0].taxIdentifier[1].value" -> taxOfficeReference,
+          "enrolment[0].state"                  -> "Activated"
+        )
+      case "Agent"        =>
+        Map(
+          "authorityId"                         -> "0000000264427063",
+          "enrolment[0].name"                   -> "HMCE-VAT-AGNT",
+          "enrolment[0].taxIdentifier[0].name"  -> "AgentRefNo",
+          "enrolment[0].taxIdentifier[0].value" -> taxOfficeReference,
+          "enrolment[0].state"                  -> "Activated"
+        )
+    }
+    val expectedRedirectUrl = euvatMgmtFrontendUrl
+    http("[post] gg-sign-in")
+      .post(baseUrlAuthLoginStub + "/auth-login-stub/gg-sign-in")
+      .disableFollowRedirect
+      .formParamMap(baseFormParams ++ enrolmentParams)
+      .check(status.is(303))
+      .check(header("Location").is(expectedRedirectUrl))
+  }
+
+}

@@ -28,4 +28,16 @@ object LandingPagesRequests extends ServicesConfiguration with EUVATPerformanceT
       .get(euvatMgmtFrontendUrl)
       .check(status.is(200))
 
+  val getManageEUVATClaimPage: HttpRequestBuilder =
+    http("[get ] Manage your EUVAT claim page")
+      .get(euvatMgmtFrontendUrl + "/manage-your-eu-vat-claim")
+      .check(status.is(200))
+
+  val postManageEUVATClaimPage: HttpRequestBuilder =
+    http("[post] Manage your EUVAT claim page")
+      .post(euvatMgmtFrontendUrl + "/manage-your-eu-vat-claim")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+
 }

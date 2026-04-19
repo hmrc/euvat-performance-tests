@@ -20,16 +20,30 @@ import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
 import uk.gov.hmrc.perftests.euvat.requests.LandingPagesRequests._
+import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaim._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
-  setup("test-journey", "Test journey").withRequests(
+  setup("org-landing-pages", "OLP ").withRequests(
     getAuthPage,
     postAuthPage("Organisation", " "),
     getSession,
     getEUVATLandingPage,
     getManageEUVATClaimPage,
     postManageEUVATClaimPage
+  )
+
+  setup("make-new-EUVAT-claim", "MNEC ").withRequests(
+    getClickMakeANewEUVATClaimLink,
+    getMakeANewEUVATClaim,
+    getMakeAnEUVATClaim,
+    getClickAddClaimDetailsLink,
+    getWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("France"),
+    getWhatIsTheRefundPeriod,
+    postWhatIsTheRefundPeriod("08","2008","08","2013"),
+    getWhoShouldWeContactAboutThisClaim,
+    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123","LastNameTest123", "01234567890"),
   )
 
   runSimulation()

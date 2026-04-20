@@ -35,7 +35,6 @@ object MakeNewEUVATClaim extends ServicesConfiguration with EUVATPerformanceTest
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-
   val getClickAddClaimDetailsLink: HttpRequestBuilder =
     http("[get ] Click Add Claim Details link")
       .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
@@ -60,7 +59,12 @@ object MakeNewEUVATClaim extends ServicesConfiguration with EUVATPerformanceTest
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhatIsTheRefundPeriod(startMonth: String, startYear: String, endMonth: String, endYear: String): HttpRequestBuilder =
+  def postWhatIsTheRefundPeriod(
+    startMonth: String,
+    startYear: String,
+    endMonth: String,
+    endYear: String
+  ): HttpRequestBuilder =
     http("[post] What Is The Refund Period page")
       .post(euvatMgmtFrontendUrl + "/when-refund-period")
       .formParam("When is the refund period start date?", startMonth)
@@ -76,7 +80,12 @@ object MakeNewEUVATClaim extends ServicesConfiguration with EUVATPerformanceTest
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhoShouldWeContactAboutThisClaim(email: String, first: String, last: String, telephone: String): HttpRequestBuilder =
+  def postWhoShouldWeContactAboutThisClaim(
+    email: String,
+    first: String,
+    last: String,
+    telephone: String
+  ): HttpRequestBuilder =
     http("[post] Who should we contact about this claim page")
       .post(euvatMgmtFrontendUrl + "/who-contact-about-this-claim")
       .formParam("emailAddress", email)

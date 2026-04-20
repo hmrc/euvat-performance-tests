@@ -45,5 +45,4 @@ object LandingPagesRequests extends ServicesConfiguration with EUVATPerformanceT
       .get(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
       .check(status.is(303))
 
-
 }

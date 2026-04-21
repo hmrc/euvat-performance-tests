@@ -25,7 +25,7 @@ trait EUVATPerformanceTestBase extends ServicesConfiguration {
   val euvatMgmtHost: String        = baseUrlFor("manage-eu-vat")
   val euvatMgmtFrontendUrl: String = euvatMgmtHost + s"/manage-eu-vat"
 
-  val euvatFilingFrontendHost: String = baseUrlFor("manage-eu-vat")
-  val euvatFilingFrontendUrl: String  = euvatFilingFrontendHost + s"/manage-eu-vat"
+  val euvatFilingFrontendHost: String = baseUrlFor("file-eu-vat")
+  val euvatFilingFrontendUrl: String  = euvatFilingFrontendHost + s"/file-eu-vat"
 
 }

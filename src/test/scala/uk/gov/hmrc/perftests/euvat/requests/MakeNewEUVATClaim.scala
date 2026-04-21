@@ -25,7 +25,7 @@ import uk.gov.hmrc.perftests.euvat.requests.LandingPagesRequests.euvatMgmtFronte
 object MakeNewEUVATClaim extends ServicesConfiguration with EUVATPerformanceTestBase {
 
   val getMakeANewEUVATClaim: HttpRequestBuilder =
-    http("[get ] Contractor Frontend")
+    http("[get ] Adding Claim Details to EU VAT")
       .get(euvatFilingFrontendUrl)
       .check(status.is(303))
 

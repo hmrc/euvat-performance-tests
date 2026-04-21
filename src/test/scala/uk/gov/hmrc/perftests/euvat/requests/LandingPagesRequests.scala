@@ -28,11 +28,6 @@ object LandingPagesRequests extends ServicesConfiguration with EUVATPerformanceT
       .get(euvatMgmtFrontendUrl)
       .check(status.is(200))
 
-  val getManageEUVATClaimPage: HttpRequestBuilder =
-    http("[get ] Manage your EUVAT claim page")
-      .get(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
-      .check(status.is(200))
-
   val postManageEUVATClaimPage: HttpRequestBuilder =
     http("[post] Manage your EUVAT claim page")
       .post(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
@@ -41,7 +36,6 @@ object LandingPagesRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getClickMakeANewEUVATClaimLink: HttpRequestBuilder =
     http("[get ] Click Make a new EU VAT claim link")
-      //      note that this 'get' 303 works
       .get(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
       .check(status.is(303))
 

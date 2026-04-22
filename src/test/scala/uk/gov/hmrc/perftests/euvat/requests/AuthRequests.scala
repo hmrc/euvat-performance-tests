@@ -46,12 +46,10 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
     val enrolmentParams     = affinityGroup match {
       case "Organisation" =>
         Map(
-          "authorityId"                         -> "",
-          "enrolment[0].name"                   -> "",
-          "enrolment[0].taxIdentifier[0].name"  -> "",
-          "enrolment[0].taxIdentifier[0].value" -> "",
-          "enrolment[0].taxIdentifier[1].name"  -> "",
-          "enrolment[0].taxIdentifier[1].value" -> taxOfficeReference,
+          "authorityId"                         -> "0000000264427063",
+          "enrolment[0].name"                   -> "HMCE-VATDEC-ORG",
+          "enrolment[0].taxIdentifier[0].name"  -> "VATRegNo",
+          "enrolment[0].taxIdentifier[0].value" -> taxOfficeReference,
           "enrolment[0].state"                  -> "Activated"
         )
       case "Agent"        =>

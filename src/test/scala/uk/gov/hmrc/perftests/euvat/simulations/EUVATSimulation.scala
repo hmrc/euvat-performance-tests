@@ -26,7 +26,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
   setup("manage-organisation", "Manage Org").withRequests(
     getAuthPage,
-    postAuthPage("Organisation", " "),
+    postAuthPage("Organisation", "123456"),
     getSession,
     getManageEUVATClaimPage
 //    postManageEUVATClaimPage

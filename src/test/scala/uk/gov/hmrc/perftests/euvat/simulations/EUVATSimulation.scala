@@ -19,17 +19,16 @@ package uk.gov.hmrc.perftests.euvat.simulations
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
-import uk.gov.hmrc.perftests.euvat.requests.LandingPagesRequests._
+import uk.gov.hmrc.perftests.euvat.requests.ManageEUVATRequests._
 //import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaim._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
-  setup("org-landing-pages", "OLP ").withRequests(
+  setup("manage-organisation", "Manage Org").withRequests(
     getAuthPage,
-    postAuthPage("Organisation", " "),
+    postAuthPage("Organisation", "123456"),
     getSession,
-    getEUVATLandingPage
-//    getManageEUVATClaimPage,
+    getManageEUVATClaimPage
 //    postManageEUVATClaimPage
   )
 //

@@ -47,7 +47,7 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
       case "Organisation" =>
         Map(
           "authorityId"                         -> "0000000264427063",
-          "enrolment[0].name"                   -> "HMCE-VATDEC-ORG",
+          "enrolment[0].name"                   -> "HMRC-EU-REF-ORG",
           "enrolment[0].taxIdentifier[0].name"  -> "VATRegNo",
           "enrolment[0].taxIdentifier[0].value" -> taxOfficeReference,
           "enrolment[0].state"                  -> "Activated"
@@ -56,7 +56,7 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
         Map(
           "authorityId"                         -> "0000000264427063",
           "enrolment[0].name"                   -> "HMCE-VAT-AGNT",
-          "enrolment[0].taxIdentifier[0].name"  -> "AgentReference",
+          "enrolment[0].taxIdentifier[0].name"  -> "AgentRefNo",
           "enrolment[0].taxIdentifier[0].value" -> taxOfficeReference,
           "enrolment[0].state"                  -> "Activated"
         )

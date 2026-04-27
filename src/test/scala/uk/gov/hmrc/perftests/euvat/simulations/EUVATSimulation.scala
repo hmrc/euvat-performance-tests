@@ -19,8 +19,8 @@ package uk.gov.hmrc.perftests.euvat.simulations
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
+import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests.{getClickAddClaimDetailsLink, getMakeANewEUVATClaim, getMakeAnEUVATClaim}
 import uk.gov.hmrc.perftests.euvat.requests.ManageEUVATRequests._
-//import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaim._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
@@ -28,22 +28,22 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getAuthPage,
     postAuthPage("Organisation", "123456"),
     getSession,
-    getManageEUVATClaimPage
-//    postManageEUVATClaimPage
+    getManageEUVATClaimPage,
+    postManageEUVATClaimPage
   )
-//
-//  setup("make-new-EUVAT-claim", "MNEC ").withRequests(
-//    getClickMakeANewEUVATClaimLink,
-//    getMakeANewEUVATClaim,
-//    getMakeAnEUVATClaim,
-//    getClickAddClaimDetailsLink,
+
+  setup("make-new-EUVAT-claim", "MNEC ").withRequests(
+    getClickMakeANewEUVATClaimLink,
+    getMakeANewEUVATClaim,
+    getMakeAnEUVATClaim,
+    getClickAddClaimDetailsLink
 //    getWhichEUMemberStateAreYouClaimingBackVATFrom,
 //    postWhichEUMemberStateAreYouClaimingBackVATFrom("France"),
 //    getWhatIsTheRefundPeriod,
 //    postWhatIsTheRefundPeriod("08","2008","08","2013"),
 //    getWhoShouldWeContactAboutThisClaim,
 //    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123","LastNameTest123", "01234567890"),
-//  )
+  )
 
   runSimulation()
 }

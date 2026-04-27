@@ -19,26 +19,26 @@ package uk.gov.hmrc.perftests.euvat.simulations
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
-import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests.{getClickAddClaimDetailsLink, getMakeANewEUVATClaim, getMakeAnEUVATClaim}
+import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests.{getClickAddClaimDetailsLink, getMakeANewEUVATClaim, getMakeAnEUVATClaim, getWhichEUMemberStateAreYouClaimingBackVATFrom, postWhichEUMemberStateAreYouClaimingBackVATFrom}
 import uk.gov.hmrc.perftests.euvat.requests.ManageEUVATRequests._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
-  setup("manage-organisation", "Manage Org").withRequests(
+  setup("manage-organisation", "Manage organisation").withRequests(
     getAuthPage,
     postAuthPage("Organisation", "123456"),
     getSession,
-    getManageEUVATClaimPage,
-    postManageEUVATClaimPage
+    getManageEUVATClaimPage
+//    postManageEUVATClaimPage
   )
 
-  setup("make-new-EUVAT-claim", "MNEC ").withRequests(
+  setup("new-EUVAT-claim", "New claim").withRequests(
     getClickMakeANewEUVATClaimLink,
-    getMakeANewEUVATClaim,
-    getMakeAnEUVATClaim,
-    getClickAddClaimDetailsLink
-//    getWhichEUMemberStateAreYouClaimingBackVATFrom,
-//    postWhichEUMemberStateAreYouClaimingBackVATFrom("France"),
+//    getMakeANewEUVATClaim,
+//    getMakeAnEUVATClaim,
+//    getClickAddClaimDetailsLink,
+    getWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("France")
 //    getWhatIsTheRefundPeriod,
 //    postWhatIsTheRefundPeriod("08","2008","08","2013"),
 //    getWhoShouldWeContactAboutThisClaim,

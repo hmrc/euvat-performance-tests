@@ -28,12 +28,6 @@ object ManageEUVATRequests extends ServicesConfiguration with EUVATPerformanceTe
       .get(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
       .check(status.is(200))
 
-//  val postManageEUVATClaimPage: HttpRequestBuilder =
-//    http("[post] Manage your EUVAT claim page")
-//      .post(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
-//      .formParam("csrfToken", f"#{csrfToken}")
-//      .check(status.is(303))
-
   val getClickMakeANewEUVATClaimLink: HttpRequestBuilder =
     http("[get ] Click Make a new EU VAT claim link")
       .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")

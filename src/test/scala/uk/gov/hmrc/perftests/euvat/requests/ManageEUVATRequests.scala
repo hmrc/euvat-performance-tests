@@ -36,7 +36,7 @@ object ManageEUVATRequests extends ServicesConfiguration with EUVATPerformanceTe
 
   val getClickMakeANewEUVATClaimLink: HttpRequestBuilder =
     http("[get ] Click Make a new EU VAT claim link")
-      .get(euvatFilingFrontendUrl + "/manage-eu-vat-claim")
+      .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
       .check(status.is(200))
 
   val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =

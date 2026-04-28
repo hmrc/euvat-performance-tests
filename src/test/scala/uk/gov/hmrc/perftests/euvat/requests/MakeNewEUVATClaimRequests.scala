@@ -28,29 +28,23 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .get(euvatFilingFrontendUrl)
       .check(status.is(303))
 
-  val getMakeAnEUVATClaim: HttpRequestBuilder =
-    http("[get ] Make An EU VAT Claim page")
-      .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
   val getClickAddClaimDetailsLink: HttpRequestBuilder =
     http("[get ] Click Add Claim Details link")
       .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
-      .check(status.is(303))
-
-  val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
-    http("[get ] Which EU Member State Are You Claiming Back VAT From page")
-      .get(euvatFilingFrontendUrl + "/which-eu-member-state-claiming-back-vat")
       .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
-    http("[post] Which EU Member State Are You Claiming Back VAT From page")
-      .post(euvatFilingFrontendUrl + "/which-eu-member-state-claiming-back-vat")
-      .formParam("value", name)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
+//  val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
+//    http("[get ] Which EU Member State Are You Claiming Back VAT From page")
+//      .get(euvatFilingFrontendUrl + "/which-eu-member-state-claiming-back-vat")
+//      .check(status.is(200))
+//      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+//
+//  def postWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
+//    http("[post] Which EU Member State Are You Claiming Back VAT From page")
+//      .post(euvatFilingFrontendUrl + "/which-eu-member-state-claiming-back-vat")
+//      .formParam("value", name)
+//      .formParam("csrfToken", f"#{csrfToken}")
+//      .check(status.is(303))
 
   val getWhatIsTheRefundPeriod: HttpRequestBuilder =
     http("[get ] What Is The Refund Period page")

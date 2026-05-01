@@ -88,4 +88,41 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] What language do you want to use for this claim page")
+      .get(euvatMgmtFrontendUrl + "/what-language")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Who should we contact about this claim page")
+      .post(euvatMgmtFrontendUrl + "/what-language")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getAboutThePurchase: HttpRequestBuilder =
+    http("[get ] About the purchase page")
+      .get(euvatFilingFrontendUrl + "/about-the-purchase")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postAboutThePurchase: HttpRequestBuilder =
+    http("[get ] About the purchase page")
+      .get(euvatFilingFrontendUrl + "/about-the-purchase")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getPurchaseType: HttpRequestBuilder =
+    http("[get ] Purchase type page")
+      .get(euvatMgmtFrontendUrl + "/purchase-type")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postPurchaseType(option: String): HttpRequestBuilder =
+    http("[post] Purchase type page")
+      .post(euvatMgmtFrontendUrl + "/purchase-type")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
 }

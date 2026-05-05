@@ -27,6 +27,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getAuthPage,
     postAuthPage("Organisation", "123456"),
     getSession,
+    getManageEUVATFrontend,
     getManageEUVATClaimPage
   )
 

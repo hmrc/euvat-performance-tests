@@ -23,6 +23,11 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object ManageEUVATRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
+  val getManageEUVATFrontend: HttpRequestBuilder =
+    http("[get ] Manage EUVAT Frontend")
+      .get(euvatMgmtFrontendUrl)
+      .check(status.is(303))
+
   val getManageEUVATClaimPage: HttpRequestBuilder =
     http("[get ] Manage your EUVAT claim page")
       .get(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")

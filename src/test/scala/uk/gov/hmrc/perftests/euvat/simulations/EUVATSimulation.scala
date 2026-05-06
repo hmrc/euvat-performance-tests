@@ -28,6 +28,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getAuthPage,
     postAuthPage("Organisation", "123456"),
     getSession,
+    getManageEUVATFrontend,
     getManageEUVATClaimPage
   )
 
@@ -36,7 +37,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getMakeANewEUVATClaim,
     getClickAddClaimDetailsLink,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postWhichEUMemberStateAreYouClaimingBackVATFrom("France") ,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("France")
 //    getWhatIsTheRefundPeriod,
 //    postWhatIsTheRefundPeriod("08","2008","08","2013"),
 //    getWhoShouldWeContactAboutThisClaim,

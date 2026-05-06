@@ -33,9 +33,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
   )
 
   setup("new-EUVAT-claim", "New claim").withRequests(
-    getClickMakeANewEUVATClaimLink,
-    getMakeANewEUVATClaim,
-    getClickAddClaimDetailsLink,
+    getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("France")
 //    getWhatIsTheRefundPeriod,

@@ -19,6 +19,7 @@ package uk.gov.hmrc.perftests.euvat.simulations
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
+import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests._
 import uk.gov.hmrc.perftests.euvat.requests.ManageEUVATRequests._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {
@@ -32,13 +33,18 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
   )
 
   setup("new-EUVAT-claim", "New claim").withRequests(
-    getClickMakeANewEUVATClaimLink,
+    getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("France")
 //    getWhatIsTheRefundPeriod,
 //    postWhatIsTheRefundPeriod("08","2008","08","2013"),
 //    getWhoShouldWeContactAboutThisClaim,
 //    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123","LastNameTest123", "01234567890"),
+//    getWhatLanguageDoYouWantToUseForThisClaim,
+//    postWhatLanguageDoYouWantToUseForThisClaim("English"),
+//    getAboutThePurchase,
+//    getPurchaseType,
+//    postPurchaseType("Fuel")
   )
 
   runSimulation()

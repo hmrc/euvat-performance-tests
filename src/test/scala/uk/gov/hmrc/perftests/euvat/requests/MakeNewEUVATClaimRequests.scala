@@ -23,28 +23,23 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
 object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
-  val getMakeANewEUVATClaim: HttpRequestBuilder =
-    http("[get ] Adding Claim Details to EU VAT")
-      .get(euvatFilingFrontendUrl)
-      .check(status.is(303))
-
   val getClickAddClaimDetailsLink: HttpRequestBuilder =
     http("[get ] Click Add Claim Details link")
       .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
       .check(status.is(200))
 
-//  val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
-//    http("[get ] Which EU Member State Are You Claiming Back VAT From page")
-//      .get(euvatFilingFrontendUrl + "/which-eu-member-state-claiming-back-vat")
-//      .check(status.is(200))
-//      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-//
-//  def postWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
-//    http("[post] Which EU Member State Are You Claiming Back VAT From page")
-//      .post(euvatFilingFrontendUrl + "/which-eu-member-state-claiming-back-vat")
-//      .formParam("value", name)
-//      .formParam("csrfToken", f"#{csrfToken}")
-//      .check(status.is(303))
+  val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
+    http("[get ] Which EU member state are you claiming back VAT from?")
+      .get(euvatFilingFrontendUrl + "/which-eu-member-state")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
+    http("[post] Which EU member state are you claiming back VAT from page")
+      .post(euvatFilingFrontendUrl + "/which-eu-member-state")
+      .formParam("value", name)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
 
   val getWhatIsTheRefundPeriod: HttpRequestBuilder =
     http("[get ] What Is The Refund Period page")
@@ -88,4 +83,35 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] What language do you want to use for this claim page")
+      .get(euvatMgmtFrontendUrl + "/what-language")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] What language do you want to use for this claim page")
+      .post(euvatMgmtFrontendUrl + "/what-language")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getAboutThePurchase: HttpRequestBuilder =
+    http("[get ] About the purchase page")
+      .get(euvatFilingFrontendUrl + "/about-the-purchase")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val getPurchaseType: HttpRequestBuilder =
+    http("[get ] Purchase type page")
+      .get(euvatMgmtFrontendUrl + "/purchase-type")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postPurchaseType(option: String): HttpRequestBuilder =
+    http("[post] Purchase type page")
+      .post(euvatMgmtFrontendUrl + "/purchase-type")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
 }

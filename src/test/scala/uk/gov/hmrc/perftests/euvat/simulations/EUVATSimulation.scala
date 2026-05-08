@@ -35,13 +35,13 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
   setup("new-EUVAT-claim", "New claim").withRequests(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postWhichEUMemberStateAreYouClaimingBackVATFrom("France")
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("France"),
+    getWhatLanguageDoYouWantToUseForThisClaim,
+    postWhatLanguageDoYouWantToUseForThisClaim("english")
 //    getWhatIsTheRefundPeriod,
 //    postWhatIsTheRefundPeriod("08","2008","08","2013"),
 //    getWhoShouldWeContactAboutThisClaim,
 //    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123","LastNameTest123", "01234567890"),
-//    getWhatLanguageDoYouWantToUseForThisClaim,
-//    postWhatLanguageDoYouWantToUseForThisClaim("English"),
 //    getAboutThePurchase,
 //    getPurchaseType,
 //    postPurchaseType("Fuel")

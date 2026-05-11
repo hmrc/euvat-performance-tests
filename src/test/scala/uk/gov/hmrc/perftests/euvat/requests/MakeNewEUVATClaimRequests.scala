@@ -43,7 +43,7 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
 
   val getWhatIsTheRefundPeriod: HttpRequestBuilder =
     http("[get ] What Is The Refund Period page")
-      .get(euvatFilingFrontendUrl + "/when-refund-period")
+      .get(euvatFilingFrontendUrl + "/what-refund-period")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -54,11 +54,11 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
     endYear: String
   ): HttpRequestBuilder =
     http("[post] What Is The Refund Period page")
-      .post(euvatFilingFrontendUrl + "/when-refund-period")
-      .formParam("When is the refund period start date?", startMonth)
-      .formParam("When is the refund period start date?", startYear)
-      .formParam("When is the refund period end date?", endMonth)
-      .formParam("When is the refund period end date?", endYear)
+      .post(euvatFilingFrontendUrl + "/what-refund-period")
+      .formParam("start.month", startMonth)
+      .formParam("start.year", startYear)
+      .formParam("end.month", endMonth)
+      .formParam("end.year", endYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 

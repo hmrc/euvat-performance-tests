@@ -43,7 +43,7 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
 
   val getWhatIsTheRefundPeriod: HttpRequestBuilder =
     http("[get ] What Is The Refund Period page")
-      .get(euvatMgmtFrontendUrl + "/when-refund-period")
+      .get(euvatFilingFrontendUrl + "/what-refund-period")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -54,17 +54,17 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
     endYear: String
   ): HttpRequestBuilder =
     http("[post] What Is The Refund Period page")
-      .post(euvatMgmtFrontendUrl + "/when-refund-period")
-      .formParam("When is the refund period start date?", startMonth)
-      .formParam("When is the refund period start date?", startYear)
-      .formParam("When is the refund period end date?", endMonth)
-      .formParam("When is the refund period end date?", endYear)
+      .post(euvatFilingFrontendUrl + "/what-refund-period")
+      .formParam("start.month", startMonth)
+      .formParam("start.year", startYear)
+      .formParam("end.month", endMonth)
+      .formParam("end.year", endYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getWhoShouldWeContactAboutThisClaim: HttpRequestBuilder =
     http("[get ] Who should we contact about this claim page")
-      .get(euvatMgmtFrontendUrl + "/who-contact-about-this-claim")
+      .get(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -75,7 +75,7 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
     telephone: String
   ): HttpRequestBuilder =
     http("[post] Who should we contact about this claim page")
-      .post(euvatMgmtFrontendUrl + "/who-contact-about-this-claim")
+      .post(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
       .formParam("emailAddress", email)
       .formParam("firstName", first)
       .formParam("lastName", last)

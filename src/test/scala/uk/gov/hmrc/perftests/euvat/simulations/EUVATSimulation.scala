@@ -37,9 +37,9 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("France"),
     getWhatLanguageDoYouWantToUseForThisClaim,
-    postWhatLanguageDoYouWantToUseForThisClaim("english")
-//    getWhatIsTheRefundPeriod,
-//    postWhatIsTheRefundPeriod("08","2008","08","2013"),
+    postWhatLanguageDoYouWantToUseForThisClaim("english"),
+    getWhatIsTheRefundPeriod,
+    postWhatIsTheRefundPeriod("08", "2025", "12", "2025")
 //    getWhoShouldWeContactAboutThisClaim,
 //    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123","LastNameTest123", "01234567890"),
 //    getAboutThePurchase,

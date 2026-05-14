@@ -44,6 +44,8 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123", "LastNameTest123", "01234567890"),
     getAddBusinessActivityForThisClaim,
     postAddBusinessActivityForThisClaim("yes"),
+    getAddSecondBusinessActivityForThisClaim,
+    postAddSecondBusinessActivityForThisClaim("yes"),
     getBusinessActivityCodeTwo,
     postBusinessActivityCodeTwo("47110 (Retail sale in non-specialised stores)"),
     getBusinessActivityCodeThree,

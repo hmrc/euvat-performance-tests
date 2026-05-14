@@ -41,6 +41,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] What language do you want to use for this claim page")
+      .get(euvatFilingFrontendUrl + "/what-language")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] What language do you want to use for this claim page")
+      .post(euvatFilingFrontendUrl + "/what-language")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhatIsTheRefundPeriod: HttpRequestBuilder =
     http("[get ] What Is The Refund Period page")
       .get(euvatFilingFrontendUrl + "/what-refund-period")
@@ -83,15 +96,15 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
-    http("[get ] What language do you want to use for this claim page")
-      .get(euvatFilingFrontendUrl + "/what-language")
+  val getBusinessActivityForThisClaim: HttpRequestBuilder =
+    http("[get ] Business activity for this claim page")
+      .get(euvatFilingFrontendUrl + "/what-business-activity")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] What language do you want to use for this claim page")
-      .post(euvatFilingFrontendUrl + "/what-language")
+  def postBusinessActivityForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Business activity for this claim page")
+      .post(euvatFilingFrontendUrl + "/what-business-activity")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

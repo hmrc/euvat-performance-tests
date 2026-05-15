@@ -203,4 +203,23 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("value", supplierName)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
+
+  val getWhatIsTheSuppliersAddress: HttpRequestBuilder =
+    http("[get ] What is the supplier's address page")
+      .get(euvatFilingFrontendUrl + "/what-supplier-address")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheSuppliersAddress(
+                                            addressLine1: String,
+                                            addressLine2: String,
+                                            addressLine3: String,
+                                          ): HttpRequestBuilder =
+    http("[post] What is the supplier's address page")
+      .post(euvatFilingFrontendUrl + "/what-supplier-address")
+      .formParam("supplierAddressLine1", addressLine1)
+      .formParam("supplierAddressLine2", addressLine2)
+      .formParam("supplierAddressLine3", addressLine3)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
 }

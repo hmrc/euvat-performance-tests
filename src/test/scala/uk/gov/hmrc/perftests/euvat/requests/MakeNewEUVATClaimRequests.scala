@@ -83,15 +83,11 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
 
   def postWhoShouldWeContactAboutThisClaim(
     email: String,
-    first: String,
-    last: String,
     telephone: String
   ): HttpRequestBuilder =
     http("[post] Who should we contact about this claim page")
       .post(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
       .formParam("contactEmail", email)
-      .formParam("contactFirstName", first)
-      .formParam("contactLastName", last)
       .formParam("contactTelephone", telephone)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -243,9 +239,9 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheInvoiceDate(
-    invoiceDate : String,
+    invoiceDate: String,
     invoiceMonth: String,
-    invoiceYear : String
+    invoiceYear: String
   ): HttpRequestBuilder =
     http("[post] What is the invoice date page")
       .post(euvatFilingFrontendUrl + "/invoice-date")

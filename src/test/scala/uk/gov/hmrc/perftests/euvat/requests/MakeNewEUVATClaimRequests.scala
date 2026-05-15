@@ -160,6 +160,18 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckYourClaimDetails: HttpRequestBuilder =
+    http("[get ] Check your claim details page")
+      .get(euvatFilingFrontendUrl + "/check-your-claim-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckYourClaimDetails: HttpRequestBuilder =
+    http("[post] Check your claim details page")
+      .post(euvatFilingFrontendUrl + "/check-your-claim-details")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getAboutThePurchase: HttpRequestBuilder =
     http("[get ] About the purchase page")
       .get(euvatFilingFrontendUrl + "/about-the-purchase")

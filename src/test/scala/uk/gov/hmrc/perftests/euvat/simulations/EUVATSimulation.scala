@@ -52,6 +52,8 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     postAddingBusinessActivityCodeThree("11010 (Manufacture of beverages)"),
     getBusinessActivityCodeThree,
     postBusinessActivityCodeThree,
+    getCheckYourClaimDetails,
+    postCheckYourClaimDetails,
     getAboutThePurchase,
     getPurchaseType,
     postPurchaseType("fuel")

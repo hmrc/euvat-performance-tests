@@ -58,11 +58,13 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getPurchaseType,
     postPurchaseType("fuel"),
     getWhatIsTheSuppliersName,
-    postWhatIsTheSuppliersName(""),
+    postWhatIsTheSuppliersName("Testing"),
     getWhatIsTheSuppliersAddress,
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getWhatIsTheInvoiceNumber,
-    postWhatIsTheInvoiceNumber("")
+    postWhatIsTheInvoiceNumber(""),
+    getWhatIsTheInvoiceDate,
+    postWhatIsTheInvoiceDate("15","05","2026")
   )
 
   runSimulation()

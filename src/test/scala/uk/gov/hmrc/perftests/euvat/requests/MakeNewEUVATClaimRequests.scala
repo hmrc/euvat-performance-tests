@@ -211,10 +211,10 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheSuppliersAddress(
-                                            addressLine1: String,
-                                            addressLine2: String,
-                                            addressLine3: String,
-                                          ): HttpRequestBuilder =
+    addressLine1: String,
+    addressLine2: String,
+    addressLine3: String
+  ): HttpRequestBuilder =
     http("[post] What is the supplier's address page")
       .post(euvatFilingFrontendUrl + "/what-supplier-address")
       .formParam("supplierAddressLine1", addressLine1)
@@ -243,10 +243,10 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheInvoiceDate(
-                                 invoiceDate : String,
-                                 invoiceMonth: String,
-                                 invoiceYear : String
-                               ): HttpRequestBuilder =
+    invoiceDate : String,
+    invoiceMonth: String,
+    invoiceYear : String
+  ): HttpRequestBuilder =
     http("[post] What is the invoice date page")
       .post(euvatFilingFrontendUrl + "/invoice-date")
       .formParam("invoice.date", invoiceDate)

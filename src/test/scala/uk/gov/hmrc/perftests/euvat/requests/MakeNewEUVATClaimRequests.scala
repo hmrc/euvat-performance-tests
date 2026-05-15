@@ -141,10 +141,10 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postAddingBusinessActivityCodeThree(businessActivityCode2: String): HttpRequestBuilder =
+  def postAddingBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
     http("[post] Add a 3rd business activity code page")
       .post(euvatFilingFrontendUrl + "/business-activity-code-three")
-      .formParam("value", businessActivityCode2)
+      .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -188,6 +188,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
     http("[post] Purchase type page")
       .post(euvatFilingFrontendUrl + "/purchase-type")
       .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheSuppliersName: HttpRequestBuilder =
+    http("[get ] What is the supplier's name page")
+      .get(euvatFilingFrontendUrl + "/what-supplier-name")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheSuppliersName(supplierName: String): HttpRequestBuilder =
+    http("[post] What is the supplier's name page")
+      .post(euvatFilingFrontendUrl + "/what-supplier-name")
+      .formParam("value", supplierName)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 }

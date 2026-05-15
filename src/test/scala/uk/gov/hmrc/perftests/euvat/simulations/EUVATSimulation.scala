@@ -41,7 +41,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getWhatIsTheRefundPeriod,
     postWhatIsTheRefundPeriod("08", "2025", "12", "2025"),
     getWhoShouldWeContactAboutThisClaim,
-    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123", "LastNameTest123", "01234567890"),
+    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "01234567890"),
     getAddBusinessActivityForThisClaim,
     postAddBusinessActivityForThisClaim("yes"),
     getBusinessActivityCodeThree,

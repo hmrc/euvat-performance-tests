@@ -82,10 +82,6 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhoShouldWeContactAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
-  def postWhoShouldWeContactAboutThisClaim(
-    email: String,
-    telephone: String
-  ): HttpRequestBuilder =
     http("[post] Who should we contact about this claim page")
       .post(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
       .formParam("contactEmail", email)

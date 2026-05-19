@@ -102,6 +102,45 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getAddSecondBusinessActivityForThisClaim: HttpRequestBuilder =
+    http("[get ] Business activity for this claim page")
+      .get(euvatFilingFrontendUrl + "/what-business-activity-two")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postAddSecondBusinessActivityForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Business activity for this claim page")
+      .post(euvatFilingFrontendUrl + "/what-business-activity-two")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getAddingBusinessActivityCodeTwo: HttpRequestBuilder =
+    http("[get ] Add a 2nd business activity code page")
+      .get(euvatFilingFrontendUrl + "/business-activity-code-two")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postAddingBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
+    http("[post] Add a 2nd business activity code page")
+      .post(euvatFilingFrontendUrl + "/business-activity-code-two")
+      .formParam("value", businessActivityCode2)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getAddingBusinessActivityCodeThree: HttpRequestBuilder =
+    http("[get ] Add a 3rd business activity code page")
+      .get(euvatFilingFrontendUrl + "/business-activity-code-3")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postAddingBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
+    http("[post] Add a 3rd business activity code page")
+      .post(euvatFilingFrontendUrl + "/business-activity-code-3")
+      .formParam("value", businessActivityCode3)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getBusinessActivityCodeThree: HttpRequestBuilder =
     http("[get ] Business activity code three page")
       .get(euvatFilingFrontendUrl + "/business-activity-three")
@@ -111,6 +150,18 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
   val postBusinessActivityCodeThree: HttpRequestBuilder =
     http("[post] Business activity code three page")
       .post(euvatFilingFrontendUrl + "/business-activity-three")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getCheckYourClaimDetails: HttpRequestBuilder =
+    http("[get ] Check your claim details page")
+      .get(euvatFilingFrontendUrl + "/check-your-claim-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckYourClaimDetails: HttpRequestBuilder =
+    http("[post] Check your claim details page")
+      .post(euvatFilingFrontendUrl + "/check-your-claim-details")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -130,6 +181,70 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
     http("[post] Purchase type page")
       .post(euvatFilingFrontendUrl + "/purchase-type")
       .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheSuppliersName: HttpRequestBuilder =
+    http("[get ] What is the supplier's name page")
+      .get(euvatFilingFrontendUrl + "/what-supplier-name")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheSuppliersName(supplierName: String): HttpRequestBuilder =
+    http("[post] What is the supplier's name page")
+      .post(euvatFilingFrontendUrl + "/what-supplier-name")
+      .formParam("value", supplierName)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheSuppliersAddress: HttpRequestBuilder =
+    http("[get ] What is the supplier's address page")
+      .get(euvatFilingFrontendUrl + "/what-supplier-address")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheSuppliersAddress(
+    addressLine1: String,
+    addressLine2: String,
+    addressLine3: String
+  ): HttpRequestBuilder =
+    http("[post] What is the supplier's address page")
+      .post(euvatFilingFrontendUrl + "/what-supplier-address")
+      .formParam("supplierAddressLine1", addressLine1)
+      .formParam("supplierAddressLine2", addressLine2)
+      .formParam("supplierAddressLine3", addressLine3)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheInvoiceNumber: HttpRequestBuilder =
+    http("[get ] What is the invoice number page")
+      .get(euvatFilingFrontendUrl + "/invoice-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheInvoiceNumber(invoiceNumber: String): HttpRequestBuilder =
+    http("[post] What is the invoice number page")
+      .post(euvatFilingFrontendUrl + "/invoice-number")
+      .formParam("value", invoiceNumber)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheInvoiceDate: HttpRequestBuilder =
+    http("[get ] What is the invoice date page")
+      .get(euvatFilingFrontendUrl + "/invoice-date")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheInvoiceDate(
+    invoiceDate: String,
+    invoiceMonth: String,
+    invoiceYear: String
+  ): HttpRequestBuilder =
+    http("[post] What is the invoice date page")
+      .post(euvatFilingFrontendUrl + "/invoice-date")
+      .formParam("invoice.date", invoiceDate)
+      .formParam("invoice.month", invoiceMonth)
+      .formParam("invoice.year", invoiceYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 }

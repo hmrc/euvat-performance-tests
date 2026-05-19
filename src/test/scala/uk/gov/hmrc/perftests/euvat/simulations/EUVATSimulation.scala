@@ -44,11 +44,27 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     postWhoShouldWeContactAboutThisClaim("Test123@test.com", "01234567890"),
     getAddBusinessActivityForThisClaim,
     postAddBusinessActivityForThisClaim("yes"),
+    getAddingBusinessActivityCodeTwo,
+    postAddingBusinessActivityCodeTwo("47110 (Retail sale in non-specialised stores)"),
+//    getAddSecondBusinessActivityForThisClaim,
+//    postAddSecondBusinessActivityForThisClaim("yes"),
+//    getAddingBusinessActivityCodeThree,
+//    postAddingBusinessActivityCodeThree("11010 (Manufacture of beverages)"),
     getBusinessActivityCodeThree,
     postBusinessActivityCodeThree,
+//    getCheckYourClaimDetails,
+//    postCheckYourClaimDetails,
     getAboutThePurchase,
     getPurchaseType,
     postPurchaseType("fuel")
+//    getWhatIsTheSuppliersName,
+//    postWhatIsTheSuppliersName("Testing"),
+//    getWhatIsTheSuppliersAddress,
+//    postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
+//    getWhatIsTheInvoiceNumber,
+//    postWhatIsTheInvoiceNumber(""),
+//    getWhatIsTheInvoiceDate,
+//    postWhatIsTheInvoiceDate("15","05","2026")
   )
 
   runSimulation()

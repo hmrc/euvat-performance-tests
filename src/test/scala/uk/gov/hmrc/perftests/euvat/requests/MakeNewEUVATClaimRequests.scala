@@ -89,67 +89,67 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getAddBusinessActivityForThisClaim: HttpRequestBuilder =
-    http("[get ] Business activity for this claim page")
+  val getBusinessActivity: HttpRequestBuilder =
+    http("[get ] Business activity 1 for this claim page")
       .get(euvatFilingFrontendUrl + "/what-business-activity")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postAddBusinessActivityForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] Business activity for this claim page")
+  def postBusinessActivity(option: String): HttpRequestBuilder =
+    http("[post] Business activity 1 for this claim page")
       .post(euvatFilingFrontendUrl + "/what-business-activity")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getAddSecondBusinessActivityForThisClaim: HttpRequestBuilder =
-    http("[get ] Business activity for this claim page")
-      .get(euvatFilingFrontendUrl + "/what-business-activity-two")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postAddSecondBusinessActivityForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] Business activity for this claim page")
-      .post(euvatFilingFrontendUrl + "/what-business-activity-two")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getAddingBusinessActivityCodeTwo: HttpRequestBuilder =
+  val getAddBusinessActivityCodeTwo: HttpRequestBuilder =
     http("[get ] Add a 2nd business activity code page")
       .get(euvatFilingFrontendUrl + "/business-activity-code-2")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postAddingBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
+  def postAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] Add a 2nd business activity code page")
       .post(euvatFilingFrontendUrl + "/business-activity-code-2")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getAddingBusinessActivityCodeThree: HttpRequestBuilder =
+  val getBusinessActivityTwo: HttpRequestBuilder =
+    http("[get ] Business activity 2 for this claim page")
+      .get(euvatFilingFrontendUrl + "/business-activity-2")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postBusinessActivityTwo(option: String): HttpRequestBuilder =
+    http("[post] Business activity 2 for this claim page")
+      .post(euvatFilingFrontendUrl + "/business-activity-2")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getAddBusinessActivityCodeThree: HttpRequestBuilder =
     http("[get ] Add a 3rd business activity code page")
       .get(euvatFilingFrontendUrl + "/business-activity-code-3")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postAddingBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
+  def postAddBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
     http("[post] Add a 3rd business activity code page")
       .post(euvatFilingFrontendUrl + "/business-activity-code-3")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getBusinessActivityCodeThree: HttpRequestBuilder =
-    http("[get ] Business activity code three page")
-      .get(euvatFilingFrontendUrl + "/business-activity-three")
+  val getBusinessActivityThree: HttpRequestBuilder =
+    http("[get ] Business activity 3 for this claim page")
+      .get(euvatFilingFrontendUrl + "/business-activity-3")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val postBusinessActivityCodeThree: HttpRequestBuilder =
-    http("[post] Business activity code three page")
-      .post(euvatFilingFrontendUrl + "/business-activity-three")
+  val postBusinessActivityThree: HttpRequestBuilder =
+    http("[post] Business activity 3 for this claim page")
+      .post(euvatFilingFrontendUrl + "/business-activity-3")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 

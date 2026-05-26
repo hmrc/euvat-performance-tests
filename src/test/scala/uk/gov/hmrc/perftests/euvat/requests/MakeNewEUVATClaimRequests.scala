@@ -210,9 +210,9 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
   ): HttpRequestBuilder =
     http("[post] What is the supplier's address page")
       .post(euvatFilingFrontendUrl + "/what-supplier-address")
-      .formParam("supplierAddressLine1", addressLine1)
-      .formParam("supplierAddressLine2", addressLine2)
-      .formParam("supplierAddressLine3", addressLine3)
+      .formParam("addressLine1", addressLine1)
+      .formParam("addressLine2", addressLine2)
+      .formParam("addressLine3", addressLine3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 

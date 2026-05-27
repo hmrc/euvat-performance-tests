@@ -96,7 +96,7 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postBusinessActivity(option: String): HttpRequestBuilder =
-    http("[post] Business activity 1 for this claim page")
+    http("[post] Business activity (1) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
@@ -116,13 +116,13 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(status.is(303))
 
   val getBusinessActivityTwo: HttpRequestBuilder =
-    http("[get ] Business activity 2 for this claim page")
+    http("[get ] Business activities (2) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-2")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postBusinessActivityTwo(option: String): HttpRequestBuilder =
-    http("[post] Business activity 2 for this claim page")
+    http("[post] Business activities (2) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity-2")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
@@ -142,13 +142,13 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(status.is(303))
 
   val getBusinessActivityThree: HttpRequestBuilder =
-    http("[get ] Business activity 3 for this claim page")
+    http("[get ] Business activities (3) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-3")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBusinessActivityThree: HttpRequestBuilder =
-    http("[post] Business activity 3 for this claim page")
+    http("[post] Business activities (3) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity-3")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

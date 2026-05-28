@@ -62,7 +62,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getWhatIsTheSuppliersAddress,
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getWhatIsTheInvoiceNumber,
-    postWhatIsTheInvoiceNumber("INVOICE_ABC&CO_123"),
+    postWhatIsTheInvoiceNumber("INVOICE_ABC&CO_123")
 //    getWhatIsTheInvoiceDate,
 //    postWhatIsTheInvoiceDate("15","05","2026")
   )

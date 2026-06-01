@@ -64,7 +64,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
 //    getWhatIsTheInvoiceNumber,
 //    postWhatIsTheInvoiceNumber(""),
     getWhatIsTheInvoiceDate,
-    postWhatIsTheInvoiceDate("08","12","2025")
+    postWhatIsTheInvoiceDate("08", "12", "2025")
   )
 
   runSimulation()

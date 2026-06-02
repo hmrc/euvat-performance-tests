@@ -41,6 +41,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
+    http("[get ] Change Which EU member state are you claiming back VAT from?")
+      .get(euvatFilingFrontendUrl + "/change-which-eu-member-state")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
+    http("[post] Change Which EU member state are you claiming back VAT from page")
+      .post(euvatFilingFrontendUrl + "/change-which-eu-member-state")
+      .formParam("value", name)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
     http("[get ] What language do you want to use for this claim page")
       .get(euvatFilingFrontendUrl + "/what-language")
@@ -50,6 +63,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
   def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
     http("[post] What language do you want to use for this claim page")
       .post(euvatFilingFrontendUrl + "/what-language")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Change What language do you want to use for this claim page")
+      .get(euvatFilingFrontendUrl + "/change-what-language")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Change What language do you want to use for this claim page")
+      .post(euvatFilingFrontendUrl + "/change-what-language")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -75,6 +101,27 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhatIsTheRefundPeriod: HttpRequestBuilder =
+    http("[get ] Change What Is The Refund Period page")
+      .get(euvatFilingFrontendUrl + "/change-refund-period")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhatIsTheRefundPeriod(
+    startMonth: String,
+    startYear: String,
+    endMonth: String,
+    endYear: String
+  ): HttpRequestBuilder =
+    http("[post] Change What Is The Refund Period page")
+      .post(euvatFilingFrontendUrl + "/change-refund-period")
+      .formParam("start.month", startMonth)
+      .formParam("start.year", startYear)
+      .formParam("end.month", endMonth)
+      .formParam("end.year", endYear)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhoShouldWeContactAboutThisClaim: HttpRequestBuilder =
     http("[get ] Who should we contact about this claim page")
       .get(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
@@ -89,8 +136,22 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhoShouldWeContactAboutThisClaim: HttpRequestBuilder =
+    http("[get ] Change Who should we contact about this claim page")
+      .get(euvatFilingFrontendUrl + "/change-who-contact-about-this-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhoShouldWeContactAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
+    http("[post] Change Who should we contact about this claim page")
+      .post(euvatFilingFrontendUrl + "/change-who-contact-about-this-claim")
+      .formParam("contactEmail", email)
+      .formParam("contactTelephone", telephone)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getBusinessActivity: HttpRequestBuilder =
-    http("[get ] Business activity 1 for this claim page")
+    http("[get ] Business activity (1) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
@@ -115,6 +176,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeAddBusinessActivityCodeTwo: HttpRequestBuilder =
+    http("[get ] Change What is the 2nd business activity? page")
+      .get(euvatFilingFrontendUrl + "/change-what-is-the-2nd-business-activity")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
+    http("[post] Change What is the 2nd business activity? page")
+      .post(euvatFilingFrontendUrl + "/change-what-is-the-2nd-business-activity")
+      .formParam("value", businessActivityCode2)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getBusinessActivityTwo: HttpRequestBuilder =
     http("[get ] Business activities (2) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-2")
@@ -124,6 +198,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
   def postBusinessActivityTwo(option: String): HttpRequestBuilder =
     http("[post] Business activities (2) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity-2")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeBusinessActivityTwo: HttpRequestBuilder =
+    http("[get ] Change Business activities (2) for this claim page")
+      .get(euvatFilingFrontendUrl + "/change-business-activity-2")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeBusinessActivityTwo(option: String): HttpRequestBuilder =
+    http("[post] Change Business activities (2) for this claim page")
+      .post(euvatFilingFrontendUrl + "/change-business-activity-2")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -141,6 +228,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeAddBusinessActivityCodeThree: HttpRequestBuilder =
+    http("[get ] Change What is the 3rd business activity?  page")
+      .get(euvatFilingFrontendUrl + "/change-what-is-the-3rd-business-activity")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeAddBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
+    http("[post] Change What is the 3rd business activity?  page")
+      .post(euvatFilingFrontendUrl + "/change-what-is-the-3rd-business-activity")
+      .formParam("value", businessActivityCode3)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getBusinessActivityThree: HttpRequestBuilder =
     http("[get ] Business activities (3) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-3")
@@ -150,6 +250,18 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
   val postBusinessActivityThree: HttpRequestBuilder =
     http("[post] Business activities (3) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity-3")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeBusinessActivityThree: HttpRequestBuilder =
+    http("[get ] Change Business activities (3) for this claim page")
+      .get(euvatFilingFrontendUrl + "/change-business-activity-3")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postChangeBusinessActivityThree: HttpRequestBuilder =
+    http("[post] Change Business activities (3) for this claim page")
+      .post(euvatFilingFrontendUrl + "/change-business-activity-3")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -170,6 +282,12 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .get(euvatFilingFrontendUrl + "/about-the-purchase")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postAboutThePurchase: HttpRequestBuilder =
+    http("[post] About the purchase page")
+      .post(euvatFilingFrontendUrl + "/about-the-purchase")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
 
   val getPurchaseType: HttpRequestBuilder =
     http("[get ] Purchase type page")
@@ -231,20 +349,20 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
 
   val getWhatIsTheInvoiceDate: HttpRequestBuilder =
     http("[get ] What is the invoice date page")
-      .get(euvatFilingFrontendUrl + "/invoice-date")
+      .get(euvatFilingFrontendUrl + "/what-is-the-invoice-date")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheInvoiceDate(
-    invoiceDate: String,
+    invoiceDay: String,
     invoiceMonth: String,
     invoiceYear: String
   ): HttpRequestBuilder =
     http("[post] What is the invoice date page")
-      .post(euvatFilingFrontendUrl + "/invoice-date")
-      .formParam("invoice.date", invoiceDate)
-      .formParam("invoice.month", invoiceMonth)
-      .formParam("invoice.year", invoiceYear)
+      .post(euvatFilingFrontendUrl + "/what-is-the-invoice-date")
+      .formParam("value.day", invoiceDay)
+      .formParam("value.month", invoiceMonth)
+      .formParam("value.year", invoiceYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 }

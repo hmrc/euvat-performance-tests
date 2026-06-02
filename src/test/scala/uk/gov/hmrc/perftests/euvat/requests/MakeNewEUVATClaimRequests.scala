@@ -231,20 +231,20 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
 
   val getWhatIsTheInvoiceDate: HttpRequestBuilder =
     http("[get ] What is the invoice date page")
-      .get(euvatFilingFrontendUrl + "/invoice-date")
+      .get(euvatFilingFrontendUrl + "/what-is-the-invoice-date")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheInvoiceDate(
-    invoiceDate: String,
+    invoiceDay: String,
     invoiceMonth: String,
     invoiceYear: String
   ): HttpRequestBuilder =
     http("[post] What is the invoice date page")
-      .post(euvatFilingFrontendUrl + "/invoice-date")
-      .formParam("invoice.date", invoiceDate)
-      .formParam("invoice.month", invoiceMonth)
-      .formParam("invoice.year", invoiceYear)
+      .post(euvatFilingFrontendUrl + "/what-is-the-invoice-date")
+      .formParam("value.day", invoiceDay)
+      .formParam("value.month", invoiceMonth)
+      .formParam("value.year", invoiceYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 }

@@ -365,4 +365,17 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("value.year", invoiceYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
+
+  val getAddVATRegistration: HttpRequestBuilder =
+    http("[get ] Does the simplified invoice contain the supplier’s VAT registration number? page")
+      .get(euvatFilingFrontendUrl + "/simplified-invoice-supplier-vat-registration-check")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postAddVATRegistration(option: String): HttpRequestBuilder =
+    http("[post] Does the simplified invoice contain the supplier’s VAT registration number? page")
+      .post(euvatFilingFrontendUrl + "/simplified-invoice-supplier-vat-registration-check")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
 }

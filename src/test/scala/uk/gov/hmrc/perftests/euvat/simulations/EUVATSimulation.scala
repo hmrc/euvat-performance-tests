@@ -49,7 +49,6 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getBusinessActivityTwo,
     getChangeAddBusinessActivityCodeTwo,
     postChangeAddBusinessActivityCodeTwo("11010 (Manufacture of beverages)"),
-//    getChangeAddBusinessActivityCodeTwo,
     getBusinessActivityTwo,
     postChangeBusinessActivityTwo("true"),
     getAddBusinessActivityCodeThree,
@@ -96,7 +95,9 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getWhatIsTheSuppliersName,
     postWhatIsTheSuppliersName("Testing"),
     getWhatIsTheSuppliersAddress,
-    postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3")
+    postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
+    getAddVATRegistration,
+    postAddVATRegistration("true")
   )
 
   runSimulation()

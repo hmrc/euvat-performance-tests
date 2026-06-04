@@ -334,6 +334,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhatTypeOfInvoiceDoYouHave: HttpRequestBuilder =
+    http("[get ] What type of invoice do you have page")
+      .get(euvatFilingFrontendUrl + "/invoice-type")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatTypeOfInvoiceDoYouHave(option: String): HttpRequestBuilder =
+    http("[post] What type of invoice do you have page")
+      .post(euvatFilingFrontendUrl + "/invoice-type")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhatIsTheInvoiceNumber: HttpRequestBuilder =
     http("[get ] What is the invoice number page")
       .get(euvatFilingFrontendUrl + "/invoice-number")

@@ -89,7 +89,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getPurchaseType,
     postPurchaseType("fuel"),
     getWhatTypeOfInvoiceDoYouHave,
-    postWhatTypeOfInvoiceDoYouHave("Standard invoice"),
+    postWhatTypeOfInvoiceDoYouHave("standard invoice"),
     getWhatIsTheInvoiceNumber,
     postWhatIsTheInvoiceNumber("ABC1234567890"),
     getWhatIsTheInvoiceDate,

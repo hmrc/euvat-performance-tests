@@ -19,7 +19,7 @@ package uk.gov.hmrc.perftests.euvat.simulations
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
-import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests._
+import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests.{getPurchaseType, _}
 import uk.gov.hmrc.perftests.euvat.requests.ManageEUVATRequests._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {
@@ -86,8 +86,6 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getMakeANewEUVATClaimPage,
     getAboutThePurchase,
     postAboutThePurchase,
-    getPurchaseType,
-    postPurchaseType("fuel"),
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("standard invoice"),
     getWhatIsTheInvoiceNumber,
@@ -99,7 +97,9 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getWhatIsTheSuppliersAddress,
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getAddVATRegistration,
-    postAddVATRegistration("true")
+    postAddVATRegistration("true"),
+    getPurchaseType,
+    postPurchaseType("fuel")
   )
 
   runSimulation()

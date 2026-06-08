@@ -86,8 +86,8 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getMakeANewEUVATClaimPage,
     getAboutThePurchase,
     postAboutThePurchase,
-    getPurchaseType,
-    postPurchaseType("fuel"),
+    getWhatTypeOfInvoiceDoYouHave,
+    postWhatTypeOfInvoiceDoYouHave("standard invoice"),
     getWhatIsTheInvoiceNumber,
     postWhatIsTheInvoiceNumber("ABC1234567890"),
     getWhatIsTheInvoiceDate,
@@ -97,7 +97,9 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getWhatIsTheSuppliersAddress,
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getAddVATRegistration,
-    postAddVATRegistration("true")
+    postAddVATRegistration("true"),
+    getPurchaseType,
+    postPurchaseType("fuel")
   )
 
   runSimulation()

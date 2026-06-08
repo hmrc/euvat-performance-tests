@@ -19,7 +19,7 @@ package uk.gov.hmrc.perftests.euvat.simulations
 import io.gatling.core.scenario.Simulation
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.requests.AuthRequests._
-import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests.{getPurchaseType, _}
+import uk.gov.hmrc.perftests.euvat.requests.MakeNewEUVATClaimRequests._
 import uk.gov.hmrc.perftests.euvat.requests.ManageEUVATRequests._
 
 class EUVATSimulation extends Simulation with PerformanceTestRunner {

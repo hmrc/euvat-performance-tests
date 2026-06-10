@@ -26,7 +26,7 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
 
   setup("manage-organisation", "Manage organisation").withRequests(
     getAuthPage,
-    postAuthPage("Organisation", "123456"),
+    postAuthPage("Organisation", "999900104"),
     getSession,
     getManageEUVATFrontend,
     getManageEUVATClaimPage
@@ -40,8 +40,8 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     postWhatLanguageDoYouWantToUseForThisClaim("french"),
     getWhatIsTheRefundPeriod,
     postWhatIsTheRefundPeriod("08", "2025", "12", "2025"),
-    getWhoShouldWeContactAboutThisClaim,
-    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "01234567890"),
+    getHowContactYouAboutThisClaim,
+    postHowContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivity,
     postBusinessActivity("true"),
     getAddBusinessActivityCodeTwo,
@@ -73,8 +73,8 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     getChangeWhatIsTheRefundPeriod,
     postChangeWhatIsTheRefundPeriod("01", "2026", "04", "2026"),
     getCheckYourClaimDetails,
-    getChangeWhoShouldWeContactAboutThisClaim,
-    postChangeWhoShouldWeContactAboutThisClaim("Test123@test.com", "01234567890"),
+    getChangeHowContactYouAboutThisClaim,
+    postChangeHowContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getCheckYourClaimDetails,
     getBusinessActivityThree,
     getChangeAddBusinessActivityCodeThree,

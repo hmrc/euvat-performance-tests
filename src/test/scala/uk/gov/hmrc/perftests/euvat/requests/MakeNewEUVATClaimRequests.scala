@@ -123,13 +123,13 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(status.is(303))
 
   val getHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
-    http("[get ] How should we contact you about this claim?")
+    http("[get ] How should we contact you about this claim page?")
       .get(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
-    http("[post] How should we contact you about this claim?")
+    http("[post] How should we contact you about this claim page?")
       .post(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)

@@ -122,28 +122,28 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getHowContactYouAboutThisClaim: HttpRequestBuilder =
-    http("[get ] How should we contact you about this claim page")
+  val getHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
+    http("[get ] How should we contact you about this claim? page")
       .get(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postHowContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
-    http("[post] How should we contact you about this claim page")
+  def postHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
+    http("[post] How should we contact you about this claim? page")
       .post(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getChangeHowContactYouAboutThisClaim: HttpRequestBuilder =
-    http("[get ] Change How should we contact you about this claim page")
+  val getChangeHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
+    http("[get ] Change How should we contact you about this claim? page")
       .get(euvatFilingFrontendUrl + "/change-how-contact-you-about-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postChangeHowContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
-    http("[post] Change How should we contact you about this claim page")
+  def postChangeHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
+    http("[post] Change How should we contact you about this claim? page")
       .post(euvatFilingFrontendUrl + "/change-how-contact-you-about-claim")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)

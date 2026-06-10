@@ -122,29 +122,29 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getWhoShouldWeContactAboutThisClaim: HttpRequestBuilder =
-    http("[get ] Who should we contact about this claim page")
-      .get(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
+  val getHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
+    http("[get ] How should we contact you about this claim?")
+      .get(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhoShouldWeContactAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
-    http("[post] Who should we contact about this claim page")
-      .post(euvatFilingFrontendUrl + "/who-contact-about-this-claim")
+  def postHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
+    http("[post] How should we contact you about this claim?")
+      .post(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getChangeWhoShouldWeContactAboutThisClaim: HttpRequestBuilder =
-    http("[get ] Change Who should we contact about this claim page")
-      .get(euvatFilingFrontendUrl + "/change-who-contact-about-this-claim")
+  val getChangeHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
+    http("[get ] Change how should we contact you about this claim")
+      .get(euvatFilingFrontendUrl + "/change-how-contact-you-about-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postChangeWhoShouldWeContactAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
-    http("[post] Change Who should we contact about this claim page")
-      .post(euvatFilingFrontendUrl + "/change-who-contact-about-this-claim")
+  def postChangeHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
+    http("[post] Change how should we contact you about this claim")
+      .post(euvatFilingFrontendUrl + "/change-how-contact-you-about-claim")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)
       .formParam("csrfToken", f"#{csrfToken}")

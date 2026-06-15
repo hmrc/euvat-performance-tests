@@ -202,7 +202,6 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-
   val getBusinessActivityTwo: HttpRequestBuilder =
     http("[get ] Business activities (2) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-2")

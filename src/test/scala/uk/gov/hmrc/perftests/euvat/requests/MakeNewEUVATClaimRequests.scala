@@ -189,6 +189,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getRemoveBusinessActivityCodeTwo: HttpRequestBuilder =
+    http("[get ] Are you sure you want to remove the second SIC code? page")
+      .get(euvatFilingFrontendUrl + "/remove-second-SIC-code")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postRemoveBusinessActivityCodeTwo(option: String): HttpRequestBuilder =
+    http("[post] Are you sure you want to remove the second SIC code? page")
+      .post(euvatFilingFrontendUrl + "/remove-second-SIC-code")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getBusinessActivityTwo: HttpRequestBuilder =
     http("[get ] Business activities (2) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-2")
@@ -238,6 +251,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
     http("[post] Change What is the 3rd business activity?  page")
       .post(euvatFilingFrontendUrl + "/change-what-is-the-3rd-business-activity")
       .formParam("value", businessActivityCode3)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getRemoveBusinessActivityCodeThree: HttpRequestBuilder =
+    http("[get ] Are you sure you want to remove the third SIC code? page")
+      .get(euvatFilingFrontendUrl + "/remove-third-SIC-code")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postRemoveBusinessActivityCodeThree(option: String): HttpRequestBuilder =
+    http("[post] Are you sure you want to remove the third SIC code? page")
+      .post(euvatFilingFrontendUrl + "/remove-third-SIC-code")
+      .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 

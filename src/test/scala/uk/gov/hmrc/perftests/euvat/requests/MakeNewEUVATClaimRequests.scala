@@ -60,19 +60,6 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val getWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
-    http("[get ] Which currency do you want to use for this claim page")
-      .get(euvatFilingFrontendUrl + "/which-currency")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] Which currency do you want to use for this claim page")
-      .post(euvatFilingFrontendUrl + "/which-currency")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
   def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
     http("[post] What language do you want to use for this claim page")
       .post(euvatFilingFrontendUrl + "/what-language")
@@ -89,6 +76,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
   def postChangeWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
     http("[post] Change What language do you want to use for this claim page")
       .post(euvatFilingFrontendUrl + "/change-what-language")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Which currency do you want to use for this claim page")
+      .get(euvatFilingFrontendUrl + "/which-currency")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Which currency do you want to use for this claim page")
+      .post(euvatFilingFrontendUrl + "/which-currency")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

@@ -80,6 +80,9 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getRefundPeriod: HttpRequestBuilder =
+    http("[get ] Refund Period page")
+      .get(euvatFilingFrontendUrl + "/refund-period")
   val getWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
     http("[get ] Which currency do you want to use for this claim page")
       .get(euvatFilingFrontendUrl + "/which-currency")
@@ -99,14 +102,14 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhatIsTheRefundPeriod(
+  def postRefundPeriod(
     startMonth: String,
     startYear: String,
     endMonth: String,
     endYear: String
   ): HttpRequestBuilder =
-    http("[post] What Is The Refund Period page")
-      .post(euvatFilingFrontendUrl + "/what-refund-period")
+    http("[post] Refund Period page")
+      .post(euvatFilingFrontendUrl + "/refund-period")
       .formParam("start.month", startMonth)
       .formParam("start.year", startYear)
       .formParam("end.month", endMonth)
@@ -114,19 +117,19 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getChangeWhatIsTheRefundPeriod: HttpRequestBuilder =
-    http("[get ] Change What Is The Refund Period page")
+  val getChangeRefundPeriod: HttpRequestBuilder =
+    http("[get ] Change Refund Period page")
       .get(euvatFilingFrontendUrl + "/change-refund-period")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postChangeWhatIsTheRefundPeriod(
+  def postChangeRefundPeriod(
     startMonth: String,
     startYear: String,
     endMonth: String,
     endYear: String
   ): HttpRequestBuilder =
-    http("[post] Change What Is The Refund Period page")
+    http("[post] Change Refund Period page")
       .post(euvatFilingFrontendUrl + "/change-refund-period")
       .formParam("start.month", startMonth)
       .formParam("start.year", startYear)

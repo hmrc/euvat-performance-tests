@@ -328,19 +328,6 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getPurchaseType: HttpRequestBuilder =
-    http("[get ] Purchase type page")
-      .get(euvatFilingFrontendUrl + "/purchase-type")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postPurchaseType(option: String): HttpRequestBuilder =
-    http("[post] Purchase type page")
-      .post(euvatFilingFrontendUrl + "/purchase-type")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
   val getWhatIsTheSuppliersName: HttpRequestBuilder =
     http("[get ] What is the supplier's name page")
       .get(euvatFilingFrontendUrl + "/what-supplier-name")
@@ -430,4 +417,31 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
+
+  val getVATRegistrationNumber: HttpRequestBuilder =
+    http("[get ] What is the supplier’s VAT registration number? page")
+      .get(euvatFilingFrontendUrl + "/what-supplier-vat-registration-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postVATRegistrationNumber(option: String): HttpRequestBuilder =
+    http("[post] What is the supplier’s VAT registration number? page")
+      .post(euvatFilingFrontendUrl + "/what-supplier-vat-registration-number")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getPurchaseType: HttpRequestBuilder =
+    http("[get ] Purchase type page")
+      .get(euvatFilingFrontendUrl + "/purchase-type")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postPurchaseType(option: String): HttpRequestBuilder =
+    http("[post] Purchase type page")
+      .post(euvatFilingFrontendUrl + "/purchase-type")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
 }

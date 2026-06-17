@@ -121,6 +121,8 @@ class EUVATSimulation extends Simulation with PerformanceTestRunner {
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getAddVATRegistration,
     postAddVATRegistration("true"),
+    getVATRegistrationNumber,
+    postVATRegistrationNumber("AB1234567890"),
     getPurchaseType,
     postPurchaseType("fuel")
   )

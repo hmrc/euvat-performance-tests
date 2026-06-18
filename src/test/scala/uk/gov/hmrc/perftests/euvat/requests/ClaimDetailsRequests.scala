@@ -20,8 +20,9 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.euvat.requests.ManageRequests.getMakeANewEUVATClaimPage
 
-object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
+object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
   val getClickAddClaimDetailsLink: HttpRequestBuilder =
     http("[get ] Click Add Claim Details link")
@@ -93,7 +94,7 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getRefundPeriod: HttpRequestBuilder                            =
+  val getRefundPeriod: HttpRequestBuilder =
     http("[get ] Refund Period page")
       .get(euvatFilingFrontendUrl + "/refund-period")
       .check(status.is(200))
@@ -316,132 +317,80 @@ object MakeNewEUVATClaimRequests extends ServicesConfiguration with EUVATPerform
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getAboutThePurchase: HttpRequestBuilder =
-    http("[get ] About the purchase page")
-      .get(euvatFilingFrontendUrl + "/about-the-purchase")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postAboutThePurchase: HttpRequestBuilder =
-    http("[post] About the purchase page")
-      .post(euvatFilingFrontendUrl + "/about-the-purchase")
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatIsTheSuppliersName: HttpRequestBuilder =
-    http("[get ] What is the supplier's name page")
-      .get(euvatFilingFrontendUrl + "/what-supplier-name")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatIsTheSuppliersName(supplierName: String): HttpRequestBuilder =
-    http("[post] What is the supplier's name page")
-      .post(euvatFilingFrontendUrl + "/what-supplier-name")
-      .formParam("value", supplierName)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatIsTheSuppliersAddress: HttpRequestBuilder =
-    http("[get ] What is the supplier's address page")
-      .get(euvatFilingFrontendUrl + "/what-supplier-address")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatIsTheSuppliersAddress(
-    addressLine1: String,
-    addressLine2: String,
-    addressLine3: String
-  ): HttpRequestBuilder =
-    http("[post] What is the supplier's address page")
-      .post(euvatFilingFrontendUrl + "/what-supplier-address")
-      .formParam("addressLine1", addressLine1)
-      .formParam("addressLine2", addressLine2)
-      .formParam("addressLine3", addressLine3)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatTypeOfInvoiceDoYouHave: HttpRequestBuilder =
-    http("[get ] What type of invoice do you have page")
-      .get(euvatFilingFrontendUrl + "/invoice-type")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatTypeOfInvoiceDoYouHave(option: String): HttpRequestBuilder =
-    http("[post] What type of invoice do you have page")
-      .post(euvatFilingFrontendUrl + "/invoice-type")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatIsTheInvoiceNumber: HttpRequestBuilder =
-    http("[get ] What is the invoice number page")
-      .get(euvatFilingFrontendUrl + "/invoice-number")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatIsTheInvoiceNumber(invoiceNumber: String): HttpRequestBuilder =
-    http("[post] What is the invoice number page")
-      .post(euvatFilingFrontendUrl + "/invoice-number")
-      .formParam("value", invoiceNumber)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatIsTheInvoiceDate: HttpRequestBuilder =
-    http("[get ] What is the invoice date page")
-      .get(euvatFilingFrontendUrl + "/what-is-the-invoice-date")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatIsTheInvoiceDate(
-    invoiceDay: String,
-    invoiceMonth: String,
-    invoiceYear: String
-  ): HttpRequestBuilder =
-    http("[post] What is the invoice date page")
-      .post(euvatFilingFrontendUrl + "/what-is-the-invoice-date")
-      .formParam("value.day", invoiceDay)
-      .formParam("value.month", invoiceMonth)
-      .formParam("value.year", invoiceYear)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getAddVATRegistration: HttpRequestBuilder =
-    http("[get ] Does the simplified invoice contain the supplier’s VAT registration number? page")
-      .get(euvatFilingFrontendUrl + "/simplified-invoice-supplier-vat-registration-check")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postAddVATRegistration(option: String): HttpRequestBuilder =
-    http("[post] Does the simplified invoice contain the supplier’s VAT registration number? page")
-      .post(euvatFilingFrontendUrl + "/simplified-invoice-supplier-vat-registration-check")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getVATRegistrationNumber: HttpRequestBuilder =
-    http("[get ] What is the supplier’s VAT registration number? page")
-      .get(euvatFilingFrontendUrl + "/what-supplier-vat-registration-number")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postVATRegistrationNumber(option: String): HttpRequestBuilder =
-    http("[post] What is the supplier’s VAT registration number? page")
-      .post(euvatFilingFrontendUrl + "/what-supplier-vat-registration-number")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getPurchaseType: HttpRequestBuilder =
-    http("[get ] Purchase type page")
-      .get(euvatFilingFrontendUrl + "/purchase-type")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postPurchaseType(option: String): HttpRequestBuilder =
-    http("[post] Purchase type page")
-      .post(euvatFilingFrontendUrl + "/purchase-type")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
+  val AddClaimDetailsJourney: List[HttpRequestBuilder] = List(
+    getMakeANewEUVATClaimPage,
+    getWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("Bulgaria"),
+    getWhatLanguageDoYouWantToUseForThisClaim,
+    postWhatLanguageDoYouWantToUseForThisClaim("bulgarian"),
+    getWhichCurrencyDoYouWantToUseForThisClaim,
+    postWhichCurrencyDoYouWantToUseForThisClaim("bulgarianLev"),
+    getRefundPeriod,
+    postRefundPeriod("08", "2025", "12", "2025"),
+    getHowShouldWeContactYouAboutThisClaim,
+    postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
+    getBusinessActivity,
+    postBusinessActivity("true"),
+    getAddBusinessActivityCodeTwo,
+    postAddBusinessActivityCodeTwo("47110 (Retail sale in non-specialised stores)"),
+    getBusinessActivityTwo,
+    getChangeAddBusinessActivityCodeTwo,
+    postChangeAddBusinessActivityCodeTwo("11010 (Manufacture of beverages)"),
+    getBusinessActivityTwo,
+    getRemoveBusinessActivityCodeTwo,
+    postRemoveBusinessActivityCodeTwo("true"),
+    getBusinessActivity,
+    postBusinessActivity("true"),
+    getAddBusinessActivityCodeTwo,
+    postAddBusinessActivityCodeTwo("45320 (Wholesale of motor vehicle parts)"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getAddBusinessActivityCodeThree,
+    postAddBusinessActivityCodeThree("25344 (Growing of fibre crops)"),
+    getBusinessActivityThree,
+    getChangeAddBusinessActivityCodeTwo,
+    postChangeAddBusinessActivityCodeTwo("45200 (Repair of motor vehicles)"),
+    getBusinessActivityThree,
+    getRemoveBusinessActivityCodeTwo,
+    postRemoveBusinessActivityCodeTwo("true"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getAddBusinessActivityCodeThree,
+    postAddBusinessActivityCodeThree("11010 (Manufacture of beverages)"),
+    getBusinessActivityThree,
+    getChangeAddBusinessActivityCodeThree,
+    postChangeAddBusinessActivityCodeThree("45320 (Wholesale of motor vehicle parts)"),
+    getBusinessActivityThree,
+    getRemoveBusinessActivityCodeThree,
+    postRemoveBusinessActivityCodeThree("true"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getAddBusinessActivityCodeThree,
+    postAddBusinessActivityCodeThree("47110 (Retail sale in non-specialised stores)"),
+    getBusinessActivityThree,
+    postBusinessActivityThree,
+    getCheckYourClaimDetails,
+    getChangeWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("Germany"),
+    getChangeWhatLanguageDoYouWantToUseForThisClaim,
+    postChangeWhatLanguageDoYouWantToUseForThisClaim("german"),
+    getCheckYourClaimDetails,
+    getChangeWhatLanguageDoYouWantToUseForThisClaim,
+    postChangeWhatLanguageDoYouWantToUseForThisClaim("english"),
+    getCheckYourClaimDetails,
+    getChangeRefundPeriod,
+    postChangeRefundPeriod("01", "2026", "04", "2026"),
+    getCheckYourClaimDetails,
+    getChangeHowShouldWeContactYouAboutThisClaim,
+    postChangeHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
+    getCheckYourClaimDetails,
+    getBusinessActivityThree,
+    getChangeAddBusinessActivityCodeThree,
+    postChangeAddBusinessActivityCodeThree("11010 (Manufacture of beverages)"),
+    getBusinessActivityThree,
+    postBusinessActivityThree,
+    getCheckYourClaimDetails,
+    postCheckYourClaimDetails,
+    getMakeANewEUVATClaimPage
+  )
 }

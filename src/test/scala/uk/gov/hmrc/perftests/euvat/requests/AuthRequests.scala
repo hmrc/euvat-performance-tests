@@ -70,4 +70,10 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
       .check(header("Location").is(expectedRedirectUrl))
   }
 
+  val LoginJourney: List[HttpRequestBuilder] = List(
+    getAuthPage,
+    postAuthPage("Organisation", "999900104"),
+    getSession
+  )
+
 }

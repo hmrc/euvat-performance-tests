@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.euvat
+package uk.gov.hmrc.perftests.euvat.simulations
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.simulations._
+import uk.gov.hmrc.perftests.euvat.requests.ManageRequests
 
-class EUVATSimulation extends PerformanceTestRunner with AuthSimulation with ManageSimulation with NewClaimSimulation {
+trait ManageSimulation {
+  this: PerformanceTestRunner =>
 
-  runSimulation()
+  setup("manage-organisation", "Manage organisation") withRequests (ManageRequests.ManageJourney: _*)
+
 }

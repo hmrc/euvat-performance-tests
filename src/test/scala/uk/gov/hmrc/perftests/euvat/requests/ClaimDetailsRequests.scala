@@ -179,26 +179,26 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getAddBusinessActivityCodeTwo: HttpRequestBuilder =
     http("[get ] What is the 2nd business activity? page")
-      .get(euvatFilingFrontendUrl + "/what-is-the-2nd-business-activity")
+      .get(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] What is the 2nd business activity? page")
-      .post(euvatFilingFrontendUrl + "/what-is-the-2nd-business-activity")
+      .post(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeAddBusinessActivityCodeTwo: HttpRequestBuilder =
     http("[get ] Change What is the 2nd business activity? page")
-      .get(euvatFilingFrontendUrl + "/change-what-is-the-2nd-business-activity")
+      .get(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] Change What is the 2nd business activity? page")
-      .post(euvatFilingFrontendUrl + "/change-what-is-the-2nd-business-activity")
+      .post(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -332,24 +332,24 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getBusinessActivity,
     postBusinessActivity("true"),
     getAddBusinessActivityCodeTwo,
-    postAddBusinessActivityCodeTwo("47110 (Retail sale in non-specialised stores)"),
+    postAddBusinessActivityCodeTwo("4711"),
     getBusinessActivityTwo,
     getChangeAddBusinessActivityCodeTwo,
-    postChangeAddBusinessActivityCodeTwo("11010 (Manufacture of beverages)"),
+    postChangeAddBusinessActivityCodeTwo("1101"),
     getBusinessActivityTwo,
     getRemoveBusinessActivityCodeTwo,
     postRemoveBusinessActivityCodeTwo("true"),
     getBusinessActivity,
     postBusinessActivity("true"),
     getAddBusinessActivityCodeTwo,
-    postAddBusinessActivityCodeTwo("45320 (Wholesale of motor vehicle parts)"),
+    postAddBusinessActivityCodeTwo("4532"),
     getBusinessActivityTwo,
     postBusinessActivityTwo("true"),
     getAddBusinessActivityCodeThree,
     postAddBusinessActivityCodeThree("25344 (Growing of fibre crops)"),
     getBusinessActivityThree,
     getChangeAddBusinessActivityCodeTwo,
-    postChangeAddBusinessActivityCodeTwo("45200 (Repair of motor vehicles)"),
+    postChangeAddBusinessActivityCodeTwo("4520"),
     getBusinessActivityThree,
     getRemoveBusinessActivityCodeTwo,
     postRemoveBusinessActivityCodeTwo("true"),

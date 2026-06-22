@@ -20,12 +20,11 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.ManageRequests.getMakeANewEUVATClaimPage
 
 object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
-  val getClickAddClaimDetailsLink: HttpRequestBuilder =
-    http("[get ] Click Add Claim Details link")
+  val getMakeANewEUVATClaimPage: HttpRequestBuilder =
+    http("[get ] Make a new EU VAT claim page")
       .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
       .check(status.is(200))
 
@@ -55,28 +54,28 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
-    http("[get ] What language do you want to use for this claim page")
-      .get(euvatFilingFrontendUrl + "/what-language")
+  val getWhichLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Which language do you want to use for this claim page")
+      .get(euvatFilingFrontendUrl + "/which-language")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] What language do you want to use for this claim page")
-      .post(euvatFilingFrontendUrl + "/what-language")
+  def postWhichLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Which language do you want to use for this claim page")
+      .post(euvatFilingFrontendUrl + "/which-language")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getChangeWhatLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
-    http("[get ] Change What language do you want to use for this claim page")
-      .get(euvatFilingFrontendUrl + "/change-what-language")
+  val getChangeWhichLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Change Which language do you want to use for this claim page")
+      .get(euvatFilingFrontendUrl + "/change-which-language")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postChangeWhatLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] Change What language do you want to use for this claim page")
-      .post(euvatFilingFrontendUrl + "/change-what-language")
+  def postChangeWhichLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Change Which language do you want to use for this claim page")
+      .post(euvatFilingFrontendUrl + "/change-which-language")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -321,8 +320,8 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("Bulgaria"),
-    getWhatLanguageDoYouWantToUseForThisClaim,
-    postWhatLanguageDoYouWantToUseForThisClaim("bulgarian"),
+    getWhichLanguageDoYouWantToUseForThisClaim,
+    postWhichLanguageDoYouWantToUseForThisClaim("bulgarian"),
     getWhichCurrencyDoYouWantToUseForThisClaim,
     postWhichCurrencyDoYouWantToUseForThisClaim("bulgarianLev"),
     getRefundPeriod,
@@ -372,11 +371,11 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
     getChangeWhichEUMemberStateAreYouClaimingBackVATFrom,
     postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("Germany"),
-    getChangeWhatLanguageDoYouWantToUseForThisClaim,
-    postChangeWhatLanguageDoYouWantToUseForThisClaim("german"),
+    getChangeWhichLanguageDoYouWantToUseForThisClaim,
+    postChangeWhichLanguageDoYouWantToUseForThisClaim("german"),
     getCheckYourClaimDetails,
-    getChangeWhatLanguageDoYouWantToUseForThisClaim,
-    postChangeWhatLanguageDoYouWantToUseForThisClaim("english"),
+    getChangeWhichLanguageDoYouWantToUseForThisClaim,
+    postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
     getCheckYourClaimDetails,
     getChangeRefundPeriod,
     postChangeRefundPeriod("01", "2026", "04", "2026"),

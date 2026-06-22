@@ -163,13 +163,13 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getBusinessActivity: HttpRequestBuilder =
+  val getBusinessActivityOne: HttpRequestBuilder =
     http("[get ] Business activity (1) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postBusinessActivity(option: String): HttpRequestBuilder =
+  def postBusinessActivityOne(option: String): HttpRequestBuilder =
     http("[post] Business activity (1) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity")
       .formParam("value", option)
@@ -177,26 +177,26 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(status.is(303))
 
   val getAddBusinessActivityCodeTwo: HttpRequestBuilder =
-    http("[get ] What is the 2nd business activity? page")
+    http("[get ] What is the second SIC code? page")
       .get(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
-    http("[post] What is the 2nd business activity? page")
+    http("[post] What is the second SIC code? page")
       .post(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeAddBusinessActivityCodeTwo: HttpRequestBuilder =
-    http("[get ] Change What is the 2nd business activity? page")
+    http("[get ] Change What is the second SIC code? page")
       .get(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
-    http("[post] Change What is the 2nd business activity? page")
+    http("[post] Change What is the second SIC code? page")
       .post(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
@@ -216,27 +216,14 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(status.is(303))
 
   val getBusinessActivityTwo: HttpRequestBuilder =
-    http("[get ] Business activities (2) for this claim page")
+    http("[get ] Business activity (2) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-2")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postBusinessActivityTwo(option: String): HttpRequestBuilder =
-    http("[post] Business activities (2) for this claim page")
+    http("[post] Business activity (2) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity-2")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getChangeBusinessActivityTwo: HttpRequestBuilder =
-    http("[get ] Change Business activities (2) for this claim page")
-      .get(euvatFilingFrontendUrl + "/change-business-activity-2")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postChangeBusinessActivityTwo(option: String): HttpRequestBuilder =
-    http("[post] Change Business activities (2) for this claim page")
-      .post(euvatFilingFrontendUrl + "/change-business-activity-2")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -281,26 +268,14 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(status.is(303))
 
   val getBusinessActivityThree: HttpRequestBuilder =
-    http("[get ] Business activities (3) for this claim page")
+    http("[get ] Business activity (3) for this claim page")
       .get(euvatFilingFrontendUrl + "/business-activity-3")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBusinessActivityThree: HttpRequestBuilder =
-    http("[post] Business activities (3) for this claim page")
+    http("[post] Business activity (3) for this claim page")
       .post(euvatFilingFrontendUrl + "/business-activity-3")
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getChangeBusinessActivityThree: HttpRequestBuilder =
-    http("[get ] Change Business activities (3) for this claim page")
-      .get(euvatFilingFrontendUrl + "/change-business-activity-3")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postChangeBusinessActivityThree: HttpRequestBuilder =
-    http("[post] Change Business activities (3) for this claim page")
-      .post(euvatFilingFrontendUrl + "/change-business-activity-3")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -328,8 +303,8 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postRefundPeriod("08", "2025", "12", "2025"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
-    getBusinessActivity,
-    postBusinessActivity("true"),
+    getBusinessActivityOne,
+    postBusinessActivityOne("true"),
     getAddBusinessActivityCodeTwo,
     postAddBusinessActivityCodeTwo("4711"),
     getBusinessActivityTwo,
@@ -338,8 +313,8 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getBusinessActivityTwo,
     getRemoveBusinessActivityCodeTwo,
     postRemoveBusinessActivityCodeTwo("true"),
-    getBusinessActivity,
-    postBusinessActivity("true"),
+    getBusinessActivityOne,
+    postBusinessActivityOne("true"),
     getAddBusinessActivityCodeTwo,
     postAddBusinessActivityCodeTwo("4532"),
     getBusinessActivityTwo,

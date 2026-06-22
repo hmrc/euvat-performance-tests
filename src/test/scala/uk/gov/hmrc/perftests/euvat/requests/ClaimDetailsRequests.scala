@@ -311,7 +311,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getBusinessActivityOne,
     postBusinessActivityOne("true"),
     getAddBusinessActivityCodeTwo,
-    postAddBusinessActivityCodeTwo("7110"),
+    postAddBusinessActivityCodeTwo("4711"),
     getBusinessActivityTwo,
     getChangeAddBusinessActivityCodeTwo,
     postChangeAddBusinessActivityCodeTwo("1101"),

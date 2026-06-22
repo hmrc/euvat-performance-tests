@@ -229,27 +229,27 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(status.is(303))
 
   val getAddBusinessActivityCodeThree: HttpRequestBuilder =
-    http("[get ] What is the 3rd business activity?  page")
-      .get(euvatFilingFrontendUrl + "/what-is-the-3rd-business-activity")
+    http("[get ] What is the third business activity?  page")
+      .get(euvatFilingFrontendUrl + "/what-is-the-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
-    http("[post] What is the 3rd business activity?  page")
-      .post(euvatFilingFrontendUrl + "/what-is-the-3rd-business-activity")
+    http("[post] What is the third business activity?  page")
+      .post(euvatFilingFrontendUrl + "/what-is-the-third-SIC-code")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeAddBusinessActivityCodeThree: HttpRequestBuilder =
-    http("[get ] Change What is the 3rd business activity?  page")
-      .get(euvatFilingFrontendUrl + "/change-what-is-the-3rd-business-activity")
+    http("[get ] Change What is the third business activity?  page")
+      .get(euvatFilingFrontendUrl + "/change-what-is-the-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeAddBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
-    http("[post] Change What is the 3rd business activity?  page")
-      .post(euvatFilingFrontendUrl + "/change-what-is-the-3rd-business-activity")
+    http("[post] Change What is the third business activity?  page")
+      .post(euvatFilingFrontendUrl + "/change-what-is-the-third-SIC-code")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -320,7 +320,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getBusinessActivityTwo,
     postBusinessActivityTwo("true"),
     getAddBusinessActivityCodeThree,
-    postAddBusinessActivityCodeThree("25344 (Growing of fibre crops)"),
+    postAddBusinessActivityCodeThree("2534"),
     getBusinessActivityThree,
     getChangeAddBusinessActivityCodeTwo,
     postChangeAddBusinessActivityCodeTwo("4520"),
@@ -330,17 +330,17 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getBusinessActivityTwo,
     postBusinessActivityTwo("true"),
     getAddBusinessActivityCodeThree,
-    postAddBusinessActivityCodeThree("11010 (Manufacture of beverages)"),
+    postAddBusinessActivityCodeThree("1101"),
     getBusinessActivityThree,
     getChangeAddBusinessActivityCodeThree,
-    postChangeAddBusinessActivityCodeThree("45320 (Wholesale of motor vehicle parts)"),
+    postChangeAddBusinessActivityCodeThree("4532"),
     getBusinessActivityThree,
     getRemoveBusinessActivityCodeThree,
     postRemoveBusinessActivityCodeThree("true"),
     getBusinessActivityTwo,
     postBusinessActivityTwo("true"),
     getAddBusinessActivityCodeThree,
-    postAddBusinessActivityCodeThree("47110 (Retail sale in non-specialised stores)"),
+    postAddBusinessActivityCodeThree("4711"),
     getBusinessActivityThree,
     postBusinessActivityThree,
     getCheckYourClaimDetails,
@@ -360,7 +360,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
     getBusinessActivityThree,
     getChangeAddBusinessActivityCodeThree,
-    postChangeAddBusinessActivityCodeThree("11010 (Manufacture of beverages)"),
+    postChangeAddBusinessActivityCodeThree("1101"),
     getBusinessActivityThree,
     postBusinessActivityThree,
     getCheckYourClaimDetails,

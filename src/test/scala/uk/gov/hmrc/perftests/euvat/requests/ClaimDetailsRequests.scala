@@ -20,12 +20,11 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.ManageRequests.getMakeANewEUVATClaimPage
 
 object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
-  val getClickAddClaimDetailsLink: HttpRequestBuilder =
-    http("[get ] Click Add Claim Details link")
+  val getMakeANewEUVATClaimPage: HttpRequestBuilder =
+    http("[get ] Make a new EU VAT claim page")
       .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
       .check(status.is(200))
 

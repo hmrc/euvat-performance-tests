@@ -33,11 +33,6 @@ object ManageRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .get(euvatMgmtFrontendUrl + "/manage-eu-vat-claim")
       .check(status.is(200))
 
-  val getMakeANewEUVATClaimPage: HttpRequestBuilder =
-    http("[get ] Make a new EU VAT claim page")
-      .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
-      .check(status.is(200))
-
   val ManageJourney: List[HttpRequestBuilder] = List(
     getManageEUVATFrontend,
     getManageEUVATClaimPage

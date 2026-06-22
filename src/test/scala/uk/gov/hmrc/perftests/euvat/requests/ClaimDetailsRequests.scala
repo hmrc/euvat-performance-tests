@@ -192,13 +192,13 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getChangeAddBusinessActivityCodeTwo: HttpRequestBuilder =
     http("[get ] Change What is the 2nd business activity? page")
-      .get(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
+      .get(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] Change What is the 2nd business activity? page")
-      .post(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
+      .post(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

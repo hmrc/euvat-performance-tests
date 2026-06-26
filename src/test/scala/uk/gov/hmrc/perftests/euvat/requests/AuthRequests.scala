@@ -21,59 +21,55 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 
-object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
+object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase with RequestUtils {
 
-  val getAuthPage: HttpRequestBuilder = http("[get ] gg-sign-in")
+  val getAuthPage: HttpRequestBuilder = http("[get ] Auth page")
     .get(baseUrlAuthLoginStub + "/auth-login-stub/gg-sign-in")
     .disableFollowRedirect
     .check(status.is(200))
     .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val getSession: HttpRequestBuilder = http("[get ] auth session")
+  def postAuthPage(affinityGroup: String, taxOfficeReference: String): HttpRequestBuilder = {
+    val expectedRedirectUrl = euvatMgmtFrontendUrl
+
+    val request = http("[post] Auth page")
+      .post(baseUrlAuthLoginStub + "/auth-login-stub/gg-sign-in")
+      .disableFollowRedirect
+      .formParam("redirectionUrl", euvatMgmtFrontendUrl)
+      .formParam("credentialStrength", "strong")
+      .formParam("confidenceLevel", "50")
+      .formParam("affinityGroup", affinityGroup)
+      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("authorityId", _ => generateCredId())
+      .check(status.is(303))
+      .check(header("Location").is(expectedRedirectUrl))
+
+    affinityGroup match {
+      case "Organisation" =>
+        request
+          .formParam("enrolment[0].name", "HMRC-EU-REF-ORG")
+          .formParam("enrolment[0].taxIdentifier[0].name", "VATRegNo")
+          .formParam("enrolment[0].taxIdentifier[0].value", taxOfficeReference)
+          .formParam("enrolment[0].state", "Activated")
+
+      case "Agent" =>
+        request
+          .formParam("enrolment[0].name", "HMCE-VAT-AGNT")
+          .formParam("enrolment[0].taxIdentifier[0].name", "AgentRefNo")
+          .formParam("enrolment[0].taxIdentifier[0].value", taxOfficeReference)
+          .formParam("enrolment[0].state", "Activated")
+    }
+  }
+
+  val getSession: HttpRequestBuilder = http("[get ] Auth session")
     .get(baseUrlAuthLoginStub + "/auth-login-stub/session")
     .check(status.is(200))
     .check(css("[data-session-id=\"authToken\"] > code").saveAs("accessToken"))
     .check(css("[data-session-id=\"sessionId\"] > code").saveAs("sessionId"))
 
-  def postAuthPage(affinityGroup: String, taxOfficeReference: String): HttpRequestBuilder = {
-    val baseFormParams      = Map(
-      "redirectionUrl"     -> euvatMgmtFrontendUrl,
-      "credentialStrength" -> "strong",
-      "confidenceLevel"    -> "50",
-      "affinityGroup"      -> affinityGroup,
-      "csrfToken"          -> "#{csrfToken}"
-    )
-    val enrolmentParams     = affinityGroup match {
-      case "Organisation" =>
-        Map(
-          "authorityId"                         -> "0000000264427063",
-          "enrolment[0].name"                   -> "HMRC-EU-REF-ORG",
-          "enrolment[0].taxIdentifier[0].name"  -> "VATRegNo",
-          "enrolment[0].taxIdentifier[0].value" -> taxOfficeReference,
-          "enrolment[0].state"                  -> "Activated"
-        )
-      case "Agent"        =>
-        Map(
-          "authorityId"                         -> "0000000264427063",
-          "enrolment[0].name"                   -> "HMCE-VAT-AGNT",
-          "enrolment[0].taxIdentifier[0].name"  -> "AgentRefNo",
-          "enrolment[0].taxIdentifier[0].value" -> taxOfficeReference,
-          "enrolment[0].state"                  -> "Activated"
-        )
-    }
-    val expectedRedirectUrl = euvatMgmtFrontendUrl
-    http("[post] gg-sign-in")
-      .post(baseUrlAuthLoginStub + "/auth-login-stub/gg-sign-in")
-      .disableFollowRedirect
-      .formParamMap(baseFormParams ++ enrolmentParams)
-      .check(status.is(303))
-      .check(header("Location").is(expectedRedirectUrl))
-  }
-
-  val LoginJourney: List[HttpRequestBuilder] = List(
+  val loginJourney: List[HttpRequestBuilder] = List(
     getAuthPage,
     postAuthPage("Organisation", "999900104"),
     getSession
   )
-
 }

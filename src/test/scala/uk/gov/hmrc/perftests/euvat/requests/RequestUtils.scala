@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.euvat.simulations
+package uk.gov.hmrc.perftests.euvat.requests
 
-import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.requests.AuthRequests
+trait RequestUtils {
 
-trait AuthSimulation {
-  this: PerformanceTestRunner =>
+  def generateCredId(): String = {
+    val hexChars = "0123456789abcdef"
+    val credId   = List.fill(16)(hexChars(scala.util.Random.nextInt(hexChars.length))).mkString
+    println(s"**************************************************** CredID: $credId")
+    credId
+  }
 
-  setup("login", "Login") withRequests (AuthRequests.loginJourney: _*)
 }

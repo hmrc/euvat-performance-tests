@@ -151,6 +151,32 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getTotalPurchaseAmount: HttpRequestBuilder =
+    http("[get ] Total purchase amount before vat page")
+      .get(euvatFilingFrontendUrl + "/total-purchase-amount-before-vat")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postTotalPurchaseAmount(option: String): HttpRequestBuilder =
+    http("[post] Total purchase amount before vat page")
+      .post(euvatFilingFrontendUrl + "/total-purchase-amount-before-vat")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getTotalVatPaid: HttpRequestBuilder =
+    http("[get ] Total Vat padi page")
+      .get(euvatFilingFrontendUrl + "/total-vat-paid")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postTotalVatPaid(option: String): HttpRequestBuilder =
+    http("[post] Total Vat paid page")
+      .post(euvatFilingFrontendUrl + "/total-vat-paid")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddPurchaseJourney: List[HttpRequestBuilder] = List(
     getAboutThePurchase,
     postAboutThePurchase,
@@ -169,7 +195,11 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getVATRegistrationNumber,
     postVATRegistrationNumber("AB1234567890"),
     getPurchaseType,
-    postPurchaseType("fuel")
+    postPurchaseType("fuel"),
+    getTotalPurchaseAmount,
+    postTotalPurchaseAmount("1000"),
+    getTotalVatPaid,
+    postTotalVatPaid("100")
   )
 
 }

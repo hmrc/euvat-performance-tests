@@ -177,6 +177,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getTotalVatClaim: HttpRequestBuilder =
+    http("[get ] Total VAT claim page")
+      .get(euvatFilingFrontendUrl + "/total-vat-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postTotalVatClaim(option: String): HttpRequestBuilder =
+    http("[post] Total VAT claim page")
+      .post(euvatFilingFrontendUrl + "/total-vat-claim")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddPurchaseJourney: List[HttpRequestBuilder] = List(
     getAboutThePurchase,
     postAboutThePurchase,
@@ -199,7 +212,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getTotalPurchaseAmount,
     postTotalPurchaseAmount("1000"),
     getTotalVatPaid,
-    postTotalVatPaid("100")
+    postTotalVatPaid("300"),
+    getTotalVatClaim,
+    postTotalVatClaim("100")
   )
 
 }

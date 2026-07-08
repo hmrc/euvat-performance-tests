@@ -25,7 +25,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getMakeANewEUVATClaimPage: HttpRequestBuilder =
     http("[get ] Make a new EU VAT claim page")
-      .get(euvatFilingFrontendUrl + "/make-eu-vat-claim")
+      .get(euvatFilingFrontendUrl + "/make-claim-for-eu-vat-refund")
       .check(status.is(200))
 
   val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =

@@ -93,6 +93,19 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Which currency do you want to use for this claim page")
+      .get(euvatFilingFrontendUrl + "/change-which-currency")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Which currency do you want to use for this claim page")
+      .post(euvatFilingFrontendUrl + "/change-which-currency")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getRefundPeriod: HttpRequestBuilder =
     http("[get ] Refund Period page")
       .get(euvatFilingFrontendUrl + "/refund-period")
@@ -176,39 +189,52 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getAddBusinessActivityCodeTwo: HttpRequestBuilder =
+  val getChangeBusinessActivityOne: HttpRequestBuilder =
+    http("[get ] Business activity (1) for this claim page")
+      .get(euvatFilingFrontendUrl + "/change-business-activity")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeBusinessActivityOne(option: String): HttpRequestBuilder =
+    http("[post] Business activity (1) for this claim page")
+      .post(euvatFilingFrontendUrl + "/change-business-activity")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheSecondSICCode: HttpRequestBuilder =
     http("[get ] What is the second SIC code? page")
       .get(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
+  def postWhatIsTheSecondSICCode(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] What is the second SIC code? page")
       .post(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getChangeAddBusinessActivityCodeTwo: HttpRequestBuilder =
+  val getChangeSecondSICCode: HttpRequestBuilder =
     http("[get ] Change What is the second SIC code? page")
       .get(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postChangeAddBusinessActivityCodeTwo(businessActivityCode2: String): HttpRequestBuilder =
+  def postChangeSecondSICCode(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] Change What is the second SIC code? page")
       .post(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getRemoveBusinessActivityCodeTwo: HttpRequestBuilder =
+  val getRemoveSecondSICCode: HttpRequestBuilder =
     http("[get ] Are you sure you want to remove the second SIC code? page")
       .get(euvatFilingFrontendUrl + "/remove-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postRemoveBusinessActivityCodeTwo(option: String): HttpRequestBuilder =
+  def postRemoveSecondSICCode(option: String): HttpRequestBuilder =
     http("[post] Are you sure you want to remove the second SIC code? page")
       .post(euvatFilingFrontendUrl + "/remove-second-SIC-code")
       .formParam("value", option)
@@ -228,39 +254,39 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getAddBusinessActivityCodeThree: HttpRequestBuilder =
-    http("[get ] What is the third business activity?  page")
+  val getWhatIsTheThirdSICCode: HttpRequestBuilder =
+    http("[get ] What is the third SIC code?  page")
       .get(euvatFilingFrontendUrl + "/what-is-the-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postAddBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
-    http("[post] What is the third business activity?  page")
+  def postWhatIsTheThirdSICCode(businessActivityCode3: String): HttpRequestBuilder =
+    http("[post] What is the third SIC code?  page")
       .post(euvatFilingFrontendUrl + "/what-is-the-third-SIC-code")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getChangeAddBusinessActivityCodeThree: HttpRequestBuilder =
-    http("[get ] Change What is the third business activity?  page")
+  val getChangeThirdSICCode: HttpRequestBuilder =
+    http("[get ] Change What is the third SIC code?  page")
       .get(euvatFilingFrontendUrl + "/change-what-is-the-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postChangeAddBusinessActivityCodeThree(businessActivityCode3: String): HttpRequestBuilder =
-    http("[post] Change What is the third business activity?  page")
+  def postChangeThirdSICCode(businessActivityCode3: String): HttpRequestBuilder =
+    http("[post] Change What is the third SIC code?  page")
       .post(euvatFilingFrontendUrl + "/change-what-is-the-third-SIC-code")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getRemoveBusinessActivityCodeThree: HttpRequestBuilder =
+  val getRemoveThirdSICCode: HttpRequestBuilder =
     http("[get ] Are you sure you want to remove the third SIC code? page")
       .get(euvatFilingFrontendUrl + "/remove-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postRemoveBusinessActivityCodeThree(option: String): HttpRequestBuilder =
+  def postRemoveThirdSICCode(option: String): HttpRequestBuilder =
     http("[post] Are you sure you want to remove the third SIC code? page")
       .post(euvatFilingFrontendUrl + "/remove-third-SIC-code")
       .formParam("value", option)
@@ -294,73 +320,72 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
   val AddClaimDetailsJourney: List[HttpRequestBuilder] = List(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postWhichEUMemberStateAreYouClaimingBackVATFrom("Bulgaria"),
-    getWhichLanguageDoYouWantToUseForThisClaim,
-    postWhichLanguageDoYouWantToUseForThisClaim("bulgarian"),
-    getWhichCurrencyDoYouWantToUseForThisClaim,
-    postWhichCurrencyDoYouWantToUseForThisClaim("bulgarianLev"),
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("Croatia"),
     getRefundPeriod,
     postRefundPeriod("02", "2025", "04", "2025"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,
-    postBusinessActivityOne("true"),
-    getAddBusinessActivityCodeTwo,
-    postAddBusinessActivityCodeTwo("4711"),
-    getBusinessActivityTwo,
-    getChangeAddBusinessActivityCodeTwo,
-    postChangeAddBusinessActivityCodeTwo("1101"),
-    getBusinessActivityTwo,
-    getRemoveBusinessActivityCodeTwo,
-    postRemoveBusinessActivityCodeTwo("true"),
-    getBusinessActivityOne,
-    postBusinessActivityOne("true"),
-    getAddBusinessActivityCodeTwo,
-    postAddBusinessActivityCodeTwo("4532"),
-    getBusinessActivityTwo,
-    postBusinessActivityTwo("true"),
-    getAddBusinessActivityCodeThree,
-    postAddBusinessActivityCodeThree("2534"),
-    getBusinessActivityThree,
-    getChangeAddBusinessActivityCodeTwo,
-    postChangeAddBusinessActivityCodeTwo("4520"),
-    getBusinessActivityThree,
-    getRemoveBusinessActivityCodeTwo,
-    postRemoveBusinessActivityCodeTwo("true"),
-    getBusinessActivityTwo,
-    postBusinessActivityTwo("true"),
-    getAddBusinessActivityCodeThree,
-    postAddBusinessActivityCodeThree("1102"),
-    getBusinessActivityThree,
-    getChangeAddBusinessActivityCodeThree,
-    postChangeAddBusinessActivityCodeThree("4533"),
-    getBusinessActivityThree,
-    getRemoveBusinessActivityCodeThree,
-    postRemoveBusinessActivityCodeThree("true"),
-    getBusinessActivityTwo,
-    postBusinessActivityTwo("true"),
-    getAddBusinessActivityCodeThree,
-    postAddBusinessActivityCodeThree("4712"),
-    getBusinessActivityThree,
-    postBusinessActivityThree,
+    postBusinessActivityOne("false"),
+//      Change member state
     getCheckYourClaimDetails,
     getChangeWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("Germany"),
-    getChangeWhichLanguageDoYouWantToUseForThisClaim,
-    postChangeWhichLanguageDoYouWantToUseForThisClaim("german"),
-    getCheckYourClaimDetails,
+    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("Bulgaria"),
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
     postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
-    getCheckYourClaimDetails,
+    getChangeWhichCurrencyDoYouWantToUseForThisClaim,
+    postChangeWhichCurrencyDoYouWantToUseForThisClaim("euro"),
     getChangeRefundPeriod,
     postChangeRefundPeriod("05", "2025", "07", "2025"),
     getCheckYourClaimDetails,
+//      Change language
+    getChangeWhichLanguageDoYouWantToUseForThisClaim,
+    postChangeWhichLanguageDoYouWantToUseForThisClaim("bulgarian"),
+    getChangeWhichCurrencyDoYouWantToUseForThisClaim,
+    postChangeWhichCurrencyDoYouWantToUseForThisClaim("bulgarianLev"),
+    getCheckYourClaimDetails,
+//      Change currency
+    getChangeWhichCurrencyDoYouWantToUseForThisClaim,
+    postChangeWhichCurrencyDoYouWantToUseForThisClaim("euro"),
+    getCheckYourClaimDetails,
+//      Change refund period
+    getChangeRefundPeriod,
+    postChangeRefundPeriod("08", "2025", "10", "2025"),
+    getCheckYourClaimDetails,
+//      Change contact details
     getChangeHowShouldWeContactYouAboutThisClaim,
     postChangeHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getCheckYourClaimDetails,
+//      Change & remove Second SIC code
+    getChangeBusinessActivityOne,
+    postChangeBusinessActivityOne("true"),
+    getChangeSecondSICCode,
+    postChangeSecondSICCode("4711"),
+    getBusinessActivityTwo,
+    getChangeSecondSICCode,
+    postChangeSecondSICCode("1101"),
+    getBusinessActivityTwo,
+    getRemoveSecondSICCode,
+    postRemoveSecondSICCode("true"),
+    getBusinessActivityOne,
+    postBusinessActivityOne("true"),
+    getWhatIsTheSecondSICCode,
+    postWhatIsTheSecondSICCode("4532"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getWhatIsTheThirdSICCode,
+    postWhatIsTheThirdSICCode("2534"),
+//      Change & remove Third SIC code
     getBusinessActivityThree,
-    getChangeAddBusinessActivityCodeThree,
-    postChangeAddBusinessActivityCodeThree("1103"),
+    getChangeThirdSICCode,
+    postChangeThirdSICCode("4533"),
+    getBusinessActivityThree,
+    getRemoveThirdSICCode,
+    postRemoveThirdSICCode("true"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getWhatIsTheThirdSICCode,
+    postWhatIsTheThirdSICCode("4712"),
     getBusinessActivityThree,
     postBusinessActivityThree,
     getCheckYourClaimDetails,

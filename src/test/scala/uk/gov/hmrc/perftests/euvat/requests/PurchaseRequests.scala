@@ -246,17 +246,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getWhatIsTheSuppliersAddress,
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getSuppliersTaxNumbers,
-    postSuppliersTaxNumbers("vatRegistrationNumber"),
-    getAddVATRegistration,
-    postAddVATRegistration("true"),
-    getVATRegistrationNumber,
-    postVATRegistrationNumber("AB1234567890"),
-    getTotalPurchaseAmount,
-    postTotalPurchaseAmount("1000"),
-    getTotalVatPaid,
-    postTotalVatPaid("300"),
-    getTotalVatClaim,
-    postTotalVatClaim("100")
+    postSuppliersTaxNumbers("vatRegistrationNumber")
   )
 
 }

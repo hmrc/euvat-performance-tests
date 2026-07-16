@@ -26,4 +26,7 @@ trait NewClaimSimulation {
   setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
   setup("purchase-details", "Purchase details") withRequests (PurchaseRequests.AddPurchaseJourney: _*)
 
+  setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourneyForGermany: _*)
+  setup("purchase-details", "Purchase details") withRequests (PurchaseRequests.AddPurchaseJourneyForGermany: _*)
+
 }

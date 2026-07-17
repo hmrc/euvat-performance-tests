@@ -396,7 +396,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
   val AddClaimDetailsJourneyForGermany: List[HttpRequestBuilder] = List(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postWhichEUMemberStateAreYouClaimingBackVATFrom("Germany"),
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("DE"),
     getWhichLanguageDoYouWantToUseForThisClaim,
     postWhichLanguageDoYouWantToUseForThisClaim("english"),
     getRefundPeriod,

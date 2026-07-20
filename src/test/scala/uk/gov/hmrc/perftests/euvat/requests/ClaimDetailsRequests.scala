@@ -320,7 +320,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
   val AddClaimDetailsJourney: List[HttpRequestBuilder] = List(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postWhichEUMemberStateAreYouClaimingBackVATFrom("Croatia"),
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("HR"),
     getRefundPeriod,
     postRefundPeriod("02", "2025", "04", "2025"),
     getHowShouldWeContactYouAboutThisClaim,
@@ -330,7 +330,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 //      Change member state
     getCheckYourClaimDetails,
     getChangeWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("Bulgaria"),
+    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("BG"),
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
     postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
     getChangeWhichCurrencyDoYouWantToUseForThisClaim,

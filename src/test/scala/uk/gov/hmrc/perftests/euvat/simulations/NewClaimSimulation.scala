@@ -35,4 +35,6 @@ trait NewClaimSimulation {
     "Purchase details for Germany"
   ) withRequests (PurchaseRequests.AddPurchaseJourneyForGermany: _*)
 
+  setup("delete-claim", "Delete claim") withRequests (ClaimDetailsRequests.DeleteClaim: _*)
+
 }

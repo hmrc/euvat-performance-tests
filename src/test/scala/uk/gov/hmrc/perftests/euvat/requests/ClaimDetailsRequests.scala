@@ -317,6 +317,19 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getDeleteEUMemberState: HttpRequestBuilder =
+    http("[get ] Delete EU member state details")
+      .get(euvatFilingFrontendUrl + "/eu-member-state-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postDeleteEUMemberState(option: String): HttpRequestBuilder =
+    http("[post] Delete EU member state details")
+      .post(euvatFilingFrontendUrl + "/eu-member-state-details")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddClaimDetailsJourney: List[HttpRequestBuilder] = List(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
@@ -408,5 +421,25 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage
+  )
+
+  val DeleteClaim: List[HttpRequestBuilder] = List(
+    getMakeANewEUVATClaimPage,
+    getWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("FR"),
+    getWhichLanguageDoYouWantToUseForThisClaim,
+    postWhichLanguageDoYouWantToUseForThisClaim("english"),
+    getRefundPeriod,
+    postRefundPeriod("02", "2025", "04", "2025"),
+    getHowShouldWeContactYouAboutThisClaim,
+    postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
+    getBusinessActivityOne,
+    postBusinessActivityOne("false"),
+    getCheckYourClaimDetails,
+    postCheckYourClaimDetails,
+    getMakeANewEUVATClaimPage,
+    getCheckYourClaimDetails,
+    getDeleteEUMemberState,
+    postDeleteEUMemberState("true")
   )
 }

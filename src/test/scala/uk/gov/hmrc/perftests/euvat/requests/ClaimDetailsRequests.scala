@@ -317,6 +317,12 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getClaimDetails: HttpRequestBuilder =
+    http("[get ] Check claim details page")
+      .get(euvatFilingFrontendUrl + "/claim-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
   val getDeleteEUMemberState: HttpRequestBuilder =
     http("[get ] Delete EU member state details")
       .get(euvatFilingFrontendUrl + "/eu-member-state-details")
@@ -403,7 +409,8 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postBusinessActivityThree,
     getCheckYourClaimDetails,
     postCheckYourClaimDetails,
-    getMakeANewEUVATClaimPage
+    getMakeANewEUVATClaimPage,
+    getClaimDetails
   )
 
   val AddClaimDetailsJourneyForGermany: List[HttpRequestBuilder] = List(

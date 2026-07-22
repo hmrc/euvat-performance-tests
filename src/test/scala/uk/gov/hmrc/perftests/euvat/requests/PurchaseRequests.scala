@@ -48,6 +48,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getInvoiceItemDescription: HttpRequestBuilder =
+    http("[get ] Describe the items on your invoice page")
+      .get(euvatFilingFrontendUrl + "/describe-items-on-invoice")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postInvoiceItemDescription(itemDescription: String): HttpRequestBuilder =
+    http("[post] Describe the items on your invoice page")
+      .post(euvatFilingFrontendUrl + "/describe-items-on-invoice")
+      .formParam("value", itemDescription)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhatIsTheSuppliersName: HttpRequestBuilder =
     http("[get ] What is the supplier's name page")
       .get(euvatFilingFrontendUrl + "/what-supplier-name")
@@ -221,6 +234,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postBeforeYouStart,
     getPurchaseType,
     postPurchaseType("fuel"),
+    getInvoiceItemDescription,
+    postInvoiceItemDescription("Test item description"),
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("standard invoice"),
     getWhatIsTheInvoiceNumber,
@@ -248,6 +263,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postBeforeYouStart,
     getPurchaseType,
     postPurchaseType("fuel"),
+    getInvoiceItemDescription,
+    postInvoiceItemDescription("Test item description"),
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("standard invoice"),
     getWhatIsTheInvoiceNumber,

@@ -34,7 +34,7 @@ object ManageRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .check(status.is(200))
 
   val ManageJourney: List[HttpRequestBuilder] = List(
-    // getManageEUVATFrontend,
+    getManageEUVATFrontend,
     getManageEUVATClaimPage
   )
 

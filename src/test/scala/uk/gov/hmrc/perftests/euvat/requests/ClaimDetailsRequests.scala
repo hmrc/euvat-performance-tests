@@ -445,7 +445,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage,
-    getCheckYourClaimDetails,
+    getClaimDetails,
     getDeleteEUMemberState,
     postDeleteEUMemberState("true")
   )

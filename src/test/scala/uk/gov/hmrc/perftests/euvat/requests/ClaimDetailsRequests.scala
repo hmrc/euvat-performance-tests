@@ -336,7 +336,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 //      Change member state
     getCheckYourClaimDetails,
     getChangeWhichEUMemberStateAreYouClaimingBackVATFrom,
-    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("BG"),
+    postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("EE"),
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
     postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
     getChangeWhichCurrencyDoYouWantToUseForThisClaim,
@@ -346,9 +346,9 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
 //      Change language
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
-    postChangeWhichLanguageDoYouWantToUseForThisClaim("bulgarian"),
+    postChangeWhichLanguageDoYouWantToUseForThisClaim("estonian"),
     getChangeWhichCurrencyDoYouWantToUseForThisClaim,
-    postChangeWhichCurrencyDoYouWantToUseForThisClaim("bulgarianLev"),
+    postChangeWhichCurrencyDoYouWantToUseForThisClaim("estonianKroon"),
     getCheckYourClaimDetails,
 //      Change currency
     getChangeWhichCurrencyDoYouWantToUseForThisClaim,

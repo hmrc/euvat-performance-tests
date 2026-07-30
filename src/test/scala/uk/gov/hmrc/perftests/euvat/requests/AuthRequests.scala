@@ -69,7 +69,7 @@ object AuthRequests extends ServicesConfiguration with EUVATPerformanceTestBase 
 
   val loginJourney: List[HttpRequestBuilder] = List(
     getAuthPage,
-    postAuthPage("Organisation", "999900104"),
+    postAuthPage("Organisation", "999900001"),
     getSession
   )
 }

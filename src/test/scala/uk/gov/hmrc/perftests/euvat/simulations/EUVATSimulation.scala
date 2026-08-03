@@ -19,7 +19,29 @@ package uk.gov.hmrc.perftests.euvat
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.euvat.simulations._
 
+<<<<<<< Updated upstream
 class EUVATSimulation extends PerformanceTestRunner with AuthSimulation with ManageSimulation with NewClaimSimulation {
+=======
+class EUVATSimulation extends Simulation with PerformanceTestRunner {
+
+  setup("manage-organisation", "Manage organisation").withRequests(
+    getAuthPage,
+    postAuthPage("Organisation", "123456"),
+    getSession,
+    postManageEUVATFrontend,
+    getManageEUVATClaimPage
+  )
+
+  setup("new-EUVAT-claim", "New claim").withRequests(
+    getClickMakeANewEUVATClaimLink,
+    getWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("France")
+//    getWhatIsTheRefundPeriod,
+//    postWhatIsTheRefundPeriod("08","2008","08","2013"),
+//    getWhoShouldWeContactAboutThisClaim,
+//    postWhoShouldWeContactAboutThisClaim("Test123@test.com", "FirstNameTest123","LastNameTest123", "01234567890"),
+  )
+>>>>>>> Stashed changes
 
   runSimulation()
 }

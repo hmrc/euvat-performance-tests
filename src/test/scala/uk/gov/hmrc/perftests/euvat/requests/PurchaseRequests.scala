@@ -48,6 +48,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getPurchaseTypeOther: HttpRequestBuilder =
+    http("[get ] Purchase type other page")
+      .get(euvatFilingFrontendUrl + "/purchase-type-other")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postPurchaseTypeOther(option: String): HttpRequestBuilder =
+    http("[post] Purchase type other page")
+      .post(euvatFilingFrontendUrl + "/purchase-type-other")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getInvoiceItemDescription: HttpRequestBuilder =
     http("[get ] Describe the items on your invoice page")
       .get(euvatFilingFrontendUrl + "/describe-items-on-invoice")
@@ -233,13 +246,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getBeforeYouStart,
     postBeforeYouStart,
     getPurchaseType,
-    postPurchaseType("fuel"),
-    getInvoiceItemDescription,
-    postInvoiceItemDescription("Test item description"),
-    getWhatTypeOfInvoiceDoYouHave,
-    postWhatTypeOfInvoiceDoYouHave("standard invoice"),
-    getWhatIsTheInvoiceNumber,
-    postWhatIsTheInvoiceNumber("ABC1234567890"),
+    postPurchaseType("luxuries"),
+    getWhatIsTheTypeOfLuxuryEntertainmentOrHospitalityCost, /luxury-entertainment-hospitality-cost
+    postWhatIsTheTypeOfLuxuryEntertainmentOrHospitalityCost("9.3"),
+    getInvoiceType,
+    postInvoiceType("standard invoice"),
+    getInvoiceNumber,
+    postInvoiceNumber("ABC1234567890"),
     getWhatIsTheInvoiceDate,
     postWhatIsTheInvoiceDate("08", "12", "2025"),
     getWhatIsTheSuppliersName,
@@ -262,11 +275,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getBeforeYouStart,
     postBeforeYouStart,
     getPurchaseType,
-    postPurchaseType("fuel"),
+    postPurchaseType("other"),
+    getPurchaseTypeOther,
+    postPurchaseTypeOther("10.99"),
     getInvoiceItemDescription,
     postInvoiceItemDescription("Test item description"),
     getWhatTypeOfInvoiceDoYouHave,
-    postWhatTypeOfInvoiceDoYouHave("standard invoice"),
+    postWhatTypeOfInvoiceDoYouHave("simplified invoice"),
     getWhatIsTheInvoiceNumber,
     postWhatIsTheInvoiceNumber("ABC1234567890"),
     getWhatIsTheInvoiceDate,

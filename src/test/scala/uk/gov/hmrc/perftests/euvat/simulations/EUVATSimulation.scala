@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.perftests.euvat
+package uk.gov.hmrc.perftests.euvat.simulations
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.simulations._
 
 class EUVATSimulation extends PerformanceTestRunner with AuthSimulation with ManageSimulation with NewClaimSimulation {
 

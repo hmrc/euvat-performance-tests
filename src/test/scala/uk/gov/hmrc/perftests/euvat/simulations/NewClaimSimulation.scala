@@ -30,6 +30,7 @@ trait NewClaimSimulation {
     "claim-details-germany",
     "Claim details for Germany"
   ) withRequests (ClaimDetailsRequests.AddClaimDetailsJourneyForGermany: _*)
+
   setup(
     "purchase-details-germany",
     "Purchase details for Germany"

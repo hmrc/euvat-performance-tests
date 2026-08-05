@@ -309,6 +309,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postCheckVatAmount,
     getCheckVatClaim,
     postCheckVatClaim,
+    getTotalVatClaim,
     postTotalVatClaim("100")
   )
 

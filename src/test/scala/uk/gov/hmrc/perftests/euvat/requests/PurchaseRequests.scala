@@ -269,7 +269,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .check(status.is(303))
 
   val getCheckVatClaim: HttpRequestBuilder =
-    http("[get ] Check VAT claim page")
+    http("[get] Check VAT claim page")
       .get(euvatFilingFrontendUrl + "/check-vat-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
@@ -307,10 +307,10 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postTotalVatPaid("1200"),
     getCheckVatAmount,
     postCheckVatAmount,
-    getCheckVatClaim,
-    postCheckVatClaim,
     getTotalVatClaim,
-    postTotalVatClaim("100")
+    postTotalVatClaim("1400"),
+    getCheckVatClaim,
+    postCheckVatClaim
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(

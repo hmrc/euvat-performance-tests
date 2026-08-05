@@ -48,6 +48,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getLuxuryEntertainmentOrHospitalityCost: HttpRequestBuilder =
+    http("[get ] What is the type of luxury entertainment or hospitality cost? page")
+      .get(euvatFilingFrontendUrl + "/luxury-entertainment-hospitality-cost")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postLuxuryEntertainmentOrHospitalityCost(option: String): HttpRequestBuilder =
+    http("[post] What is the type of luxury entertainment or hospitality cost? page")
+      .post(euvatFilingFrontendUrl + "/luxury-entertainment-hospitality-cost")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getPurchaseTypeOther: HttpRequestBuilder =
     http("[get ] Purchase type other page")
       .get(euvatFilingFrontendUrl + "/purchase-type-other")
@@ -71,6 +84,32 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     http("[post] Describe the items on your invoice page")
       .post(euvatFilingFrontendUrl + "/describe-items-on-invoice")
       .formParam("value", itemDescription)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatTypeOfInvoiceDoYouHave: HttpRequestBuilder =
+    http("[get ] What type of invoice do you have page")
+      .get(euvatFilingFrontendUrl + "/invoice-type")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatTypeOfInvoiceDoYouHave(option: String): HttpRequestBuilder =
+    http("[post] What type of invoice do you have page")
+      .post(euvatFilingFrontendUrl + "/invoice-type")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getWhatIsTheInvoiceNumber: HttpRequestBuilder =
+    http("[get ] What is the invoice number page")
+      .get(euvatFilingFrontendUrl + "/invoice-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatIsTheInvoiceNumber(invoiceNumber: String): HttpRequestBuilder =
+    http("[post] What is the invoice number page")
+      .post(euvatFilingFrontendUrl + "/invoice-number")
+      .formParam("value", invoiceNumber)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -129,32 +168,6 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     http("[post] Select the supplier tax numbers shown on the invoice page")
       .post(euvatFilingFrontendUrl + "/supplier-tax-numbers")
       .formParam("value", suppliersTaxNumber)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatTypeOfInvoiceDoYouHave: HttpRequestBuilder =
-    http("[get ] What type of invoice do you have page")
-      .get(euvatFilingFrontendUrl + "/invoice-type")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatTypeOfInvoiceDoYouHave(option: String): HttpRequestBuilder =
-    http("[post] What type of invoice do you have page")
-      .post(euvatFilingFrontendUrl + "/invoice-type")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getWhatIsTheInvoiceNumber: HttpRequestBuilder =
-    http("[get ] What is the invoice number page")
-      .get(euvatFilingFrontendUrl + "/invoice-number")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhatIsTheInvoiceNumber(invoiceNumber: String): HttpRequestBuilder =
-    http("[post] What is the invoice number page")
-      .post(euvatFilingFrontendUrl + "/invoice-number")
-      .formParam("value", invoiceNumber)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -247,12 +260,12 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postBeforeYouStart,
     getPurchaseType,
     postPurchaseType("luxuries"),
-    getWhatIsTheTypeOfLuxuryEntertainmentOrHospitalityCost, /luxury-entertainment-hospitality-cost
-    postWhatIsTheTypeOfLuxuryEntertainmentOrHospitalityCost("9.3"),
-    getInvoiceType,
-    postInvoiceType("standard invoice"),
-    getInvoiceNumber,
-    postInvoiceNumber("ABC1234567890"),
+    getLuxuryEntertainmentOrHospitalityCost,
+    postLuxuryEntertainmentOrHospitalityCost("9.3"),
+    getWhatTypeOfInvoiceDoYouHave,
+    postWhatTypeOfInvoiceDoYouHave("standard invoice"),
+    getWhatIsTheInvoiceNumber,
+    postWhatIsTheInvoiceNumber("ABC1234567890"),
     getWhatIsTheInvoiceDate,
     postWhatIsTheInvoiceDate("08", "12", "2025"),
     getWhatIsTheSuppliersName,

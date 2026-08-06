@@ -242,6 +242,18 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckVatAmount: HttpRequestBuilder =
+    http("[get ] Check VAT amount page")
+      .get(euvatFilingFrontendUrl + "/check-vat-amount")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postCheckVatAmount: HttpRequestBuilder =
+    http("[post] Check VAT amount page")
+      .post(euvatFilingFrontendUrl + "/check-vat-amount")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getTotalVatClaim: HttpRequestBuilder =
     http("[get ] Total VAT claim page")
       .get(euvatFilingFrontendUrl + "/total-vat-claim")
@@ -252,6 +264,18 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     http("[post] Total VAT claim page")
       .post(euvatFilingFrontendUrl + "/total-vat-claim")
       .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getCheckVatClaim: HttpRequestBuilder =
+    http("[get] Check VAT claim page")
+      .get(euvatFilingFrontendUrl + "/check-vat-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postCheckVatClaim: HttpRequestBuilder =
+    http("[post] Check VAT amount page")
+      .post(euvatFilingFrontendUrl + "/check-vat-claim")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -279,9 +303,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getTotalPurchaseAmount,
     postTotalPurchaseAmount("1000"),
     getTotalVatPaid,
-    postTotalVatPaid("300"),
+    postTotalVatPaid("1200"),
+    getCheckVatAmount,
+    postCheckVatAmount,
     getTotalVatClaim,
-    postTotalVatClaim("100")
+    postTotalVatClaim("1400"),
+    getCheckVatClaim,
+    postCheckVatClaim
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(

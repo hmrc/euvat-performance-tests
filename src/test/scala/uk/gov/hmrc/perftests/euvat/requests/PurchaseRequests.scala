@@ -274,7 +274,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postCheckVatClaim: HttpRequestBuilder =
-    http("[post] Check VAT amount page")
+    http("[post] Check VAT claim page")
       .post(euvatFilingFrontendUrl + "/check-vat-claim")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

@@ -80,32 +80,6 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
-    http("[get ] Which currency do you want to use for this claim? page")
-      .get(euvatFilingFrontendUrl + "/which-currency")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] Which currency do you want to use for this claim? page")
-      .post(euvatFilingFrontendUrl + "/which-currency")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getChangeWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
-    http("[get ] Which currency do you want to use for this claim? page")
-      .get(euvatFilingFrontendUrl + "/change-which-currency")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postChangeWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
-    http("[post] Which currency do you want to use for this claim? page")
-      .post(euvatFilingFrontendUrl + "/change-which-currency")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
   val getRefundPeriod: HttpRequestBuilder =
     http("[get ] Refund Period page")
       .get(euvatFilingFrontendUrl + "/refund-period")
@@ -352,20 +326,12 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("EE"),
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
     postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
-    getChangeWhichCurrencyDoYouWantToUseForThisClaim,
-    postChangeWhichCurrencyDoYouWantToUseForThisClaim("euro"),
     getChangeRefundPeriod,
     postChangeRefundPeriod("05", "2025", "07", "2025"),
     getCheckYourClaimDetails,
 //      Change language
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
     postChangeWhichLanguageDoYouWantToUseForThisClaim("estonian"),
-    getChangeWhichCurrencyDoYouWantToUseForThisClaim,
-    postChangeWhichCurrencyDoYouWantToUseForThisClaim("estonianKroon"),
-    getCheckYourClaimDetails,
-//      Change currency
-    getChangeWhichCurrencyDoYouWantToUseForThisClaim,
-    postChangeWhichCurrencyDoYouWantToUseForThisClaim("euro"),
     getCheckYourClaimDetails,
 //      Change refund period
     getChangeRefundPeriod,

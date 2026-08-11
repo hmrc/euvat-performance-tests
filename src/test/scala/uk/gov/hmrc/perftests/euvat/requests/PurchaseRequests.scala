@@ -216,6 +216,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Which currency do you want to use for this claim? page")
+      .get(euvatFilingFrontendUrl + "/which-currency")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Which currency do you want to use for this claim? page")
+      .post(euvatFilingFrontendUrl + "/which-currency")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getTotalPurchaseAmount: HttpRequestBuilder =
     http("[get ] Total purchase amount before VAT page")
       .get(euvatFilingFrontendUrl + "/total-purchase-amount-before-vat")
@@ -300,6 +313,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postAddVATRegistration("true"),
     getVATRegistrationNumber,
     postVATRegistrationNumber("AB1234567890"),
+    getWhichCurrencyDoYouWantToUseForThisClaim,
+    postWhichCurrencyDoYouWantToUseForThisClaim("estonianKroon"),
     getTotalPurchaseAmount,
     postTotalPurchaseAmount("1000"),
     getTotalVatPaid,

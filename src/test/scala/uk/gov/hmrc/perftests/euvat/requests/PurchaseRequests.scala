@@ -87,6 +87,18 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckPurchaseDetails: HttpRequestBuilder =
+    http("[get] Check purchase details page")
+      .get(euvatFilingFrontendUrl + "/check-purchase-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckPurchaseDetails: HttpRequestBuilder =
+    http("[post] Check purchase details page")
+      .post(euvatFilingFrontendUrl + "/check-purchase-details")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhatTypeOfInvoiceDoYouHave: HttpRequestBuilder =
     http("[get ] What type of invoice do you have page")
       .get(euvatFilingFrontendUrl + "/invoice-type")
@@ -261,7 +273,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postCheckVatAmount: HttpRequestBuilder =
+  val postCheckVatAmount: HttpRequestBuilder =
     http("[post] Check VAT amount page")
       .post(euvatFilingFrontendUrl + "/check-vat-amount")
       .formParam("csrfToken", f"#{csrfToken}")
@@ -286,7 +298,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postCheckVatClaim: HttpRequestBuilder =
+  val postCheckVatClaim: HttpRequestBuilder =
     http("[post] Check VAT claim page")
       .post(euvatFilingFrontendUrl + "/check-vat-claim")
       .formParam("csrfToken", f"#{csrfToken}")
@@ -335,7 +347,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getPurchaseTypeOther,
     postPurchaseTypeOther("10.99"),
     getInvoiceItemDescription,
-    postInvoiceItemDescription("Test item description"),
+    postInvoiceItemDescription(""),
+    getCheckPurchaseDetails,
+    postCheckPurchaseDetails,
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("simplified invoice"),
     getWhatIsTheInvoiceNumber,

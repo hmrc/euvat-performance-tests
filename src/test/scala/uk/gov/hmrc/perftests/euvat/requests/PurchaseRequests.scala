@@ -351,7 +351,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("simplified invoice"),
     getWhatIsTheInvoiceNumber,
-    postWhatIsTheInvoiceNumber("ABC1234567890"),
+    postWhatIsTheInvoiceNumber("INV-1"),
     getWhatIsTheInvoiceDate,
     postWhatIsTheInvoiceDate("08", "12", "2025"),
     getWhatIsTheSuppliersName,
@@ -361,7 +361,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getSuppliersTaxNumbers,
     postSuppliersTaxNumbers("taxIdentifierNumber"),
     getWhatIsTheSuppliersTaxID,
-    postWhatIsTheSuppliersTaxID("12/345/67890"),
+    postWhatIsTheSuppliersTaxID("TID-1"),
     getCheckSuppliersTaxID,
     postCheckSuppliersTaxID()
   )

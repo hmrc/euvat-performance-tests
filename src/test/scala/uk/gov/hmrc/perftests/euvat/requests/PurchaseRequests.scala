@@ -170,6 +170,18 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckSuppliersTaxID: HttpRequestBuilder =
+    http("[get ] Are you sure the supplier’s tax identifier number is correct?")
+      .get(euvatFilingFrontendUrl + "/check-supplier-tax-identifier-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postCheckSuppliersTaxID(): HttpRequestBuilder =
+    http("[post] Are you sure the supplier’s tax identifier number is correct?")
+      .post(euvatFilingFrontendUrl + "/check-supplier-tax-identifier-number")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getSuppliersTaxNumbers: HttpRequestBuilder =
     http("[get ] Select the supplier tax numbers shown on the invoice page")
       .get(euvatFilingFrontendUrl + "/supplier-tax-numbers")
@@ -353,7 +365,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("simplified invoice"),
     getWhatIsTheInvoiceNumber,
-    postWhatIsTheInvoiceNumber("ABC1234567890"),
+    postWhatIsTheInvoiceNumber("INV-1"),
     getWhatIsTheInvoiceDate,
     postWhatIsTheInvoiceDate("08", "12", "2025"),
     getWhatIsTheSuppliersName,
@@ -363,7 +375,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getSuppliersTaxNumbers,
     postSuppliersTaxNumbers("taxIdentifierNumber"),
     getWhatIsTheSuppliersTaxID,
-    postWhatIsTheSuppliersTaxID("12/345/67890")
+    postWhatIsTheSuppliersTaxID("TID-1"),
+    getCheckSuppliersTaxID,
+    postCheckSuppliersTaxID()
   )
 
 }

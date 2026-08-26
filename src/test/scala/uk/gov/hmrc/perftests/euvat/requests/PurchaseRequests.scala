@@ -327,13 +327,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getCheckSuppliersTaxID: HttpRequestBuilder =
+  val getCheckSupplierTaxID: HttpRequestBuilder =
     http("[get ] Are you sure the supplier’s tax identifier number is correct?")
       .get(euvatFilingFrontendUrl + "/check-supplier-tax-identifier-number")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postCheckSuppliersTaxID(): HttpRequestBuilder =
+  val postCheckSupplierTaxID: HttpRequestBuilder =
     http("[post] Are you sure the supplier’s tax identifier number is correct?")
       .post(euvatFilingFrontendUrl + "/check-supplier-tax-identifier-number")
       .formParam("csrfToken", f"#{csrfToken}")
@@ -414,6 +414,18 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     http("[post] Change What is the supplier’s VAT registration number? page")
       .post(euvatFilingFrontendUrl + "/change-what-supplier-vat-registration-number")
       .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getCheckSupplierVRN: HttpRequestBuilder =
+    http("[get ] Are you sure the supplier’s VAT registration number is correct?")
+      .get(euvatFilingFrontendUrl + "/check-supplier-vat-registration-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckSupplierVRN: HttpRequestBuilder =
+    http("[post] Are you sure the supplier’s VAT registration number is correct?")
+      .post(euvatFilingFrontendUrl + "/check-supplier-vat-registration-number")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -593,7 +605,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getWhatTypeOfInvoiceDoYouHave,
     postWhatTypeOfInvoiceDoYouHave("standard invoice"),
     getWhatIsTheInvoiceNumber,
-    postWhatIsTheInvoiceNumber("HR123456789"),
+    postWhatIsTheInvoiceNumber("DUP"),
     getWhatIsTheInvoiceDate,
     postWhatIsTheInvoiceDate("08", "12", "2025"),
     getWhatIsTheSuppliersName,
@@ -601,7 +613,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getWhatIsTheSuppliersAddress,
     postWhatIsTheSuppliersAddress("Test Address Line 1", "Test Address Line 2", "Test Address Line 3"),
     getVATRegistrationNumber,
-    postVATRegistrationNumber("AB1234567890"),
+    postVATRegistrationNumber("EE0000000111"),
+    getCheckSupplierVRN,
+    postCheckSupplierVRN,
     getWhichCurrencyDoYouWantToUseForThisClaim,
     postWhichCurrencyDoYouWantToUseForThisClaim("euro"),
     getTotalPurchaseAmount,
@@ -614,6 +628,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postTotalVatClaim("100.01"),
     getCheckVatClaim,
     postCheckVatClaim,
+//    Change purchase details
     getCheckYourPurchaseDetails,
     getChangePurchaseType,
     postChangePurchaseType("luxuries"),
@@ -681,14 +696,15 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postSuppliersTaxNumbers("taxIdentifierNumber"),
     getWhatIsTheSuppliersTaxID,
     postWhatIsTheSuppliersTaxID("TID-1"),
-    getCheckSuppliersTaxID,
-    postCheckSuppliersTaxID(),
+    getCheckSupplierTaxID,
+    postCheckSupplierTaxID,
     getTotalPurchaseAmount,
     postTotalPurchaseAmount("1000.99"),
     getTotalVatPaid,
     postTotalVatPaid("200.99"),
     getTotalVatClaim,
     postTotalVatClaim("100.99"),
+//    Change purchase details
     getCheckYourPurchaseDetails,
     getChangeWhatIsTheSuppliersTaxID,
     postChangeWhatIsTheSuppliersTaxID("TID-1"),

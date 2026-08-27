@@ -30,12 +30,13 @@ trait NewClaimSimulation {
     "claim-details-germany",
     "Claim details for Germany"
   ) withRequests (ClaimDetailsRequests.AddClaimDetailsJourneyForGermany: _*)
-
   setup(
     "purchase-details-germany",
     "Purchase details for Germany"
   ) withRequests (PurchaseRequests.AddPurchaseJourneyForGermany: _*)
 
-  setup("delete-claim", "Delete claim") withRequests (ClaimDetailsRequests.DeleteClaim: _*)
+  setup("delete-claim-details", "Delete claim details") withRequests (ClaimDetailsRequests.DeleteClaimDetails: _*)
+
+  setup("delete-draft-claim", "Delete draft claim") withRequests (ClaimDetailsRequests.DeleteDraftClaim: _*)
 
 }

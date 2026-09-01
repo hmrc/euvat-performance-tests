@@ -298,14 +298,27 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val getDeleteEUMemberState: HttpRequestBuilder =
-    http("[get ] Delete EU member state details")
+    http("[get ] Delete EU member state details page")
       .get(euvatFilingFrontendUrl + "/eu-member-state-details")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postDeleteEUMemberState(option: String): HttpRequestBuilder =
-    http("[post] Delete EU member state details")
+    http("[post] Delete EU member state details page")
       .post(euvatFilingFrontendUrl + "/eu-member-state-details")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getDeleteClaim: HttpRequestBuilder =
+    http("[get ] Delete claim page")
+      .get(euvatFilingFrontendUrl + "/delete-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postDeleteClaim(option: String): HttpRequestBuilder =
+    http("[post] Delete claim page")
+      .post(euvatFilingFrontendUrl + "/delete-claim")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -396,7 +409,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getMakeANewEUVATClaimPage
   )
 
-  val DeleteClaim: List[HttpRequestBuilder] = List(
+  val DeleteClaimDetails: List[HttpRequestBuilder] = List(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("FR"),
@@ -414,5 +427,22 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getClaimDetails,
     getDeleteEUMemberState,
     postDeleteEUMemberState("true")
+  )
+
+  val DeleteDraftClaim: List[HttpRequestBuilder] = List(
+    getMakeANewEUVATClaimPage,
+    getWhichEUMemberStateAreYouClaimingBackVATFrom,
+    postWhichEUMemberStateAreYouClaimingBackVATFrom("HR"),
+    getRefundPeriod,
+    postRefundPeriod("02", "2025", "04", "2025"),
+    getHowShouldWeContactYouAboutThisClaim,
+    postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
+    getBusinessActivityOne,
+    postBusinessActivityOne("false"),
+    getCheckYourClaimDetails,
+    postCheckYourClaimDetails,
+    getMakeANewEUVATClaimPage,
+    getDeleteClaim,
+    postDeleteClaim("true")
   )
 }

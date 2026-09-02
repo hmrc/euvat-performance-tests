@@ -656,6 +656,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getCheckYourPurchaseDetails,
     getChangeCurrency,
     postChangeCurrency("estonianKroon"),
+    getTotalPurchaseAmount,
+    postTotalPurchaseAmount("1000.01"),
     getCheckYourPurchaseDetails,
     getChangeTotalPurchaseAmount,
     postChangeTotalPurchaseAmount("300.99"),

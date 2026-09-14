@@ -690,8 +690,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getChangeCheckVatClaim,
     postChangeCheckVatClaim,
     getCheckYourPurchaseDetails,
-    postCheckYourPurchaseDetails,
-    getMakeANewEUVATClaimPage
+    postCheckYourPurchaseDetails
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(
@@ -739,8 +738,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getVATRegistrationNumber,
     postVATRegistrationNumber("1234567890"),
     getCheckYourPurchaseDetails,
-    postCheckYourPurchaseDetails,
-    getMakeANewEUVATClaimPage
+    postCheckYourPurchaseDetails
   )
 
 }

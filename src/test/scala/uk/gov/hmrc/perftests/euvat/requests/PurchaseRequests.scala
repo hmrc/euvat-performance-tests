@@ -606,7 +606,6 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-
   val AddPurchaseJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStart,
     postBeforeYouStart,
@@ -638,12 +637,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postTotalPurchaseAmount("1000.01"),
     getTotalVatPaid,
     postTotalVatPaid("200.01"),
-    getCheckVatAmount,
-    postCheckVatAmount,
     getTotalVatClaim,
     postTotalVatClaim("100.01"),
-    getCheckVatClaim,
-    postCheckVatClaim,
 //    Change purchase details
     getCheckYourPurchaseDetails,
     getChangePurchaseType,

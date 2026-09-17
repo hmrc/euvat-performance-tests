@@ -61,19 +61,6 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getImportType: HttpRequestBuilder =
-    http("[get ] Import type page")
-      .get(euvatFilingFrontendUrl + "/import/import-type")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postImportType(option: String): HttpRequestBuilder =
-    http("[post] Import type page")
-      .post(euvatFilingFrontendUrl + "/import/import-type")
-      .formParam("value", option)
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
   val getChangePurchaseType: HttpRequestBuilder =
     http("[get ] Change Purchase type page")
       .get(euvatFilingFrontendUrl + "/purchase/change-purchase-type")
@@ -743,15 +730,6 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postVATRegistrationNumber("1234567890"),
     getCheckYourPurchaseDetails,
     postCheckYourPurchaseDetails
-  )
-
-  val AddImportJourney: List[HttpRequestBuilder] = List(
-    getBeforeYouStart,
-    postBeforeYouStart,
-    getAddPurchaseImport,
-    postAddPurchaseImport("import"),
-    getImportType,
-    postImportType("foodAndDrink")
   )
 
 }

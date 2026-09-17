@@ -63,13 +63,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getImportType: HttpRequestBuilder =
     http("[get ] Import type page")
-      .get(euvatFilingFrontendUrl + "/import-type")
+      .get(euvatFilingFrontendUrl + "/import/import-type")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postImportType(option: String): HttpRequestBuilder =
     http("[post] Import type page")
-      .post(euvatFilingFrontendUrl + "/import-type")
+      .post(euvatFilingFrontendUrl + "/import/import-type")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

@@ -17,8 +17,7 @@
 package uk.gov.hmrc.perftests.euvat.simulations
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.requests.ClaimDetailsRequests
-import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests
+import uk.gov.hmrc.perftests.euvat.requests.{ClaimDetailsRequests, ImportRequests, PurchaseRequests}
 
 trait NewClaimSimulation {
   this: PerformanceTestRunner =>
@@ -40,6 +39,10 @@ trait NewClaimSimulation {
   setup("delete-draft-claim", "Delete draft claim") withRequests (ClaimDetailsRequests.DeleteDraftClaim: _*)
 
   setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
-  setup("import-details", "Import details") withRequests (PurchaseRequests.AddImportJourney: _*)
+  setup("import-details", "Import details") withRequests (ImportRequests.AddImportJourney: _*)
+  setup(
+    "import-details-germany",
+    "Import details for germany"
+  ) withRequests (ImportRequests.AddImportJourneyGermany: _*)
 
 }

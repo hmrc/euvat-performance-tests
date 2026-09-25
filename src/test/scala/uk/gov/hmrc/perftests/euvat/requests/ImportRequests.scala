@@ -50,6 +50,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getImportSubCategoryFood: HttpRequestBuilder =
+    http("[get ] Who is the food and drink for? page")
+      .get(euvatFilingFrontendUrl + "/import/cost-for-publicity-purposes")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postImportSubCategoryFood(option: String): HttpRequestBuilder =
+    http("[post] Who is the food and drink for? page")
+      .post(euvatFilingFrontendUrl + "/import/cost-for-publicity-purposes")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getImportTypeOther: HttpRequestBuilder =
     http("[get ] Import type other page")
       .get(euvatFilingFrontendUrl + "/import/import-type-other")
@@ -83,6 +96,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postImportType("foodAndDrink"),
     getImportFoodType,
     postImportFoodType("7.1"),
+    getImportSubCategoryFood,
+    postImportSubCategoryFood("7.1.2"),
     getAddSADRefNumber,
     postAddSADRefNumber("true")
   )

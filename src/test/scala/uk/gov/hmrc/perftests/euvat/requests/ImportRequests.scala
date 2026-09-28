@@ -97,7 +97,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportFoodType,
     postImportFoodType("7.1"),
     getAddSADRefNumber,
-    postAddSADRefNumber("true")
+    postAddSADRefNumber("true"),
+    getWhatIsTheSADReferenceNumber,
+    postWhatIsTheSADReferenceNumber("98765")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -108,9 +110,7 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportTypeOther,
     postImportTypeOther("10.99"),
     getAddSADRefNumber,
-    postAddSADRefNumber("false"),
-    getWhatIsTheSADReferenceNumber,
-    postWhatIsTheSADReferenceNumber("98765")
+    postAddSADRefNumber("false")
   )
 
 }

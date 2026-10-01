@@ -17,14 +17,14 @@
 package uk.gov.hmrc.perftests.euvat.simulations
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.requests.ClaimDetailsRequests
-import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests
+import uk.gov.hmrc.perftests.euvat.requests.{ClaimDetailsRequests, ImportRequests, PurchaseRequests}
 
 trait NewClaimSimulation {
   this: PerformanceTestRunner =>
 
   setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
   setup("purchase-details", "Purchase details") withRequests (PurchaseRequests.AddPurchaseJourney: _*)
+  setup("import-details", "Import details") withRequests (ImportRequests.AddImportJourney: _*)
 
   setup(
     "claim-details-germany",
@@ -34,9 +34,15 @@ trait NewClaimSimulation {
     "purchase-details-germany",
     "Purchase details for Germany"
   ) withRequests (PurchaseRequests.AddPurchaseJourneyForGermany: _*)
+  setup(
+    "import-details-germany",
+    "Import details for Germany"
+  ) withRequests (ImportRequests.AddImportJourneyGermany: _*)
 
   setup("delete-claim-details", "Delete claim details") withRequests (ClaimDetailsRequests.DeleteClaimDetails: _*)
-
   setup("delete-draft-claim", "Delete draft claim") withRequests (ClaimDetailsRequests.DeleteDraftClaim: _*)
+
+  setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
+  setup("import-details", "Import details") withRequests (PurchaseRequests.AddImportJourney: _*)
 
 }

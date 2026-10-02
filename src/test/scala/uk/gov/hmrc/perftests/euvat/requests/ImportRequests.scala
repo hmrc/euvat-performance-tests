@@ -109,7 +109,7 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postSubmitImportDocumentDetails(option: String): HttpRequestBuilder =
+  def postImportDocumentDetails(option: String): HttpRequestBuilder =
     http("[post] SAD Reference number page")
       .post(euvatFilingFrontendUrl + "/import/import-document-details")
       .formParam("value", option)
@@ -141,7 +141,7 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getAddSADRefNumber,
     postAddSADRefNumber("false"),
     getImportDocumentDetails,
-    postSubmitImportDocumentDetails("Test Import Document Details")
+    postImportDocumentDetails("Test Import Document Details")
   )
 
 }

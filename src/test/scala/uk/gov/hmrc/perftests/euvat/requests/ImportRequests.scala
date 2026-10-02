@@ -104,13 +104,13 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .check(status.is(303))
 
   val getImportDocumentDetails: HttpRequestBuilder =
-    http("[get ] SAD Reference number page")
+    http("[get ] Import document details page")
       .get(euvatFilingFrontendUrl + "/import/import-document-details")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postImportDocumentDetails(option: String): HttpRequestBuilder =
-    http("[post] SAD Reference number page")
+    http("[post] Import document details page")
       .post(euvatFilingFrontendUrl + "/import/import-document-details")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")

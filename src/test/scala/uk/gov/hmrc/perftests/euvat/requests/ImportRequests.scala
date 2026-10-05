@@ -116,6 +116,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhatCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
+    http("[get ] Which currency do you want to use for this import page")
+      .get(euvatFilingFrontendUrl + "/import/currency")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhatCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+    http("[post] Which currency do you want to use for this import page")
+      .post(euvatFilingFrontendUrl + "/import/currency")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -128,7 +141,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getAddSADRefNumber,
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
-    postWhatIsTheSADReferenceNumber("98765")
+    postWhatIsTheSADReferenceNumber("98765"),
+    getWhatCurrencyDoYouWantToUseForThisClaim,
+    postWhatCurrencyDoYouWantToUseForThisClaim("euro")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(

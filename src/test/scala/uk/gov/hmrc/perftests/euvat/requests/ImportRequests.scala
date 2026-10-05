@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.postAddSADRefNumber
 import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
@@ -102,6 +103,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getImportDocumentDetails: HttpRequestBuilder =
+    http("[get ] Import document details page")
+      .get(euvatFilingFrontendUrl + "/import/import-document-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postImportDocumentDetails(option: String): HttpRequestBuilder =
+    http("[post] Import document details page")
+      .post(euvatFilingFrontendUrl + "/import/import-document-details")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -125,7 +139,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportTypeOther,
     postImportTypeOther("10.99"),
     getAddSADRefNumber,
-    postAddSADRefNumber("false")
+    postAddSADRefNumber("false"),
+    getImportDocumentDetails,
+    postImportDocumentDetails("Test Import Document Details")
   )
 
 }

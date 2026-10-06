@@ -129,13 +129,26 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getWhatCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
+  val getSupplierName: HttpRequestBuilder =
+    http("[get ] What is the supplier’s name? page")
+      .get(euvatFilingFrontendUrl + "/import/supplier-name")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postSubmitSupplierName(SupplierName: String): HttpRequestBuilder =
+    http("[post] What is the supplier’s name? page")
+      .post(euvatFilingFrontendUrl + "/import/supplier-name")
+      .formParam("value", SupplierName)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getImportCurrency: HttpRequestBuilder =
     http("[get ] Which currency do you want to use for this import page")
       .get(euvatFilingFrontendUrl + "/import/currency")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postWhatCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
+  def postImportCurrency(option: String): HttpRequestBuilder =
     http("[post] Which currency do you want to use for this import page")
       .post(euvatFilingFrontendUrl + "/import/currency")
       .formParam("value", option)
@@ -155,8 +168,10 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
     postWhatIsTheSADReferenceNumber("98765"),
-    getWhatCurrencyDoYouWantToUseForThisClaim,
-    postWhatCurrencyDoYouWantToUseForThisClaim("euro")
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier"),
+    getImportCurrency,
+    postImportCurrency("euro")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -171,7 +186,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getAddSADRefNumber,
     postAddSADRefNumber("false"),
     getImportDocumentDetails,
-    postImportDocumentDetails("Test Import Document Details")
+    postImportDocumentDetails("Test Import Document Details"),
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier")
   )
 
 }

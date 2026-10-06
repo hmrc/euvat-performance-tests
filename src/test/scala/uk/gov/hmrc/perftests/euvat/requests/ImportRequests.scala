@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.postAddSADRefNumber
+import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.{getImportCurrency, postAddSADRefNumber}
 import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{euvatFilingFrontendUrl, getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
@@ -77,6 +77,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getListImportDocumentItems: HttpRequestBuilder =
+    http("[get ] List each item from your import document page")
+      .get(euvatFilingFrontendUrl + "/import/list-items")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postListImportDocumentItems(option: String): HttpRequestBuilder =
+    http("[post] List each item from your import document page")
+      .post(euvatFilingFrontendUrl + "/import/list-items")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getAddSADRefNumber: HttpRequestBuilder =
     http("[get ] SAD Reference number page")
       .get(euvatFilingFrontendUrl + "/import/single-administrative-document-reference-number-available")
@@ -116,6 +129,32 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getSupplierName: HttpRequestBuilder =
+    http("[get ] What is the supplier’s name? page")
+      .get(euvatFilingFrontendUrl + "/import/supplier-name")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postSubmitSupplierName(SupplierName: String): HttpRequestBuilder =
+    http("[post] What is the supplier’s name? page")
+      .post(euvatFilingFrontendUrl + "/import/supplier-name")
+      .formParam("value", SupplierName)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getImportCurrency: HttpRequestBuilder =
+    http("[get ] Which currency do you want to use for this import page")
+      .get(euvatFilingFrontendUrl + "/import/currency")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postImportCurrency(option: String): HttpRequestBuilder =
+    http("[post] Which currency do you want to use for this import page")
+      .post(euvatFilingFrontendUrl + "/import/currency")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getTotalImportAmount: HttpRequestBuilder =
     http("[get ] Total amount without VAT page")
       .get(euvatFilingFrontendUrl + "/import/total-amount-without-vat")
@@ -142,6 +181,10 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
     postWhatIsTheSADReferenceNumber("98765"),
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier"),
+    getImportCurrency,
+    postImportCurrency("euro"),
     getTotalImportAmount,
     postTotalImportAmount("100")
   )
@@ -153,10 +196,16 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postImportType("other"),
     getImportTypeOther,
     postImportTypeOther("10.99"),
+    getListImportDocumentItems,
+    postListImportDocumentItems("Listed Items"),
     getAddSADRefNumber,
     postAddSADRefNumber("false"),
     getImportDocumentDetails,
-    postImportDocumentDetails("Test Import Document Details")
+    postImportDocumentDetails("Test Import Document Details"),
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier"),
+    getTotalImportAmount,
+    postTotalImportAmount("100")
   )
 
 }

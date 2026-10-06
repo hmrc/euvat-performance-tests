@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.postAddSADRefNumber
+import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.{getSupplierName, postAddSADRefNumber}
 import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
@@ -135,10 +135,10 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  def postSubmitSupplierName(SADRefNumber: String): HttpRequestBuilder =
+  def postSubmitSupplierName(SupplierName: String): HttpRequestBuilder =
     http("[post] What is the supplier’s name? page")
       .post(euvatFilingFrontendUrl + "/import/supplier-name")
-      .formParam("value", SADRefNumber)
+      .formParam("value", SupplierName)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -171,7 +171,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getAddSADRefNumber,
     postAddSADRefNumber("false"),
     getImportDocumentDetails,
-    postImportDocumentDetails("Test Import Document Details")
+    postImportDocumentDetails("Test Import Document Details"),
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier")
   )
 
 }

@@ -88,9 +88,9 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postRefundPeriod(
-                        startMonth: String,
-                        endMonth: String
-                      ): HttpRequestBuilder = {
+    startMonth: String,
+    endMonth: String
+  ): HttpRequestBuilder = {
     val currentYear: String = Year.now().getValue.toString
 
     http("[post] Refund Period page")

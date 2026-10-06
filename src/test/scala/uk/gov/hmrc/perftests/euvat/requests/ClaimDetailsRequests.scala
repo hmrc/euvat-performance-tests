@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import java.time.Year
 
 object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -87,19 +88,20 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postRefundPeriod(
-    startMonth: String,
-    startYear: String,
-    endMonth: String,
-    endYear: String
-  ): HttpRequestBuilder =
+                        startMonth: String,
+                        endMonth: String
+                      ): HttpRequestBuilder = {
+    val currentYear: String = Year.now().getValue.toString
+
     http("[post] Refund Period page")
       .post(euvatFilingFrontendUrl + "/refund-period")
       .formParam("start.month", startMonth)
-      .formParam("start.year", startYear)
+      .formParam("start.year", currentYear)
       .formParam("end.month", endMonth)
-      .formParam("end.year", endYear)
+      .formParam("end.year", currentYear)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
+  }
 
   val getChangeRefundPeriod: HttpRequestBuilder =
     http("[get ] Change Refund Period page")
@@ -328,7 +330,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("HR"),
     getRefundPeriod,
-    postRefundPeriod("02", "2025", "04", "2025"),
+    postRefundPeriod("02", "04"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,
@@ -399,7 +401,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getWhichLanguageDoYouWantToUseForThisClaim,
     postWhichLanguageDoYouWantToUseForThisClaim("english"),
     getRefundPeriod,
-    postRefundPeriod("02", "2025", "04", "2025"),
+    postRefundPeriod("02", "04"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,
@@ -416,7 +418,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getWhichLanguageDoYouWantToUseForThisClaim,
     postWhichLanguageDoYouWantToUseForThisClaim("english"),
     getRefundPeriod,
-    postRefundPeriod("02", "2025", "04", "2025"),
+    postRefundPeriod("02", "04"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,
@@ -434,7 +436,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("HR"),
     getRefundPeriod,
-    postRefundPeriod("02", "2025", "04", "2025"),
+    postRefundPeriod("02", "04"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,

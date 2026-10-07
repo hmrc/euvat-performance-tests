@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.getTotalImportVATClaim
 import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
@@ -167,6 +168,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getTotalImportVATClaim: HttpRequestBuilder =
+    http("[get ] Total VAT claim page")
+      .get(euvatFilingFrontendUrl + "/import/total-vat-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postTotalImportVATClaim(option: String): HttpRequestBuilder =
+    http("[post] Total VAT claim page")
+      .post(euvatFilingFrontendUrl + "/import/total-vat-claim")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -185,7 +199,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportCurrency,
     postImportCurrency("euro"),
     getTotalImportAmount,
-    postTotalImportAmount("100")
+    postTotalImportAmount("100"),
+    getTotalImportVATClaim,
+    postTotalImportVATClaim("50")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -204,7 +220,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getSupplierName,
     postSubmitSupplierName("Test Supplier"),
     getTotalImportAmount,
-    postTotalImportAmount("100")
+    postTotalImportAmount("100"),
+    getTotalImportVATClaim,
+    postTotalImportVATClaim("50")
   )
 
 }

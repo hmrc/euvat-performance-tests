@@ -20,7 +20,6 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.ImportRequests.postAddSADRefNumber
 import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
@@ -155,6 +154,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getTotalImportAmount: HttpRequestBuilder =
+    http("[get ] Total amount without VAT page")
+      .get(euvatFilingFrontendUrl + "/import/total-amount-without-vat")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postTotalImportAmount(option: String): HttpRequestBuilder =
+    http("[post] Total amount without VAT page")
+      .post(euvatFilingFrontendUrl + "/import/total-amount-without-vat")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -171,7 +183,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getSupplierName,
     postSubmitSupplierName("Test Supplier"),
     getImportCurrency,
-    postImportCurrency("euro")
+    postImportCurrency("euro"),
+    getTotalImportAmount,
+    postTotalImportAmount("100")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -188,7 +202,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportDocumentDetails,
     postImportDocumentDetails("Test Import Document Details"),
     getSupplierName,
-    postSubmitSupplierName("Test Supplier")
+    postSubmitSupplierName("Test Supplier"),
+    getTotalImportAmount,
+    postTotalImportAmount("100")
   )
 
 }

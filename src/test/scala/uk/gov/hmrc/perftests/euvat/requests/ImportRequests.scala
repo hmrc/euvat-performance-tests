@@ -211,11 +211,11 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportCurrency,
     postImportCurrency("euro"),
     getTotalImportAmount,
-    postTotalImportAmount("100"),
+    postTotalImportAmount("1000.01"),
     getTotalImportVATPaid,
-    postTotalImportVATPaid("90.5"),
+    postTotalImportVATPaid("200.01"),
     getTotalImportVATClaim,
-    postTotalImportVATClaim("50")
+    postTotalImportVATClaim("100.01")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -234,11 +234,11 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getSupplierName,
     postSubmitSupplierName("Test Supplier"),
     getTotalImportAmount,
-    postTotalImportAmount("100"),
+    postTotalImportAmount("1000.99"),
     getTotalImportVATPaid,
-    postTotalImportVATPaid("90.5"),
+    postTotalImportVATPaid("200.99"),
     getTotalImportVATClaim,
-    postTotalImportVATClaim("50")
+    postTotalImportVATClaim("100.99")
   )
 
 }

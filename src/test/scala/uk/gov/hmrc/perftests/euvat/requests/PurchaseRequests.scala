@@ -25,25 +25,25 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getBeforeYouStart: HttpRequestBuilder =
     http("[get ] Before you start page")
-      .get(euvatFilingFrontendUrl + "/before-you-start")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/before-you-start")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBeforeYouStart: HttpRequestBuilder =
     http("[post] Before you start page")
-      .post(euvatFilingFrontendUrl + "/before-you-start")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/before-you-start")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getAddPurchaseImport: HttpRequestBuilder =
     http("[get ] What do you want to add to this claim? page")
-      .get(euvatFilingFrontendUrl + "/purchase-or-import")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/purchase-or-import")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddPurchaseImport(option: String): HttpRequestBuilder =
     http("[post] What do you want to add to this claim? page")
-      .post(euvatFilingFrontendUrl + "/purchase-or-import")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/purchase-or-import")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -63,13 +63,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getImportType: HttpRequestBuilder =
     http("[get ] Import type page")
-      .get(euvatFilingFrontendUrl + "/import-type")
+      .get(euvatFilingFrontendUrl + "/import/import-type")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postImportType(option: String): HttpRequestBuilder =
     http("[post] Import type page")
-      .post(euvatFilingFrontendUrl + "/import-type")
+      .post(euvatFilingFrontendUrl + "/import/import-type")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -167,13 +167,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getCheckPurchaseDetails: HttpRequestBuilder =
     http("[get] Check purchase details page")
-      .get(euvatFilingFrontendUrl + "/check-purchase-details")
+      .get(euvatFilingFrontendUrl + "/purchase/check-your-purchase-details")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckPurchaseDetails: HttpRequestBuilder =
     http("[post] Check purchase details page")
-      .post(euvatFilingFrontendUrl + "/check-purchase-details")
+      .post(euvatFilingFrontendUrl + "/purchase/check-your-purchase-details")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -619,6 +619,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getYourPurchaseImportSummary: HttpRequestBuilder =
+    http("[get ] Check your purchase / import summary page")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/summary")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postYourPurchaseImportSummary(option: String): HttpRequestBuilder =
+    http("[post] Select if user wishes to add another item from the purchase / import summary page")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/summary")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddPurchaseJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStart,
     postBeforeYouStart,
@@ -694,7 +707,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getChangeCheckVatClaim,
     postChangeCheckVatClaim,
     getCheckYourPurchaseDetails,
-    postCheckYourPurchaseDetails
+    postCheckYourPurchaseDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false")
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(
@@ -742,7 +757,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getVATRegistrationNumber,
     postVATRegistrationNumber("1234567890"),
     getCheckYourPurchaseDetails,
-    postCheckYourPurchaseDetails
+    postCheckYourPurchaseDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false")
   )
 
   val AddImportJourney: List[HttpRequestBuilder] = List(

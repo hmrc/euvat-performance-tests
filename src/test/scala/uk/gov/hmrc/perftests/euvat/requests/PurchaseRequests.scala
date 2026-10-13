@@ -25,25 +25,25 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getBeforeYouStart: HttpRequestBuilder =
     http("[get ] Before you start page")
-      .get(euvatFilingFrontendUrl + "/before-you-start")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/before-you-start")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBeforeYouStart: HttpRequestBuilder =
     http("[post] Before you start page")
-      .post(euvatFilingFrontendUrl + "/before-you-start")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/before-you-start")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getAddPurchaseImport: HttpRequestBuilder =
     http("[get ] What do you want to add to this claim? page")
-      .get(euvatFilingFrontendUrl + "/purchase-or-import")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/purchase-or-import")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddPurchaseImport(option: String): HttpRequestBuilder =
     http("[post] What do you want to add to this claim? page")
-      .post(euvatFilingFrontendUrl + "/purchase-or-import")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/purchase-or-import")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

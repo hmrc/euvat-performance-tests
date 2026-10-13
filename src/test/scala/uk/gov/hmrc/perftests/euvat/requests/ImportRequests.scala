@@ -158,7 +158,7 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("addressLine1", addressLine1)
       .formParam("addressLine2", addressLine2)
       .formParam("addressLine3", addressLine3)
-      .formParam("value", country)
+      .formParam("country", country)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -228,6 +228,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getWhatIsTheSADReferenceNumber,
     postWhatIsTheSADReferenceNumber("98765"),
     getSupplierName,
+    getImportSupplierAddress,
+    postImportSupplierAddress("Test Address 1", "", "Address Line 3", "BQ"),
     postSubmitSupplierName("Test Supplier"),
     getImportCurrency,
     postImportCurrency("euro"),
@@ -254,6 +256,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postImportDocumentDetails("Test Import Document Details"),
     getSupplierName,
     postSubmitSupplierName("Test Supplier"),
+    getImportSupplierAddress,
+    postImportSupplierAddress("Address Line 1", "Test Address 2", "ADDRESS Line 3", "VC"),
     getTotalImportAmount,
     postTotalImportAmount("1000.99"),
     getTotalImportVATPaid,

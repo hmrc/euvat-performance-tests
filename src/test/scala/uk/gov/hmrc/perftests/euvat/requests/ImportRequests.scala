@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
+import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{euvatFilingFrontendUrl, getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -128,6 +128,21 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhenIsTheImportDate: HttpRequestBuilder =
+    http("[get ] When is the import date page")
+      .get(euvatFilingFrontendUrl + "/import/import-date")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhenIsTheImportDate(importDay: String, importMonth: String, importYear: String): HttpRequestBuilder =
+    http("[post] When is the import date page")
+      .post(euvatFilingFrontendUrl + "/import/import-date")
+      .formParam("value.day", importDay)
+      .formParam("value.month", importMonth)
+      .formParam("value.year", importYear)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getSupplierName: HttpRequestBuilder =
     http("[get ] What is the supplier’s name? page")
       .get(euvatFilingFrontendUrl + "/import/supplier-name")
@@ -227,6 +242,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
     postWhatIsTheSADReferenceNumber("98765"),
+    getWhenIsTheImportDate,
+    postWhenIsTheImportDate("01", "01", "2026"),
     getSupplierName,
     getImportSupplierAddress,
     postImportSupplierAddress("Test Address 1", "", "Address Line 3", "BQ"),
@@ -258,6 +275,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postSubmitSupplierName("Test Supplier"),
     getImportSupplierAddress,
     postImportSupplierAddress("Address Line 1", "Test Address 2", "ADDRESS Line 3", "VC"),
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier"),
     getTotalImportAmount,
     postTotalImportAmount("1000.99"),
     getTotalImportVATPaid,

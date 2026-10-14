@@ -128,6 +128,21 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getWhenIsTheImportDate: HttpRequestBuilder =
+    http("[get ] When is the import date page")
+      .get(euvatFilingFrontendUrl + "/import/import-date")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postWhenIsTheImportDate(importDay: String, importMonth: String, importYear: String): HttpRequestBuilder =
+    http("[post] When is the import date page")
+      .post(euvatFilingFrontendUrl + "/import/import-date")
+      .formParam("value.day", importDay)
+      .formParam("value.month", importMonth)
+      .formParam("value.year", importYear)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getSupplierName: HttpRequestBuilder =
     http("[get ] What is the supplier’s name? page")
       .get(euvatFilingFrontendUrl + "/import/supplier-name")
@@ -227,10 +242,12 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
     postWhatIsTheSADReferenceNumber("98765"),
+    getWhenIsTheImportDate,
+    postWhenIsTheImportDate("01", "01", "2026"),
     getSupplierName,
+    postSubmitSupplierName("Test Supplier"),
     getImportSupplierAddress,
     postImportSupplierAddress("Test Address 1", "", "Address Line 3", "BQ"),
-    postSubmitSupplierName("Test Supplier"),
     getImportCurrency,
     postImportCurrency("euro"),
     getTotalImportAmount,
@@ -254,6 +271,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postAddSADRefNumber("false"),
     getImportDocumentDetails,
     postImportDocumentDetails("Test Import Document Details"),
+    getWhenIsTheImportDate,
+    postWhenIsTheImportDate("01", "01", "2026"),
     getSupplierName,
     postSubmitSupplierName("Test Supplier"),
     getImportSupplierAddress,

@@ -271,6 +271,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postAddSADRefNumber("false"),
     getImportDocumentDetails,
     postImportDocumentDetails("Test Import Document Details"),
+    getWhenIsTheImportDate,
+    postWhenIsTheImportDate("01", "01", "2026"),
     getSupplierName,
     postSubmitSupplierName("Test Supplier"),
     getImportSupplierAddress,

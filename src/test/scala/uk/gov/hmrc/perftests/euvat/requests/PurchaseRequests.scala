@@ -37,52 +37,52 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getAddPurchaseImport: HttpRequestBuilder =
     http("[get ] What do you want to add to this claim? page")
-      .get(euvatFilingFrontendUrl + "/purchases-imports/purchase-or-import")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/select-item")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddPurchaseImport(option: String): HttpRequestBuilder =
     http("[post] What do you want to add to this claim? page")
-      .post(euvatFilingFrontendUrl + "/purchases-imports/purchase-or-import")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/select-item")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getPurchaseType: HttpRequestBuilder =
     http("[get ] Purchase type page")
-      .get(euvatFilingFrontendUrl + "/purchase/purchase-type")
+      .get(euvatFilingFrontendUrl + "/purchase/category")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postPurchaseType(option: String): HttpRequestBuilder =
     http("[post] Purchase type page")
-      .post(euvatFilingFrontendUrl + "/purchase/purchase-type")
+      .post(euvatFilingFrontendUrl + "/purchase/category")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getImportType: HttpRequestBuilder =
     http("[get ] Import type page")
-      .get(euvatFilingFrontendUrl + "/import-type")
+      .get(euvatFilingFrontendUrl + "/import/category")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postImportType(option: String): HttpRequestBuilder =
     http("[post] Import type page")
-      .post(euvatFilingFrontendUrl + "/import-type")
+      .post(euvatFilingFrontendUrl + "/import/category")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangePurchaseType: HttpRequestBuilder =
     http("[get ] Change Purchase type page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-purchase-type")
+      .get(euvatFilingFrontendUrl + "/purchase/change-category")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangePurchaseType(option: String): HttpRequestBuilder =
     http("[post] Change Purchase type page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-purchase-type")
+      .post(euvatFilingFrontendUrl + "/purchase/change-category")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -141,39 +141,39 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getPurchaseTypeOther: HttpRequestBuilder =
     http("[get ] Purchase type other page")
-      .get(euvatFilingFrontendUrl + "/purchase/purchase-type-other")
+      .get(euvatFilingFrontendUrl + "/purchase/other")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postPurchaseTypeOther(option: String): HttpRequestBuilder =
     http("[post] Purchase type other page")
-      .post(euvatFilingFrontendUrl + "/purchase/purchase-type-other")
+      .post(euvatFilingFrontendUrl + "/purchase/other")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getInvoiceItemDescription: HttpRequestBuilder =
     http("[get ] Describe the items on your invoice page")
-      .get(euvatFilingFrontendUrl + "/purchase/describe-items-on-invoice")
+      .get(euvatFilingFrontendUrl + "/purchase/list-items")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postInvoiceItemDescription(itemDescription: String): HttpRequestBuilder =
     http("[post] Describe the items on your invoice page")
-      .post(euvatFilingFrontendUrl + "/purchase/describe-items-on-invoice")
+      .post(euvatFilingFrontendUrl + "/purchase/list-items")
       .formParam("value", itemDescription)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckPurchaseDetails: HttpRequestBuilder =
     http("[get] Check purchase details page")
-      .get(euvatFilingFrontendUrl + "/check-purchase-details")
+      .get(euvatFilingFrontendUrl + "/purchase/check-your-answers")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckPurchaseDetails: HttpRequestBuilder =
     http("[post] Check purchase details page")
-      .post(euvatFilingFrontendUrl + "/check-purchase-details")
+      .post(euvatFilingFrontendUrl + "/purchase/check-your-answers")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -231,13 +231,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getWhatIsTheInvoiceDate: HttpRequestBuilder =
     http("[get ] What is the invoice date page")
-      .get(euvatFilingFrontendUrl + "/purchase/what-is-the-invoice-date")
+      .get(euvatFilingFrontendUrl + "/purchase/invoice-date")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheInvoiceDate(invoiceDay: String, invoiceMonth: String, invoiceYear: String): HttpRequestBuilder =
     http("[post] What is the invoice date page")
-      .post(euvatFilingFrontendUrl + "/purchase/what-is-the-invoice-date")
+      .post(euvatFilingFrontendUrl + "/purchase/invoice-date")
       .formParam("value.day", invoiceDay)
       .formParam("value.month", invoiceMonth)
       .formParam("value.year", invoiceYear)
@@ -246,7 +246,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getChangeWhatIsTheInvoiceDate: HttpRequestBuilder =
     http("[get ] Change What is the invoice date page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-what-is-the-invoice-date")
+      .get(euvatFilingFrontendUrl + "/purchase/change-invoice-date")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -256,7 +256,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     invoiceYear: String
   ): HttpRequestBuilder =
     http("[post] Change What is the invoice date page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-what-is-the-invoice-date")
+      .post(euvatFilingFrontendUrl + "/purchase/change-invoice-date")
       .formParam("value.day", invoiceDay)
       .formParam("value.month", invoiceMonth)
       .formParam("value.year", invoiceYear)
@@ -265,33 +265,33 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getWhatIsTheSuppliersName: HttpRequestBuilder =
     http("[get ] What is the supplier's name page")
-      .get(euvatFilingFrontendUrl + "/purchase/what-supplier-name")
+      .get(euvatFilingFrontendUrl + "/purchase/supplier-name")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheSuppliersName(supplierName: String): HttpRequestBuilder =
     http("[post] What is the supplier's name page")
-      .post(euvatFilingFrontendUrl + "/purchase/what-supplier-name")
+      .post(euvatFilingFrontendUrl + "/purchase/supplier-name")
       .formParam("value", supplierName)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeWhatIsTheSuppliersName: HttpRequestBuilder =
     http("[get ] Change What is the supplier's name page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-what-supplier-name")
+      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-name")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeWhatIsTheSuppliersName(supplierName: String): HttpRequestBuilder =
     http("[post] Change What is the supplier's name? page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-what-supplier-name")
+      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-name")
       .formParam("value", supplierName)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getWhatIsTheSuppliersAddress: HttpRequestBuilder =
     http("[get ] What is the supplier's address page")
-      .get(euvatFilingFrontendUrl + "/purchase/what-supplier-address")
+      .get(euvatFilingFrontendUrl + "/purchase/supplier-address")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -301,7 +301,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     addressLine3: String
   ): HttpRequestBuilder =
     http("[post] What is the supplier's address page")
-      .post(euvatFilingFrontendUrl + "/purchase/what-supplier-address")
+      .post(euvatFilingFrontendUrl + "/purchase/supplier-address")
       .formParam("addressLine1", addressLine1)
       .formParam("addressLine2", addressLine2)
       .formParam("addressLine3", addressLine3)
@@ -310,7 +310,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getChangeWhatIsTheSuppliersAddress: HttpRequestBuilder =
     http("[get ] Change What is the supplier's address page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-what-supplier-address")
+      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-address")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -320,7 +320,7 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     addressLine3: String
   ): HttpRequestBuilder =
     http("[post] Change What is the supplier's address page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-what-supplier-address")
+      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-address")
       .formParam("addressLine1", addressLine1)
       .formParam("addressLine2", addressLine2)
       .formParam("addressLine3", addressLine3)
@@ -329,293 +329,306 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
 
   val getWhatIsTheSuppliersTaxID: HttpRequestBuilder =
     http("[get ] What is the supplier's tax identifier number page")
-      .get(euvatFilingFrontendUrl + "/purchase/supplier-tax-identifier-number")
+      .get(euvatFilingFrontendUrl + "/purchase/supplier-tax-identifier")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheSuppliersTaxID(option: String): HttpRequestBuilder =
     http("[post] What is the supplier's tax identifier number page")
-      .post(euvatFilingFrontendUrl + "/purchase/supplier-tax-identifier-number")
+      .post(euvatFilingFrontendUrl + "/purchase/supplier-tax-identifier")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeWhatIsTheSuppliersTaxID: HttpRequestBuilder =
     http("[get ] Change What is the supplier's tax identifier number page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-identifier-number")
+      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-identifier")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeWhatIsTheSuppliersTaxID(option: String): HttpRequestBuilder =
     http("[post] Change What is the supplier's tax identifier number page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-identifier-number")
+      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-identifier")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckSupplierTaxID: HttpRequestBuilder =
     http("[get ] Are you sure the supplier’s tax identifier number is correct?")
-      .get(euvatFilingFrontendUrl + "/check-supplier-tax-identifier-number")
+      .get(euvatFilingFrontendUrl + "/warning/supplier-tax-identifier")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckSupplierTaxID: HttpRequestBuilder =
     http("[post] Are you sure the supplier’s tax identifier number is correct?")
-      .post(euvatFilingFrontendUrl + "/check-supplier-tax-identifier-number")
+      .post(euvatFilingFrontendUrl + "/warning/supplier-tax-identifier")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getSuppliersTaxNumbers: HttpRequestBuilder =
     http("[get ] Select the supplier tax numbers shown on the invoice page")
-      .get(euvatFilingFrontendUrl + "/purchase/supplier-tax-numbers")
+      .get(euvatFilingFrontendUrl + "/purchase/supplier-tax-number-check")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postSuppliersTaxNumbers(suppliersTaxNumber: String): HttpRequestBuilder =
     http("[post] Select the supplier tax numbers shown on the invoice page")
-      .post(euvatFilingFrontendUrl + "/purchase/supplier-tax-numbers")
+      .post(euvatFilingFrontendUrl + "/purchase/supplier-tax-number-check")
       .formParam("value", suppliersTaxNumber)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeSuppliersTaxNumbers: HttpRequestBuilder =
     http("[get ] Change Select the supplier tax numbers shown on the invoice page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-numbers")
+      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-number-check")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeSuppliersTaxNumbers(suppliersTaxNumber: String): HttpRequestBuilder =
     http("[post] Change Select the supplier tax numbers shown on the invoice page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-numbers")
+      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-tax-number-check")
       .formParam("value", suppliersTaxNumber)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getAddVATRegistration: HttpRequestBuilder =
     http("[get ] Does the simplified invoice contain the supplier’s VAT registration number? page")
-      .get(euvatFilingFrontendUrl + "/purchase/simplified-invoice-supplier-vat-registration-check")
+      .get(euvatFilingFrontendUrl + "/purchase/supplier-vat-registration-check")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postAddVATRegistration(option: String): HttpRequestBuilder =
     http("[post] Does the simplified invoice contain the supplier’s VAT registration number? page")
-      .post(euvatFilingFrontendUrl + "/purchase/simplified-invoice-supplier-vat-registration-check")
+      .post(euvatFilingFrontendUrl + "/purchase/supplier-vat-registration-check")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeAddVATRegistration: HttpRequestBuilder =
     http("[get ] Change Does the simplified invoice contain the supplier’s VAT registration number? page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-simplified-invoice-supplier-vat-registration-check")
+      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-vat-registration-check")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeAddVATRegistration(option: String): HttpRequestBuilder =
     http("[post] Change Does the simplified invoice contain the supplier’s VAT registration number? page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-simplified-invoice-supplier-vat-registration-check")
+      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-vat-registration-check")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getVATRegistrationNumber: HttpRequestBuilder =
     http("[get ] What is the supplier’s VAT registration number? page")
-      .get(euvatFilingFrontendUrl + "/purchase/what-supplier-vat-registration-number")
+      .get(euvatFilingFrontendUrl + "/purchase/supplier-vat-registration")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postVATRegistrationNumber(option: String): HttpRequestBuilder =
     http("[post] What is the supplier’s VAT registration number? page")
-      .post(euvatFilingFrontendUrl + "/purchase/what-supplier-vat-registration-number")
+      .post(euvatFilingFrontendUrl + "/purchase/supplier-vat-registration")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeVATRegistrationNumber: HttpRequestBuilder =
     http("[get ] Change What is the supplier’s VAT registration number? page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-what-supplier-vat-registration-number")
+      .get(euvatFilingFrontendUrl + "/purchase/change-supplier-vat-registration")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeVATRegistrationNumber(option: String): HttpRequestBuilder =
     http("[post] Change What is the supplier’s VAT registration number? page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-what-supplier-vat-registration-number")
+      .post(euvatFilingFrontendUrl + "/purchase/change-supplier-vat-registration")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckSupplierVRN: HttpRequestBuilder =
     http("[get ] Are you sure the supplier’s VAT registration number is correct?")
-      .get(euvatFilingFrontendUrl + "/check-supplier-vat-registration-number")
+      .get(euvatFilingFrontendUrl + "/warning/supplier-vat-registration")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckSupplierVRN: HttpRequestBuilder =
     http("[post] Are you sure the supplier’s VAT registration number is correct?")
-      .post(euvatFilingFrontendUrl + "/check-supplier-vat-registration-number")
+      .post(euvatFilingFrontendUrl + "/warning/supplier-vat-registration")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getWhichCurrencyDoYouWantToUseForThisClaim: HttpRequestBuilder =
     http("[get ] Which currency do you want to use for this claim? page")
-      .get(euvatFilingFrontendUrl + "/purchase/which-currency")
+      .get(euvatFilingFrontendUrl + "/purchase/currency")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhichCurrencyDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
     http("[post] Which currency do you want to use for this claim? page")
-      .post(euvatFilingFrontendUrl + "/purchase/which-currency")
+      .post(euvatFilingFrontendUrl + "/purchase/currency")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeCurrency: HttpRequestBuilder =
     http("[get ] Change Which currency do you want to use for this claim? page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-which-currency")
+      .get(euvatFilingFrontendUrl + "/purchase/change-currency")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeCurrency(option: String): HttpRequestBuilder =
     http("[post] Change Which currency do you want to use for this claim? page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-which-currency")
+      .post(euvatFilingFrontendUrl + "/purchase/change-currency")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getTotalPurchaseAmount: HttpRequestBuilder =
     http("[get ] Total purchase amount before VAT page")
-      .get(euvatFilingFrontendUrl + "/purchase/total-purchase-amount-before-vat")
+      .get(euvatFilingFrontendUrl + "/purchase/amount-without-vat")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postTotalPurchaseAmount(option: String): HttpRequestBuilder =
     http("[post] Total purchase amount before VAT page")
-      .post(euvatFilingFrontendUrl + "/purchase/total-purchase-amount-before-vat")
+      .post(euvatFilingFrontendUrl + "/purchase/amount-without-vat")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeTotalPurchaseAmount: HttpRequestBuilder =
     http("[get ] Change Total purchase amount before VAT page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-total-purchase-amount-before-vat")
+      .get(euvatFilingFrontendUrl + "/purchase/change-amount-without-vat")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeTotalPurchaseAmount(option: String): HttpRequestBuilder =
     http("[post] Change Total purchase amount before VAT page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-total-purchase-amount-before-vat")
+      .post(euvatFilingFrontendUrl + "/purchase/change-amount-without-vat")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getTotalVatPaid: HttpRequestBuilder =
     http("[get ] Total VAT paid page")
-      .get(euvatFilingFrontendUrl + "/purchase/total-vat-paid")
+      .get(euvatFilingFrontendUrl + "/purchase/vat-paid")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postTotalVatPaid(option: String): HttpRequestBuilder =
     http("[post] Total VAT paid page")
-      .post(euvatFilingFrontendUrl + "/purchase/total-vat-paid")
+      .post(euvatFilingFrontendUrl + "/purchase/vat-paid")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeTotalVatPaid: HttpRequestBuilder =
     http("[get ] Change Total VAT paid page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-total-vat-paid")
+      .get(euvatFilingFrontendUrl + "/purchase/change-vat-paid")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeTotalVatPaid(option: String): HttpRequestBuilder =
     http("[post] Change Total VAT paid page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-total-vat-paid")
+      .post(euvatFilingFrontendUrl + "/purchase/change-vat-paid")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckVatAmount: HttpRequestBuilder =
     http("[get ] Check VAT amount page")
-      .get(euvatFilingFrontendUrl + "/check-vat-amount")
+      .get(euvatFilingFrontendUrl + "/warning/vat-paid")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckVatAmount: HttpRequestBuilder =
     http("[post] Check VAT amount page")
-      .post(euvatFilingFrontendUrl + "/check-vat-amount")
+      .post(euvatFilingFrontendUrl + "/warning/vat-paid")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeCheckVatAmount: HttpRequestBuilder =
     http("[get ] Change Check VAT amount page")
-      .get(euvatFilingFrontendUrl + "/change-check-vat-amount")
+      .get(euvatFilingFrontendUrl + "/warning/change-vat-paid")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postChangeCheckVatAmount: HttpRequestBuilder =
     http("[post] Change Check VAT amount page")
-      .post(euvatFilingFrontendUrl + "/change-check-vat-amount")
+      .post(euvatFilingFrontendUrl + "/warning/change-vat-paid")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getTotalVatClaim: HttpRequestBuilder =
     http("[get ] Total VAT claim page")
-      .get(euvatFilingFrontendUrl + "/purchase/total-vat-claim")
+      .get(euvatFilingFrontendUrl + "/purchase/vat-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postTotalVatClaim(option: String): HttpRequestBuilder =
     http("[post] Total VAT claim page")
-      .post(euvatFilingFrontendUrl + "/purchase/total-vat-claim")
+      .post(euvatFilingFrontendUrl + "/purchase/vat-claim")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeTotalVatClaim: HttpRequestBuilder =
     http("[get ] Change Total VAT claim page")
-      .get(euvatFilingFrontendUrl + "/purchase/change-total-vat-claim")
+      .get(euvatFilingFrontendUrl + "/purchase/change-vat-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeTotalVatClaim(option: String): HttpRequestBuilder =
     http("[post] Change Total VAT claim page")
-      .post(euvatFilingFrontendUrl + "/purchase/change-total-vat-claim")
+      .post(euvatFilingFrontendUrl + "/purchase/change-vat-claim")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckVatClaim: HttpRequestBuilder =
     http("[get ] Check VAT claim page")
-      .get(euvatFilingFrontendUrl + "/check-vat-claim")
+      .get(euvatFilingFrontendUrl + "/warning/vat-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckVatClaim: HttpRequestBuilder =
     http("[post] Check VAT claim page")
-      .post(euvatFilingFrontendUrl + "/check-vat-claim")
+      .post(euvatFilingFrontendUrl + "/warning/vat-claim")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeCheckVatClaim: HttpRequestBuilder =
     http("[get ] Change Check VAT claim page")
-      .get(euvatFilingFrontendUrl + "/change-check-vat-claim")
+      .get(euvatFilingFrontendUrl + "/warning/change-vat-claim")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postChangeCheckVatClaim: HttpRequestBuilder =
     http("[post] Change Check VAT claim page")
-      .post(euvatFilingFrontendUrl + "/change-check-vat-claim")
+      .post(euvatFilingFrontendUrl + "/warning/change-vat-claim")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckYourPurchaseDetails: HttpRequestBuilder =
     http("[get ] Check your purchase details page")
-      .get(euvatFilingFrontendUrl + "/purchase/check-your-purchase-details")
+      .get(euvatFilingFrontendUrl + "/purchase/check-your-answers")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckYourPurchaseDetails: HttpRequestBuilder =
     http("[post] Check your purchase details page")
-      .post(euvatFilingFrontendUrl + "/purchase/check-your-purchase-details")
+      .post(euvatFilingFrontendUrl + "/purchase/check-your-answers")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getYourPurchaseImportSummary: HttpRequestBuilder =
+    http("[get ] Check your purchase / import summary page")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/summary")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postYourPurchaseImportSummary(option: String): HttpRequestBuilder =
+    http("[post] Select if user wishes to add another item from the purchase / import summary page")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/summary")
+      .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -694,7 +707,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getChangeCheckVatClaim,
     postChangeCheckVatClaim,
     getCheckYourPurchaseDetails,
-    postCheckYourPurchaseDetails
+    postCheckYourPurchaseDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false")
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(
@@ -742,7 +757,9 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getVATRegistrationNumber,
     postVATRegistrationNumber("1234567890"),
     getCheckYourPurchaseDetails,
-    postCheckYourPurchaseDetails
+    postCheckYourPurchaseDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false")
   )
 
   val AddImportJourney: List[HttpRequestBuilder] = List(

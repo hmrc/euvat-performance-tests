@@ -31,59 +31,59 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
     http("[get ] Which EU member state are you claiming back VAT from? page")
-      .get(euvatFilingFrontendUrl + "/which-eu-member-state")
+      .get(euvatFilingFrontendUrl + "/claim-details/eu-member-state")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
     http("[post] Which EU member state are you claiming back VAT from? page")
-      .post(euvatFilingFrontendUrl + "/which-eu-member-state")
+      .post(euvatFilingFrontendUrl + "/claim-details/eu-member-state")
       .formParam("value", name)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeWhichEUMemberStateAreYouClaimingBackVATFrom: HttpRequestBuilder =
     http("[get ] Change Which EU member state are you claiming back VAT from? page")
-      .get(euvatFilingFrontendUrl + "/change-which-eu-member-state")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-eu-member-state")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeWhichEUMemberStateAreYouClaimingBackVATFrom(name: String): HttpRequestBuilder =
     http("[post] Change Which EU member state are you claiming back VAT from? page")
-      .post(euvatFilingFrontendUrl + "/change-which-eu-member-state")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-eu-member-state")
       .formParam("value", name)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getWhichLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
     http("[get ] Which language do you want to use for this claim? page")
-      .get(euvatFilingFrontendUrl + "/which-language")
+      .get(euvatFilingFrontendUrl + "/claim-details/language")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhichLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
     http("[post] Which language do you want to use for this claim? page")
-      .post(euvatFilingFrontendUrl + "/which-language")
+      .post(euvatFilingFrontendUrl + "/claim-details/language")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeWhichLanguageDoYouWantToUseForThisClaim: HttpRequestBuilder =
     http("[get ] Change Which language do you want to use for this claim? page")
-      .get(euvatFilingFrontendUrl + "/change-which-language")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-language")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeWhichLanguageDoYouWantToUseForThisClaim(option: String): HttpRequestBuilder =
     http("[post] Change Which language do you want to use for this claim? page")
-      .post(euvatFilingFrontendUrl + "/change-which-language")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-language")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getRefundPeriod: HttpRequestBuilder =
     http("[get ] Refund Period page")
-      .get(euvatFilingFrontendUrl + "/refund-period")
+      .get(euvatFilingFrontendUrl + "/claim-details/refund-period")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -101,7 +101,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     val refundYear = dynamicRefundYear()
 
     http("[post] Refund Period page")
-      .post(euvatFilingFrontendUrl + "/refund-period")
+      .post(euvatFilingFrontendUrl + "/claim-details/refund-period")
       .formParam("start.month", startMonth)
       .formParam("start.year", refundYear)
       .formParam("end.month", endMonth)
@@ -112,7 +112,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getChangeRefundPeriod: HttpRequestBuilder =
     http("[get ] Change Refund Period page")
-      .get(euvatFilingFrontendUrl + "/change-refund-period")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-refund-period")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
@@ -123,24 +123,23 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     val refundYear = dynamicRefundYear()
 
     http("[post] Change Refund Period page")
-      .post(euvatFilingFrontendUrl + "/change-refund-period")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-refund-period")
       .formParam("start.month", startMonth)
       .formParam("start.year", refundYear)
       .formParam("end.month", endMonth)
       .formParam("end.year", refundYear)
       .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
-  }
 
   val getHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
     http("[get ] How should we contact you about this claim? page")
-      .get(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
+      .get(euvatFilingFrontendUrl + "/claim-details/contact-details")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
     http("[post] How should we contact you about this claim? page")
-      .post(euvatFilingFrontendUrl + "/how-contact-you-about-claim")
+      .post(euvatFilingFrontendUrl + "/claim-details/contact-details")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)
       .formParam("csrfToken", f"#{csrfToken}")
@@ -148,13 +147,13 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getChangeHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
     http("[get ] Change How should we contact you about this claim? page")
-      .get(euvatFilingFrontendUrl + "/change-how-contact-you-about-claim")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-contact-details")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeHowShouldWeContactYouAboutThisClaim(email: String, telephone: String): HttpRequestBuilder =
     http("[post] Change How should we contact you about this claim? page")
-      .post(euvatFilingFrontendUrl + "/change-how-contact-you-about-claim")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-contact-details")
       .formParam("contactEmail", email)
       .formParam("contactTelephone", telephone)
       .formParam("csrfToken", f"#{csrfToken}")
@@ -162,142 +161,142 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getBusinessActivityOne: HttpRequestBuilder =
     http("[get ] Business activity (1) for this claim page")
-      .get(euvatFilingFrontendUrl + "/business-activity")
+      .get(euvatFilingFrontendUrl + "/claim-details/business-activity")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postBusinessActivityOne(option: String): HttpRequestBuilder =
     http("[post] Business activity (1) for this claim page")
-      .post(euvatFilingFrontendUrl + "/business-activity")
+      .post(euvatFilingFrontendUrl + "/claim-details/business-activity")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeBusinessActivityOne: HttpRequestBuilder =
     http("[get ] Business activity (1) for this claim page")
-      .get(euvatFilingFrontendUrl + "/change-business-activity")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-business-activity")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeBusinessActivityOne(option: String): HttpRequestBuilder =
     http("[post] Business activity (1) for this claim page")
-      .post(euvatFilingFrontendUrl + "/change-business-activity")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-business-activity")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getWhatIsTheSecondSICCode: HttpRequestBuilder =
     http("[get ] What is the second SIC code? page")
-      .get(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
+      .get(euvatFilingFrontendUrl + "/claim-details/second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheSecondSICCode(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] What is the second SIC code? page")
-      .post(euvatFilingFrontendUrl + "/what-is-the-second-SIC-code")
+      .post(euvatFilingFrontendUrl + "/claim-details/second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeSecondSICCode: HttpRequestBuilder =
     http("[get ] Change What is the second SIC code? page")
-      .get(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeSecondSICCode(businessActivityCode2: String): HttpRequestBuilder =
     http("[post] Change What is the second SIC code? page")
-      .post(euvatFilingFrontendUrl + "/change-what-is-the-second-SIC-code")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-second-SIC-code")
       .formParam("value", businessActivityCode2)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getRemoveSecondSICCode: HttpRequestBuilder =
     http("[get ] Are you sure you want to remove the second SIC code? page")
-      .get(euvatFilingFrontendUrl + "/remove-second-SIC-code")
+      .get(euvatFilingFrontendUrl + "/claim-details/remove-second-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postRemoveSecondSICCode(option: String): HttpRequestBuilder =
     http("[post] Are you sure you want to remove the second SIC code? page")
-      .post(euvatFilingFrontendUrl + "/remove-second-SIC-code")
+      .post(euvatFilingFrontendUrl + "/claim-details/remove-second-SIC-code")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getBusinessActivityTwo: HttpRequestBuilder =
     http("[get ] Business activity (2) for this claim page")
-      .get(euvatFilingFrontendUrl + "/business-activity-2")
+      .get(euvatFilingFrontendUrl + "/claim-details/business-activity-2")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postBusinessActivityTwo(option: String): HttpRequestBuilder =
     http("[post] Business activity (2) for this claim page")
-      .post(euvatFilingFrontendUrl + "/business-activity-2")
+      .post(euvatFilingFrontendUrl + "/claim-details/business-activity-2")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getWhatIsTheThirdSICCode: HttpRequestBuilder =
     http("[get ] What is the third SIC code? page")
-      .get(euvatFilingFrontendUrl + "/what-is-the-third-SIC-code")
+      .get(euvatFilingFrontendUrl + "/claim-details/third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postWhatIsTheThirdSICCode(businessActivityCode3: String): HttpRequestBuilder =
     http("[post] What is the third SIC code? page")
-      .post(euvatFilingFrontendUrl + "/what-is-the-third-SIC-code")
+      .post(euvatFilingFrontendUrl + "/claim-details/third-SIC-code")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getChangeThirdSICCode: HttpRequestBuilder =
     http("[get ] Change What is the third SIC code? page")
-      .get(euvatFilingFrontendUrl + "/change-what-is-the-third-SIC-code")
+      .get(euvatFilingFrontendUrl + "/claim-details/change-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postChangeThirdSICCode(businessActivityCode3: String): HttpRequestBuilder =
     http("[post] Change What is the third SIC code? page")
-      .post(euvatFilingFrontendUrl + "/change-what-is-the-third-SIC-code")
+      .post(euvatFilingFrontendUrl + "/claim-details/change-third-SIC-code")
       .formParam("value", businessActivityCode3)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getRemoveThirdSICCode: HttpRequestBuilder =
     http("[get ] Are you sure you want to remove the third SIC code? page")
-      .get(euvatFilingFrontendUrl + "/remove-third-SIC-code")
+      .get(euvatFilingFrontendUrl + "/claim-details/remove-third-SIC-code")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postRemoveThirdSICCode(option: String): HttpRequestBuilder =
     http("[post] Are you sure you want to remove the third SIC code? page")
-      .post(euvatFilingFrontendUrl + "/remove-third-SIC-code")
+      .post(euvatFilingFrontendUrl + "/claim-details/remove-third-SIC-code")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getBusinessActivityThree: HttpRequestBuilder =
     http("[get ] Business activity (3) for this claim page")
-      .get(euvatFilingFrontendUrl + "/business-activity-3")
+      .get(euvatFilingFrontendUrl + "/claim-details/business-activity-3")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBusinessActivityThree: HttpRequestBuilder =
     http("[post] Business activity (3) for this claim page")
-      .post(euvatFilingFrontendUrl + "/business-activity-3")
+      .post(euvatFilingFrontendUrl + "/claim-details/business-activity-3")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
   val getCheckYourClaimDetails: HttpRequestBuilder =
     http("[get ] Check your claim details page")
-      .get(euvatFilingFrontendUrl + "/check-your-claim-details")
+      .get(euvatFilingFrontendUrl + "/claim-details/check-your-answers")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckYourClaimDetails: HttpRequestBuilder =
     http("[post] Check your claim details page")
-      .post(euvatFilingFrontendUrl + "/check-your-claim-details")
+      .post(euvatFilingFrontendUrl + "/claim-details/check-your-answers")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -315,13 +314,13 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getDeleteEUMemberState: HttpRequestBuilder =
     http("[get ] Delete EU member state details page")
-      .get(euvatFilingFrontendUrl + "/eu-member-state-details")
+      .get(euvatFilingFrontendUrl + "/claim-details/eu-member-state-details")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postDeleteEUMemberState(option: String): HttpRequestBuilder =
     http("[post] Delete EU member state details page")
-      .post(euvatFilingFrontendUrl + "/eu-member-state-details")
+      .post(euvatFilingFrontendUrl + "/claim-details/eu-member-state-details")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

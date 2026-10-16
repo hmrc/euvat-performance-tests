@@ -130,6 +130,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("end.year", refundYear)
       .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
+  }
 
   val getHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
     http("[get ] How should we contact you about this claim? page")
@@ -300,18 +301,6 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getClaimDetails: HttpRequestBuilder =
-    http("[get ] Claim details page")
-      .get(euvatFilingFrontendUrl + "/claim-details")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  val postClaimDetails: HttpRequestBuilder =
-    http("[post] Claim details page")
-      .post(euvatFilingFrontendUrl + "/claim-details")
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
   val getDeleteEUMemberState: HttpRequestBuilder =
     http("[get ] Delete EU member state details page")
       .get(euvatFilingFrontendUrl + "/claim-details/eu-member-state-details")
@@ -368,7 +357,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 //      Save Claim details
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage,
-    getClaimDetails,
+    getCheckYourClaimDetails,
 //      Change language
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
     postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
@@ -390,8 +379,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postChangeSecondSICCode("4444"),
     getBusinessActivityThree,
     postBusinessActivityThree,
-    getClaimDetails,
-    postClaimDetails,
+    postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage
   )
 
@@ -411,7 +399,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage,
 //      Add SIC codes
-    getClaimDetails,
+    postCheckYourClaimDetails,
     getBusinessActivityOne,
     postBusinessActivityOne("true"),
     getWhatIsTheSecondSICCode,
@@ -422,11 +410,10 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postWhatIsTheThirdSICCode("3333"),
     getBusinessActivityThree,
     postBusinessActivityThree,
-    getClaimDetails,
-    postClaimDetails,
+    postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage,
     //    Remove SIC codes
-    getClaimDetails,
+    postCheckYourClaimDetails,
     getBusinessActivityThree,
     getRemoveThirdSICCode,
     postRemoveThirdSICCode("true"),
@@ -435,8 +422,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     postRemoveSecondSICCode("true"),
     getBusinessActivityOne,
     postBusinessActivityOne("false"),
-    getClaimDetails,
-    postClaimDetails,
+    postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage
   )
 
@@ -455,7 +441,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage,
-    getClaimDetails,
+    postCheckYourClaimDetails,
     getDeleteEUMemberState,
     postDeleteEUMemberState("true")
   )

@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import java.time.Year
+import java.time.LocalDate
 
 object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -87,19 +87,26 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  private def isOnOrBefore30September(today: LocalDate): Boolean =
+    !today.isAfter(LocalDate.of(today.getYear, 9, 30))
+
+  private def dynamicRefundYear(today: LocalDate = LocalDate.now()): String =
+    if (isOnOrBefore30September(today)) (today.getYear - 1).toString
+    else today.getYear.toString
+
   def postRefundPeriod(
     startMonth: String,
     endMonth: String
   ): HttpRequestBuilder = {
-    val currentYear: String = Year.now().getValue.toString
+    val refundYear = dynamicRefundYear()
 
     http("[post] Refund Period page")
       .post(euvatFilingFrontendUrl + "/claim-details/refund-period")
       .formParam("start.month", startMonth)
-      .formParam("start.year", currentYear)
+      .formParam("start.year", refundYear)
       .formParam("end.month", endMonth)
-      .formParam("end.year", currentYear)
-      .formParam("csrfToken", f"#{csrfToken}")
+      .formParam("end.year", refundYear)
+      .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
   }
 
@@ -111,18 +118,19 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   def postChangeRefundPeriod(
     startMonth: String,
-    startYear: String,
-    endMonth: String,
-    endYear: String
-  ): HttpRequestBuilder =
+    endMonth: String
+  ): HttpRequestBuilder = {
+    val refundYear = dynamicRefundYear()
+
     http("[post] Change Refund Period page")
       .post(euvatFilingFrontendUrl + "/claim-details/change-refund-period")
       .formParam("start.month", startMonth)
-      .formParam("start.year", startYear)
+      .formParam("start.year", refundYear)
       .formParam("end.month", endMonth)
-      .formParam("end.year", endYear)
-      .formParam("csrfToken", f"#{csrfToken}")
+      .formParam("end.year", refundYear)
+      .formParam("csrfToken", s"#{csrfToken}")
       .check(status.is(303))
+  }
 
   val getHowShouldWeContactYouAboutThisClaim: HttpRequestBuilder =
     http("[get ] How should we contact you about this claim? page")
@@ -293,12 +301,6 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val getClaimDetails: HttpRequestBuilder =
-    http("[get ] Check claim details page")
-      .get(euvatFilingFrontendUrl + "/claim-details/check-your-answers")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
   val getDeleteEUMemberState: HttpRequestBuilder =
     http("[get ] Delete EU member state details page")
       .get(euvatFilingFrontendUrl + "/claim-details/eu-member-state-details")
@@ -330,68 +332,55 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("HR"),
     getRefundPeriod,
-    postRefundPeriod("02", "04"),
+    postRefundPeriod("01", "03"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,
-    postBusinessActivityOne("false"),
+    postBusinessActivityOne("true"),
+    getWhatIsTheSecondSICCode,
+    postWhatIsTheSecondSICCode("2222"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getWhatIsTheThirdSICCode,
+    postWhatIsTheThirdSICCode("3333"),
+    getBusinessActivityThree,
+    postBusinessActivityThree,
 //      Change member state
     getCheckYourClaimDetails,
     getChangeWhichEUMemberStateAreYouClaimingBackVATFrom,
     postChangeWhichEUMemberStateAreYouClaimingBackVATFrom("EE"),
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
-    postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
+    postChangeWhichLanguageDoYouWantToUseForThisClaim("estonian"),
     getChangeRefundPeriod,
-    postChangeRefundPeriod("05", "2025", "07", "2025"),
+    postChangeRefundPeriod("02", "04"),
+    getCheckYourClaimDetails,
+//      Save Claim details
+    postCheckYourClaimDetails,
+    getMakeANewEUVATClaimPage,
     getCheckYourClaimDetails,
 //      Change language
     getChangeWhichLanguageDoYouWantToUseForThisClaim,
-    postChangeWhichLanguageDoYouWantToUseForThisClaim("estonian"),
+    postChangeWhichLanguageDoYouWantToUseForThisClaim("english"),
     getCheckYourClaimDetails,
 //      Change refund period
     getChangeRefundPeriod,
-    postChangeRefundPeriod("08", "2025", "10", "2025"),
+    postChangeRefundPeriod("07", "09"),
     getCheckYourClaimDetails,
 //      Change contact details
     getChangeHowShouldWeContactYouAboutThisClaim,
     postChangeHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getCheckYourClaimDetails,
-//      Change & remove Second SIC code
-    getChangeBusinessActivityOne,
-    postChangeBusinessActivityOne("true"),
-    getChangeSecondSICCode,
-    postChangeSecondSICCode("4711"),
-    getBusinessActivityTwo,
-    getChangeSecondSICCode,
-    postChangeSecondSICCode("1101"),
-    getBusinessActivityTwo,
-    getRemoveSecondSICCode,
-    postRemoveSecondSICCode("true"),
-    getBusinessActivityOne,
-    postBusinessActivityOne("true"),
-    getWhatIsTheSecondSICCode,
-    postWhatIsTheSecondSICCode("4532"),
-    getBusinessActivityTwo,
-    postBusinessActivityTwo("true"),
-    getWhatIsTheThirdSICCode,
-    postWhatIsTheThirdSICCode("2534"),
-//      Change & remove Third SIC code
+//      Change SIC codes
     getBusinessActivityThree,
     getChangeThirdSICCode,
-    postChangeThirdSICCode("4533"),
+    postChangeThirdSICCode("5555"),
     getBusinessActivityThree,
-    getRemoveThirdSICCode,
-    postRemoveThirdSICCode("true"),
-    getBusinessActivityTwo,
-    postBusinessActivityTwo("true"),
-    getWhatIsTheThirdSICCode,
-    postWhatIsTheThirdSICCode("4712"),
+    getChangeSecondSICCode,
+    postChangeSecondSICCode("4444"),
     getBusinessActivityThree,
     postBusinessActivityThree,
-    getCheckYourClaimDetails,
     postCheckYourClaimDetails,
-    getMakeANewEUVATClaimPage,
-    getClaimDetails
+    getMakeANewEUVATClaimPage
   )
 
   val AddClaimDetailsJourneyForGermany: List[HttpRequestBuilder] = List(
@@ -401,12 +390,38 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getWhichLanguageDoYouWantToUseForThisClaim,
     postWhichLanguageDoYouWantToUseForThisClaim("english"),
     getRefundPeriod,
-    postRefundPeriod("02", "04"),
+    postRefundPeriod("01", "03"),
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,
     postBusinessActivityOne("false"),
     getCheckYourClaimDetails,
+    postCheckYourClaimDetails,
+    getMakeANewEUVATClaimPage,
+//      Add SIC codes
+    postCheckYourClaimDetails,
+    getBusinessActivityOne,
+    postBusinessActivityOne("true"),
+    getWhatIsTheSecondSICCode,
+    postWhatIsTheSecondSICCode("2222"),
+    getBusinessActivityTwo,
+    postBusinessActivityTwo("true"),
+    getWhatIsTheThirdSICCode,
+    postWhatIsTheThirdSICCode("3333"),
+    getBusinessActivityThree,
+    postBusinessActivityThree,
+    postCheckYourClaimDetails,
+    getMakeANewEUVATClaimPage,
+    //    Remove SIC codes
+    postCheckYourClaimDetails,
+    getBusinessActivityThree,
+    getRemoveThirdSICCode,
+    postRemoveThirdSICCode("true"),
+    getBusinessActivityTwo,
+    getRemoveSecondSICCode,
+    postRemoveSecondSICCode("true"),
+    getBusinessActivityOne,
+    postBusinessActivityOne("false"),
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage
   )
@@ -426,7 +441,7 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
     getCheckYourClaimDetails,
     postCheckYourClaimDetails,
     getMakeANewEUVATClaimPage,
-    getClaimDetails,
+    postCheckYourClaimDetails,
     getDeleteEUMemberState,
     postDeleteEUMemberState("true")
   )

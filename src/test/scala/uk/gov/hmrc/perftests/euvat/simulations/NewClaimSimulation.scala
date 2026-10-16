@@ -42,7 +42,4 @@ trait NewClaimSimulation {
   setup("delete-claim-details", "Delete claim details") withRequests (ClaimDetailsRequests.DeleteClaimDetails: _*)
   setup("delete-draft-claim", "Delete draft claim") withRequests (ClaimDetailsRequests.DeleteDraftClaim: _*)
 
-  setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
-  setup("import-details", "Import details") withRequests (PurchaseRequests.AddImportJourney: _*)
-
 }

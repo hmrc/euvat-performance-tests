@@ -166,13 +166,13 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .check(status.is(303))
 
   val getCheckPurchaseDetails: HttpRequestBuilder =
-    http("[get] Check purchase details page")
+    http("[get] Check your answers page")
       .get(euvatFilingFrontendUrl + "/purchase/check-your-answers")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postCheckPurchaseDetails: HttpRequestBuilder =
-    http("[post] Check purchase details page")
+    http("[post] Check your answers page")
       .post(euvatFilingFrontendUrl + "/purchase/check-your-answers")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

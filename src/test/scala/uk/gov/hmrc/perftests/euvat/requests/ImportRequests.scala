@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
+import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{euvatFilingFrontendUrl, getAddPurchaseImport, postAddPurchaseImport}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -229,6 +229,18 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckImportVatClaim: HttpRequestBuilder =
+    http("[get ] Are you sure the amount of VAT you’re claiming is correct page")
+      .get(euvatFilingFrontendUrl + "/warning/vat-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckImportVatClaim: HttpRequestBuilder =
+    http("[post] Are you sure the amount of VAT you’re claiming is correct page")
+      .post(euvatFilingFrontendUrl + "/warning/vat-claim")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -255,7 +267,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getTotalImportVATPaid,
     postTotalImportVATPaid("200.01"),
     getTotalImportVATClaim,
-    postTotalImportVATClaim("100.01")
+    postTotalImportVATClaim("300.01"),
+    getCheckImportVatClaim,
+    postCheckImportVatClaim
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(

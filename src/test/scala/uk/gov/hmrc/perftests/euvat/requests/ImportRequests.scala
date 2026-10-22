@@ -241,6 +241,18 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckImportVatAmount: HttpRequestBuilder =
+    http("[get ] Are you sure the amount of VAT you paid is correct page")
+      .get(euvatFilingFrontendUrl + "/warning/vat-paid")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckImportVatAmount: HttpRequestBuilder =
+    http("[post] Are you sure the amount of VAT you paid is correct page")
+      .post(euvatFilingFrontendUrl + "/warning/vat-paid")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -263,9 +275,11 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getImportCurrency,
     postImportCurrency("euro"),
     getTotalImportAmount,
-    postTotalImportAmount("1000.01"),
+    postTotalImportAmount("100.01"),
     getTotalImportVATPaid,
     postTotalImportVATPaid("200.01"),
+    getCheckImportVatAmount,
+    postCheckImportVatAmount,
     getTotalImportVATClaim,
     postTotalImportVATClaim("300.01"),
     getCheckImportVatClaim,

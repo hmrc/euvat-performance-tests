@@ -327,12 +327,26 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckRefundDate: HttpRequestBuilder =
+    http("[get ] Are you sure the refund period is correct page")
+      .get(euvatFilingFrontendUrl + "/warning/refund-period-too-short")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckRefundDate: HttpRequestBuilder =
+    http("[post] Are you sure the refund period is correct page")
+      .post(euvatFilingFrontendUrl + "/warning/refund-period-too-short")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddClaimDetailsJourney: List[HttpRequestBuilder] = List(
     getMakeANewEUVATClaimPage,
     getWhichEUMemberStateAreYouClaimingBackVATFrom,
     postWhichEUMemberStateAreYouClaimingBackVATFrom("HR"),
     getRefundPeriod,
-    postRefundPeriod("01", "03"),
+    postRefundPeriod("01", "02"),
+    getCheckRefundDate,
+    postCheckRefundDate,
     getHowShouldWeContactYouAboutThisClaim,
     postHowShouldWeContactYouAboutThisClaim("Test123@test.com", "01234567890"),
     getBusinessActivityOne,

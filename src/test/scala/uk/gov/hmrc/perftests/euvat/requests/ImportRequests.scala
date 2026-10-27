@@ -115,6 +115,18 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getDuplicateSadReferenceWarning: HttpRequestBuilder =
+    http("[get ] Are you sure the SAD reference number is correct? ")
+      .get(euvatFilingFrontendUrl + "/warning/sad-reference-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postDuplicateSadReferenceWarning: HttpRequestBuilder =
+    http("[post] Are you sure the SAD reference number is correct?")
+      .post(euvatFilingFrontendUrl + "/warning/sad-reference-number")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getImportDocumentDetails: HttpRequestBuilder =
     http("[get ] Import document details page")
       .get(euvatFilingFrontendUrl + "/import/import-document-details")
@@ -265,7 +277,9 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getAddSADRefNumber,
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
-    postWhatIsTheSADReferenceNumber("98765"),
+    postWhatIsTheSADReferenceNumber("500000222"),
+    getDuplicateSadReferenceWarning,
+    postDuplicateSadReferenceWarning,
     getWhenIsTheImportDate,
     postWhenIsTheImportDate("01", "01", "2026"),
     getSupplierName,

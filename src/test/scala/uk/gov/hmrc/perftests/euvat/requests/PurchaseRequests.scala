@@ -715,7 +715,6 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getCheckYourPurchaseDetails,
     postCheckYourPurchaseDetails,
     getYourPurchaseImportSummary,
-    postYourPurchaseImportSummary("false"),
     getChangeYourPurchaseAnswers
   )
 
@@ -766,7 +765,6 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getCheckYourPurchaseDetails,
     postCheckYourPurchaseDetails,
     getYourPurchaseImportSummary,
-    postYourPurchaseImportSummary("false"),
     getChangeYourPurchaseAnswers
   )
 

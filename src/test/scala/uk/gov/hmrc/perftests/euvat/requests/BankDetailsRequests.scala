@@ -36,9 +36,24 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getAccountHolderType: HttpRequestBuilder =
+    http("[get ] Who is the account holder page")
+      .get(euvatFilingFrontendUrl + "/bank-details/account-holder")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postAccountHolderType: HttpRequestBuilder =
+    http("[post] Who is the account holder page")
+      .post(euvatFilingFrontendUrl + "/bank-details/account-holder")
+      .formParam("value", "applicant")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val ManageJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartBank,
-    postBeforeYouStartBank
+    postBeforeYouStartBank,
+    getAccountHolderType,
+    postAccountHolderType
   )
 
 }

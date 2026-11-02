@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, postAddPurchaseImport}
+import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, getYourPurchaseImportSummary, postAddPurchaseImport, postYourPurchaseImportSummary}
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -102,6 +102,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeAddSADRefNumber: HttpRequestBuilder =
+    http("[get ] Change SAD Reference number page")
+      .get(euvatFilingFrontendUrl + "/import/change-sad-reference-check")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeAddSADRefNumber(option: String): HttpRequestBuilder =
+    http("[post] Change SAD Reference number page")
+      .post(euvatFilingFrontendUrl + "/import/change-sad-reference-check")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getWhatIsTheSADReferenceNumber: HttpRequestBuilder =
     http("[get ] What is your Single Administrative Document (SAD) reference number page")
       .get(euvatFilingFrontendUrl + "/import/sad-reference-number")
@@ -115,6 +128,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhatIsTheSADReferenceNumber: HttpRequestBuilder =
+    http("[get ] Change What is your Single Administrative Document (SAD) reference number page")
+      .get(euvatFilingFrontendUrl + "/import/change-sad-reference-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhatIsTheSADReferenceNumber(SADRefNumber: String): HttpRequestBuilder =
+    http("[post] Change What is your Single Administrative Document (SAD) reference number page")
+      .post(euvatFilingFrontendUrl + "/import/change-sad-reference-number")
+      .formParam("value", SADRefNumber)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getImportDocumentDetails: HttpRequestBuilder =
     http("[get ] Import document details page")
       .get(euvatFilingFrontendUrl + "/import/import-document-details")
@@ -124,6 +150,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
   def postImportDocumentDetails(option: String): HttpRequestBuilder =
     http("[post] Import document details page")
       .post(euvatFilingFrontendUrl + "/import/import-document-details")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeImportDocumentDetails: HttpRequestBuilder =
+    http("[get ] Import document details page")
+      .get(euvatFilingFrontendUrl + "/import/change-import-document-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeImportDocumentDetails(option: String): HttpRequestBuilder =
+    http("[post] Import document details page")
+      .post(euvatFilingFrontendUrl + "/import/change-import-document-details")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -143,6 +182,21 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhenIsTheImportDate: HttpRequestBuilder =
+    http("[get ] Change When is the import date page")
+      .get(euvatFilingFrontendUrl + "/import/change-import-date")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhenIsTheImportDate(importDay: String, importMonth: String, importYear: String): HttpRequestBuilder =
+    http("[post] Change When is the import date page")
+      .post(euvatFilingFrontendUrl + "/import/change-import-date")
+      .formParam("value.day", importDay)
+      .formParam("value.month", importMonth)
+      .formParam("value.year", importYear)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getSupplierName: HttpRequestBuilder =
     http("[get ] What is the supplier’s name? page")
       .get(euvatFilingFrontendUrl + "/import/supplier-name")
@@ -152,6 +206,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
   def postSubmitSupplierName(SupplierName: String): HttpRequestBuilder =
     http("[post] What is the supplier’s name? page")
       .post(euvatFilingFrontendUrl + "/import/supplier-name")
+      .formParam("value", SupplierName)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeSupplierName: HttpRequestBuilder =
+    http("[get ] Change What is the supplier’s name? page")
+      .get(euvatFilingFrontendUrl + "/import/change-supplier-name")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeSubmitSupplierName(SupplierName: String): HttpRequestBuilder =
+    http("[post] Change What is the supplier’s name? page")
+      .post(euvatFilingFrontendUrl + "/import/change-supplier-name")
       .formParam("value", SupplierName)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -177,6 +244,27 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeImportSupplierAddress: HttpRequestBuilder =
+    http("[get ] Change What is the supplier’s address page")
+      .get(euvatFilingFrontendUrl + "/import/change-supplier-address")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeImportSupplierAddress(
+    addressLine1: String,
+    addressLine2: String,
+    addressLine3: String,
+    country: String
+  ): HttpRequestBuilder =
+    http("[post] Change What is the supplier's address page")
+      .post(euvatFilingFrontendUrl + "/import/change-supplier-address")
+      .formParam("addressLine1", addressLine1)
+      .formParam("addressLine2", addressLine2)
+      .formParam("addressLine3", addressLine3)
+      .formParam("country", country)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getImportCurrency: HttpRequestBuilder =
     http("[get ] Which currency do you want to use for this import page")
       .get(euvatFilingFrontendUrl + "/import/currency")
@@ -186,6 +274,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
   def postImportCurrency(option: String): HttpRequestBuilder =
     http("[post] Which currency do you want to use for this import page")
       .post(euvatFilingFrontendUrl + "/import/currency")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeImportCurrency: HttpRequestBuilder =
+    http("[get ] Change Which currency do you want to use for this import page")
+      .get(euvatFilingFrontendUrl + "/import/change-currency")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeImportCurrency(option: String): HttpRequestBuilder =
+    http("[post] Change Which currency do you want to use for this import page")
+      .post(euvatFilingFrontendUrl + "/import/change-currency")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -203,6 +304,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeTotalImportAmount: HttpRequestBuilder =
+    http("[get ] Change Total amount without VAT page")
+      .get(euvatFilingFrontendUrl + "/import/change-amount-without-vat")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeTotalImportAmount(option: String): HttpRequestBuilder =
+    http("[post] Total amount without VAT page")
+      .post(euvatFilingFrontendUrl + "/import/change-amount-without-vat")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getTotalImportVATPaid: HttpRequestBuilder =
     http("[get ] Total VAT paid page")
       .get(euvatFilingFrontendUrl + "/import/vat-paid")
@@ -212,6 +326,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
   def postTotalImportVATPaid(option: String): HttpRequestBuilder =
     http("[post] Total VAT Paid page")
       .post(euvatFilingFrontendUrl + "/import/vat-paid")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeTotalImportVATPaid: HttpRequestBuilder =
+    http("[get ] Change Total VAT paid page")
+      .get(euvatFilingFrontendUrl + "/import/change-vat-paid")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeTotalImportVATPaid(option: String): HttpRequestBuilder =
+    http("[post] Change Total VAT Paid page")
+      .post(euvatFilingFrontendUrl + "/import/change-vat-paid")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -229,6 +356,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeTotalImportVATClaim: HttpRequestBuilder =
+    http("[get ] Change Total VAT claim page")
+      .get(euvatFilingFrontendUrl + "/import/change-vat-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeTotalImportVATClaim(option: String): HttpRequestBuilder =
+    http("[post] Change Total VAT claim page")
+      .post(euvatFilingFrontendUrl + "/import/change-vat-claim")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getCheckImportVatClaim: HttpRequestBuilder =
     http("[get ] Are you sure the amount of VAT you’re claiming is correct page")
       .get(euvatFilingFrontendUrl + "/warning/vat-claim")
@@ -241,6 +381,18 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeCheckImportVatClaim: HttpRequestBuilder =
+    http("[get ] Change Are you sure the amount of VAT you’re claiming is correct page")
+      .get(euvatFilingFrontendUrl + "/warning/change-vat-claim")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postChangeCheckImportVatClaim: HttpRequestBuilder =
+    http("[post] Are you sure the amount of VAT you’re claiming is correct page")
+      .post(euvatFilingFrontendUrl + "/warning/change-vat-claim")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getCheckImportVatAmount: HttpRequestBuilder =
     http("[get ] Are you sure the amount of VAT you paid is correct page")
       .get(euvatFilingFrontendUrl + "/warning/vat-paid")
@@ -250,6 +402,56 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
   val postCheckImportVatAmount: HttpRequestBuilder =
     http("[post] Are you sure the amount of VAT you paid is correct page")
       .post(euvatFilingFrontendUrl + "/warning/vat-paid")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeCheckImportVatAmount: HttpRequestBuilder =
+    http("[get ] Change Are you sure the amount of VAT you paid is correct page")
+      .get(euvatFilingFrontendUrl + "/warning/change-vat-paid")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postChangeCheckImportVatAmount: HttpRequestBuilder =
+    http("[post] Change Are you sure the amount of VAT you paid is correct page")
+      .post(euvatFilingFrontendUrl + "/warning/change-vat-paid")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getCheckYourImportDetails: HttpRequestBuilder =
+    http("[get ] Check your answers page")
+      .get(euvatFilingFrontendUrl + "/import/check-your-answers")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckYourImportDetails: HttpRequestBuilder =
+    http("[post] Check your answers page")
+      .post(euvatFilingFrontendUrl + "/import/check-your-answers")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeImportType: HttpRequestBuilder =
+    http("[get ] Change Import type page")
+      .get(euvatFilingFrontendUrl + "/import/change-category")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeImportType(option: String): HttpRequestBuilder =
+    http("[post] Change Purchase type page")
+      .post(euvatFilingFrontendUrl + "/import/change-category")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getLuxuryEntertainmentOrHospitalityCostImport: HttpRequestBuilder =
+    http("[get ] What is the type of luxury entertainment or hospitality cost? page")
+      .get(euvatFilingFrontendUrl + "/import/luxury-entertainment-hospitality-cost")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postLuxuryEntertainmentOrHospitalityCostImport(option: String): HttpRequestBuilder =
+    http("[post] What is the type of luxury entertainment or hospitality cost? page")
+      .post(euvatFilingFrontendUrl + "/import/luxury-entertainment-hospitality-cost")
+      .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -283,7 +485,47 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getTotalImportVATClaim,
     postTotalImportVATClaim("300.01"),
     getCheckImportVatClaim,
-    postCheckImportVatClaim
+    postCheckImportVatClaim,
+    getCheckYourImportDetails,
+    //    Change import details
+    getChangeImportType,
+    postChangeImportType("luxuries"),
+    getLuxuryEntertainmentOrHospitalityCostImport,
+    postLuxuryEntertainmentOrHospitalityCostImport("9.3"),
+    getCheckYourImportDetails,
+    getChangeAddSADRefNumber,
+    postChangeAddSADRefNumber("false"),
+    getChangeImportDocumentDetails,
+    postChangeImportDocumentDetails("Test import document information input"),
+    getCheckYourImportDetails,
+    getChangeWhenIsTheImportDate,
+    postChangeWhenIsTheImportDate("01", "02", "2026"),
+    getCheckYourImportDetails,
+    getChangeSupplierName,
+    postChangeSubmitSupplierName("Change Test Supplier name"),
+    getCheckYourImportDetails,
+    getChangeImportSupplierAddress,
+    postChangeImportSupplierAddress("Change Test Address 1", "Add address line 2", "", "GS"),
+    getCheckYourImportDetails,
+    getImportCurrency,
+    postImportCurrency("estonianKroon"),
+    getTotalImportAmount,
+    postTotalImportAmount("1000.01"),
+    getCheckYourImportDetails,
+    getChangeTotalImportAmount,
+    postChangeTotalImportAmount("300.99"),
+    getTotalImportVATPaid,
+    postTotalImportVATPaid("5000.99"),
+    getChangeCheckImportVatAmount,
+    postChangeCheckImportVatAmount,
+    getTotalImportVATClaim,
+    postTotalImportVATClaim("6000.99"),
+    getChangeCheckImportVatClaim,
+    postChangeCheckImportVatClaim,
+    getCheckYourImportDetails,
+    postCheckYourImportDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false")
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -310,7 +552,13 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getTotalImportVATPaid,
     postTotalImportVATPaid("200.99"),
     getTotalImportVATClaim,
-    postTotalImportVATClaim("100.99")
+    postTotalImportVATClaim("100.99"),
+    getCheckYourImportDetails,
+    getChangeAddSADRefNumber,
+    postChangeAddSADRefNumber("true"),
+    getChangeWhatIsTheSADReferenceNumber,
+    postChangeWhatIsTheSADReferenceNumber("98765"),
+    getCheckYourImportDetails
   )
 
 }

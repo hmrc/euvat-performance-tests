@@ -128,6 +128,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getChangeWhatIsTheSADReferenceNumber: HttpRequestBuilder =
+    http("[get ] Change What is your Single Administrative Document (SAD) reference number page")
+      .get(euvatFilingFrontendUrl + "/import/change-sad-reference-number")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeWhatIsTheSADReferenceNumber(SADRefNumber: String): HttpRequestBuilder =
+    http("[post] Change What is your Single Administrative Document (SAD) reference number page")
+      .post(euvatFilingFrontendUrl + "/import/change-sad-reference-number")
+      .formParam("value", SADRefNumber)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getImportDocumentDetails: HttpRequestBuilder =
     http("[get ] Import document details page")
       .get(euvatFilingFrontendUrl + "/import/import-document-details")
@@ -540,6 +553,11 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postTotalImportVATPaid("200.99"),
     getTotalImportVATClaim,
     postTotalImportVATClaim("100.99"),
+    getCheckYourImportDetails,
+    getChangeAddSADRefNumber,
+    postChangeAddSADRefNumber("true"),
+    getChangeWhatIsTheSADReferenceNumber,
+    postChangeWhatIsTheSADReferenceNumber("98765"),
     getCheckYourImportDetails
   )
 

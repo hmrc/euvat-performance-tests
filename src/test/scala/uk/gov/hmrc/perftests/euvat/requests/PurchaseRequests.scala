@@ -638,6 +638,19 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val getRemoveYourPurchaseAnswers: HttpRequestBuilder =
+    http("[get ] Remove item page")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/remove-item/P/3")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postRemoveYourPurchaseAnswers(option: String): HttpRequestBuilder =
+    http("[post] Remove item page")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/remove-item")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddPurchaseJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStart,
     postBeforeYouStart,
@@ -765,7 +778,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getCheckYourPurchaseDetails,
     postCheckYourPurchaseDetails,
     getYourPurchaseImportSummary,
-    getChangeYourPurchaseAnswers
+    getRemoveYourPurchaseAnswers,
+    postRemoveYourPurchaseAnswers("true")
   )
 
   val AddImportJourney: List[HttpRequestBuilder] = List(

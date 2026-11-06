@@ -303,13 +303,13 @@ object ClaimDetailsRequests extends ServicesConfiguration with EUVATPerformanceT
 
   val getDeleteEUMemberState: HttpRequestBuilder =
     http("[get ] Delete EU member state details page")
-      .get(euvatFilingFrontendUrl + "/claim-details/eu-member-state-details")
+      .get(euvatFilingFrontendUrl + "/claim-details/cannot-change-eu-state")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   def postDeleteEUMemberState(option: String): HttpRequestBuilder =
     http("[post] Delete EU member state details page")
-      .post(euvatFilingFrontendUrl + "/claim-details/eu-member-state-details")
+      .post(euvatFilingFrontendUrl + "/claim-details/cannot-change-eu-state")
       .formParam("value", option)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

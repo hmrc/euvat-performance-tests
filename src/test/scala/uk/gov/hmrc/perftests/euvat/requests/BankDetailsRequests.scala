@@ -24,13 +24,13 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
   val getBeforeYouStartBank: HttpRequestBuilder =
-    http("[get ] Before you start page")
+    http("[get ] Before you start (Bank Details) page")
       .get(euvatFilingFrontendUrl + "/bank-details/before-you-start")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBeforeYouStartBank: HttpRequestBuilder =
-    http("[post] Before you start page")
+    http("[post] Before you start (Bank Details) page")
       .post(euvatFilingFrontendUrl + "/bank-details/before-you-start")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
@@ -62,14 +62,14 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
   ): HttpRequestBuilder =
     http("[post] International bank account details page")
       .post(euvatFilingFrontendUrl + "/bank-details/international-bank-account-details")
-      .formParam("addressLine1", accountName)
-      .formParam("addressLine2", BICCode)
-      .formParam("addressLine3", IBANValue)
+      .formParam("NameOnTheAccount", accountName)
+      .formParam("BIC", BICCode)
+      .formParam("accountNumber", IBANValue)
       .formParam("CurrencyOfAccount", currencyInput)
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val ManageJourney: List[HttpRequestBuilder] = List(
+  val AddBankDetailsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartBank,
     postBeforeYouStartBank,
     getAccountHolderType,

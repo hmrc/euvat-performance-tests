@@ -17,7 +17,7 @@
 package uk.gov.hmrc.perftests.euvat.simulations
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.requests.{ClaimDetailsRequests, ImportRequests, PurchaseRequests}
+import uk.gov.hmrc.perftests.euvat.requests.{BankDetailsRequests, ClaimDetailsRequests, ImportRequests, PurchaseRequests}
 
 trait NewClaimSimulation {
   this: PerformanceTestRunner =>
@@ -25,6 +25,7 @@ trait NewClaimSimulation {
   setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
   setup("purchase-details", "Purchase details") withRequests (PurchaseRequests.AddPurchaseJourney: _*)
   setup("import-details", "Import details") withRequests (ImportRequests.AddImportJourney: _*)
+  setup("bank-details", "Bank details") withRequests (BankDetailsRequests.AddBankDetailsJourney: _*)
 
   setup(
     "claim-details-germany",

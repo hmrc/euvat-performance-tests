@@ -24,13 +24,13 @@ import uk.gov.hmrc.performance.conf.ServicesConfiguration
 object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
   val getBeforeYouStart: HttpRequestBuilder =
-    http("[get ] Before you start page")
+    http("[get ] Before you start (purchase-imports) page")
       .get(euvatFilingFrontendUrl + "/purchases-imports/before-you-start")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBeforeYouStart: HttpRequestBuilder =
-    http("[post] Before you start page")
+    http("[post] Before you start (purchase-imports) page")
       .post(euvatFilingFrontendUrl + "/purchases-imports/before-you-start")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))

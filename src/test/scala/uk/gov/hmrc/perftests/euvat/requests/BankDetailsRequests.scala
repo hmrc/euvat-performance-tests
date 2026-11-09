@@ -89,12 +89,12 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
     postBeforeYouStartBank,
     getAccountHolderType,
     postAccountHolderType,
-    getChangeBankDetails,
-    postChangeBankDetails,
+    postCheckYourBankDetails,
+    getCheckYourBankDetails,
     getChangeAccountHolder,
     postChangeAccountHolder,
-    getChangeAccountHolder,
-    postChangeAccountHolder
+    getChangeBankDetails,
+    postChangeBankDetails,
   )
 
 }

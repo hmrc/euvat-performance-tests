@@ -69,6 +69,7 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
   val postChangeAccountHolder: HttpRequestBuilder =
     http("[post] Change account holder")
       .post(euvatFilingFrontendUrl + "/bank-details/change-account-holder")
+      .formParam("value", "applicant")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
@@ -84,7 +85,6 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val ManageJourney: List[HttpRequestBuilder] = List(
   val getBankDetailsForm: HttpRequestBuilder =
     http("[get ] International bank account details page")
       .get(euvatFilingFrontendUrl + "/bank-details/international-bank-account-details")

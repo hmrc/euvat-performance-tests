@@ -48,6 +48,27 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getBankDetailsForm: HttpRequestBuilder =
+    http("[get ] International bank account details page")
+      .get(euvatFilingFrontendUrl + "/bank-details/international-bank-account-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postBankDetailsForm(
+    accountName: String,
+    BICCode: String,
+    IBANValue: String,
+    currencyInput: String
+  ): HttpRequestBuilder =
+    http("[post] International bank account details page")
+      .post(euvatFilingFrontendUrl + "/bank-details/international-bank-account-details")
+      .formParam("NameOnTheAccount", accountName)
+      .formParam("BIC", BICCode)
+      .formParam("accountNumber", IBANValue)
+      .formParam("CurrencyOfAccount", currencyInput)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val getCheckYourBankDetails: HttpRequestBuilder =
     http("[get ] Check your answers page")
       .get(euvatFilingFrontendUrl + "/bank-details/check-your-answers")
@@ -79,26 +100,14 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
-  val postChangeBankDetails: HttpRequestBuilder =
-    http("[post] Change bank details")
-      .post(euvatFilingFrontendUrl + "/bank-details/change-international-bank-account-details")
-      .formParam("csrfToken", f"#{csrfToken}")
-      .check(status.is(303))
-
-  val getBankDetailsForm: HttpRequestBuilder =
-    http("[get ] International bank account details page")
-      .get(euvatFilingFrontendUrl + "/bank-details/international-bank-account-details")
-      .check(status.is(200))
-      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
-
-  def postBankDetailsForm(
+  def postChangeBankDetails(
     accountName: String,
     BICCode: String,
     IBANValue: String,
     currencyInput: String
   ): HttpRequestBuilder =
-    http("[post] International bank account details page")
-      .post(euvatFilingFrontendUrl + "/bank-details/international-bank-account-details")
+    http("[post] Change bank details")
+      .post(euvatFilingFrontendUrl + "/bank-details/change-international-bank-account-details")
       .formParam("NameOnTheAccount", accountName)
       .formParam("BIC", BICCode)
       .formParam("accountNumber", IBANValue)
@@ -111,14 +120,14 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
     postBeforeYouStartBank,
     getAccountHolderType,
     postAccountHolderType,
+    getBankDetailsForm,
+    postBankDetailsForm("ACCOUNTNAME 123456789", "FAKEGB21XXX", "GB00TEST00000000000000", "EUR"),
     postCheckYourBankDetails,
     getCheckYourBankDetails,
     getChangeAccountHolder,
     postChangeAccountHolder,
     getChangeBankDetails,
-    postChangeBankDetails,
-    getBankDetailsForm,
-    postBankDetailsForm("ACCOUNTNAME 123456789", "FAKEGB21XXX", "GB00TEST00000000000000", "EUR")
+    postChangeBankDetails("ACCOUNTNAME 123456798", "FAKEGB21XOO", "GB00TEST00000000000012", "GBP")
   )
 
 }

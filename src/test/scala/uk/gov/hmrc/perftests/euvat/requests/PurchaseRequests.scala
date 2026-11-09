@@ -782,13 +782,4 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postRemoveYourPurchaseAnswers("true")
   )
 
-  val AddImportJourney: List[HttpRequestBuilder] = List(
-    getBeforeYouStart,
-    postBeforeYouStart,
-    getAddPurchaseImport,
-    postAddPurchaseImport("import"),
-    getImportType,
-    postImportType("foodAndDrink")
-  )
-
 }

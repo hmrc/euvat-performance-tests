@@ -69,13 +69,65 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getCheckYourBankDetails: HttpRequestBuilder =
+    http("[get ] Check your answers page")
+      .get(euvatFilingFrontendUrl + "/bank-details/check-your-answers")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postCheckYourBankDetails: HttpRequestBuilder =
+    http("[post] Check your answers page")
+      .post(euvatFilingFrontendUrl + "/bank-details/check-your-answers")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeAccountHolder: HttpRequestBuilder =
+    http("[get ] Change account holder")
+      .get(euvatFilingFrontendUrl + "/bank-details/change-account-holder")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  val postChangeAccountHolder: HttpRequestBuilder =
+    http("[post] Change account holder")
+      .post(euvatFilingFrontendUrl + "/bank-details/change-account-holder")
+      .formParam("value", "applicant")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
+  val getChangeBankDetails: HttpRequestBuilder =
+    http("[get ] Change bank details")
+      .get(euvatFilingFrontendUrl + "/bank-details/change-international-bank-account-details")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postChangeBankDetails(
+    accountName: String,
+    BICCode: String,
+    IBANValue: String,
+    currencyInput: String
+  ): HttpRequestBuilder =
+    http("[post] Change bank details")
+      .post(euvatFilingFrontendUrl + "/bank-details/change-international-bank-account-details")
+      .formParam("NameOnTheAccount", accountName)
+      .formParam("BIC", BICCode)
+      .formParam("accountNumber", IBANValue)
+      .formParam("CurrencyOfAccount", currencyInput)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddBankDetailsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartBank,
     postBeforeYouStartBank,
     getAccountHolderType,
     postAccountHolderType,
     getBankDetailsForm,
-    postBankDetailsForm("ACCOUNTNAME 123456789", "FAKEGB21XXX", "GB00TEST00000000000000", "EUR")
+    postBankDetailsForm("ACCOUNTNAME 123456789", "FAKEGB21XXX", "GB00TEST00000000000000", "EUR"),
+    postCheckYourBankDetails,
+    getCheckYourBankDetails,
+    getChangeAccountHolder,
+    postChangeAccountHolder,
+    getChangeBankDetails,
+    postChangeBankDetails("ACCOUNTNAME 123456798", "FAKEGB21XOO", "GB00TEST00000000000012", "GBP")
   )
 
 }

@@ -461,6 +461,12 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  def postChangeYourImportAnswers(): HttpRequestBuilder =
+    http("[post ] Change your import details answers page")
+      .post(euvatFilingFrontendUrl + "/import/change-your-answers/660/3")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -531,7 +537,8 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getCheckYourImportDetails,
     postCheckYourImportDetails,
     getYourPurchaseImportSummary,
-    getChangeYourImportAnswers
+    getChangeYourImportAnswers,
+    postChangeYourImportAnswers
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(

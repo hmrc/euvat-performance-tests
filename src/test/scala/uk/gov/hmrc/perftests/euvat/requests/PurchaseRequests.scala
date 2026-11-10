@@ -728,7 +728,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getCheckYourPurchaseDetails,
     postCheckYourPurchaseDetails,
     getYourPurchaseImportSummary,
-    getChangeYourPurchaseAnswers
+    getChangeYourPurchaseAnswers,
+    postCheckYourPurchaseDetails
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(

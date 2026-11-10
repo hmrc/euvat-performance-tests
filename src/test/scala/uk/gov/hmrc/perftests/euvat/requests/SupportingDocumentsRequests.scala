@@ -35,9 +35,24 @@ object SupportingDocumentsRequests extends ServicesConfiguration with EUVATPerfo
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getAnySupportingDocuments: HttpRequestBuilder =
+    http("[get ] Do you have any supporting documents to upload? page")
+      .get(euvatFilingFrontendUrl + "/supporting-documents/any-documents")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postAnySupportingDocuments(option: String): HttpRequestBuilder =
+    http("[post] Do you have any supporting documents to upload? page")
+      .post(euvatFilingFrontendUrl + "/supporting-documents/any-documents")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartSupportingDocuments,
-    postBeforeYouStartSupportingDocuments
+    postBeforeYouStartSupportingDocuments,
+    getAnySupportingDocuments,
+    postAnySupportingDocuments("true")
   )
 
 }

@@ -25,17 +25,17 @@ object SupportingDocumentsRequests extends ServicesConfiguration with EUVATPerfo
 
   val getBeforeYouStartSupportingDocuments: HttpRequestBuilder =
     http("[get ] Before you start (Supporting documents) page")
-      .get(euvatFilingFrontendUrl + "supporting-documents/before-you-start")
+      .get(euvatFilingFrontendUrl + "/supporting-documents/before-you-start")
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
   val postBeforeYouStartSupportingDocuments: HttpRequestBuilder =
     http("[post] Before you start (Supporting documents) page")
-      .post(euvatFilingFrontendUrl + "supporting-documents/before-you-start")
+      .post(euvatFilingFrontendUrl + "/supporting-documents/before-you-start")
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val ManageJourney: List[HttpRequestBuilder] = List(
+  val AddSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartSupportingDocuments,
     postBeforeYouStartSupportingDocuments
   )

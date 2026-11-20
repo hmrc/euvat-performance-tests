@@ -48,11 +48,74 @@ object SupportingDocumentsRequests extends ServicesConfiguration with EUVATPerfo
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
+  val getUploadFile: HttpRequestBuilder =
+    http("[get ] Upload file page")
+      .get(euvatFilingFrontendUrl + "/supporting-documents/upload-file")
+//      .check(regex("""name="x-amz-meta-callback-url"\s+value="([^"]+)"""").saveAs("xAmzMetaCallbackURL"))
+//      .check(regex("""name="x-amz-date"\s+value="([^"]+)"""").saveAs("xAmzDate"))
+//      .check(regex("""name="x-amz-credential"\s+value="([^"]+)"""").saveAs("xAmzCredential"))
+//      .check(regex("""name="x-amz-meta-original-filename"\s+value="([^"]+)"""").saveAs("xAmzMetaOriginalFilename"))
+//      .check(regex("""name="x-amz-algorithm"\s+value="([^"]+)"""").saveAs("xAmzAlgorithm"))
+//      .check(regex("""name="key"\s+value="([^"]+)"""").saveAs("key"))
+//      .check(regex("""name="acl"\s+value="([^"]+)"""").saveAs("acl"))
+//      .check(regex("""name="x-amz-signature"\s+value="([^"]+)"""").saveAs("xAmzSignature"))
+//      .check(regex("""name="x-amz-meta-session-id"\s+value="([^"]+)"""").saveAs("xAmzMetaSessionId"))
+//      .check(regex("""name="x-amz-meta-request-id"\s+value="([^"]+)"""").saveAs("xAmzMetaRequestId"))
+//      .check(regex("""name="x-amz-meta-consuming-service"\s+value="([^"]+)"""").saveAs("xAmzMetaConsumingService"))
+//      .check(regex("""name="x-amz-meta-upscan-initiate-received"\s+value="([^"]+)"""").saveAs("xAmzMetaUpscanInitiateReceived"))
+//      .check(regex("""name="x-amz-meta-upscan-initiate-response"\s+value="([^"]+)"""").saveAs("xAmzMetaUpscanInitiateResponse"))
+//      .check(regex("""name="success_action_redirect"\s+value="([^"]+)"""").saveAs("successActionRedirect"))
+//      .check(regex("""name="error_action_redirect"\s+value="([^"]+)"""").saveAs("errorActionRedirect"))
+//      .check(regex("""name="policy"\s+value="([^"]+)"""").saveAs("policy"))
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(200))
+
+  def postUploadFile(fileName: String): HttpRequestBuilder =
+    http("[post] Upload file page")
+      .post(euvatFilingFrontendUrl + "/supporting-documents/upload-file")
+      .asMultipartForm
+      .bodyPart(StringBodyPart("x-amz-meta-callback-url", "#{xAmzMetaCallbackURL}"))
+      .bodyPart(StringBodyPart("x-amz-date", "#{xAmzDate}"))
+      .bodyPart(StringBodyPart("x-amz-credential", "#{xAmzCredential}"))
+      .bodyPart(StringBodyPart("x-amz-meta-original-filename", fileName))
+      .bodyPart(StringBodyPart("x-amz-algorithm", "#{xAmzAlgorithm}"))
+      .bodyPart(StringBodyPart("key", "#{key}"))
+      .bodyPart(StringBodyPart("acl", "#{acl}"))
+      .bodyPart(StringBodyPart("x-amz-signature", "#{xAmzSignature}"))
+      .bodyPart(StringBodyPart("x-amz-meta-session-id", "#{xAmzMetaSessionId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-request-id", "#{xAmzMetaRequestId}"))
+      .bodyPart(StringBodyPart("x-amz-meta-consuming-service", "#{xAmzMetaConsumingService}"))
+      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-received", "#{xAmzMetaUpscanInitiateReceived}"))
+      .bodyPart(StringBodyPart("x-amz-meta-upscan-initiate-response", "#{xAmzMetaUpscanInitiateResponse}"))
+      .bodyPart(StringBodyPart("success_action_redirect", "#{successActionRedirect}"))
+      .bodyPart(StringBodyPart("error_action_redirect", "#{errorActionRedirect}"))
+      .bodyPart(StringBodyPart("policy", "#{policy}"))
+      .bodyPart(RawFileBodyPart("file", fileName))
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+      .check(header("Location").saveAs("UpscanUploadResponse"))
+
+  val getUpscanUploadResponse: HttpRequestBuilder =
+    http(s"[get ] Upscan upload redirect")
+      .get("#{UpscanUploadResponse}")
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.in(303))
+
   val AddSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartSupportingDocuments,
     postBeforeYouStartSupportingDocuments,
     getAnySupportingDocuments,
-    postAnySupportingDocuments("true")
+    postAnySupportingDocuments("true"),
+    getUploadFile
+//    postUploadFile("data/Test1MbPDF.pdf"),
+//    getUpscanUploadResponse
+  )
+
+  val DoNotAddSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
+    getBeforeYouStartSupportingDocuments,
+    postBeforeYouStartSupportingDocuments,
+    getAnySupportingDocuments,
+    postAnySupportingDocuments("false")
   )
 
 }

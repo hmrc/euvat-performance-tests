@@ -115,7 +115,7 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
       .formParam("csrfToken", f"#{csrfToken}")
       .check(status.is(303))
 
-  val AddBankDetailsJourney: List[HttpRequestBuilder] = List(
+  val ChangeBankDetailsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartBank,
     postBeforeYouStartBank,
     getAccountHolderType,
@@ -128,6 +128,17 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
     postChangeAccountHolder,
     getChangeBankDetails,
     postChangeBankDetails("ACCOUNTNAME 123456798", "FAKEGB21XOO", "GB00TEST00000000000012", "GBP")
+  )
+
+  val AddBankDetailsJourney: List[HttpRequestBuilder] = List(
+    getBeforeYouStartBank,
+    postBeforeYouStartBank,
+    getAccountHolderType,
+    postAccountHolderType,
+    getBankDetailsForm,
+    postBankDetailsForm("ACCOUNTNAME 123456789", "FAKEGB21XXX", "GB00TEST00000000000000", "EUR"),
+    postCheckYourBankDetails,
+    getCheckYourBankDetails
   )
 
 }

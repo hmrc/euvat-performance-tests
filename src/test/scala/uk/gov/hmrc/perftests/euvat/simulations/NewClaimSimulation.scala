@@ -17,7 +17,7 @@
 package uk.gov.hmrc.perftests.euvat.simulations
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.euvat.requests.{BankDetailsRequests, ClaimDetailsRequests, ImportRequests, PurchaseRequests, SupportingDocumentsRequests}
+import uk.gov.hmrc.perftests.euvat.requests._
 
 trait NewClaimSimulation {
   this: PerformanceTestRunner =>
@@ -25,11 +25,12 @@ trait NewClaimSimulation {
   setup("claim-details", "Claim details") withRequests (ClaimDetailsRequests.AddClaimDetailsJourney: _*)
   setup("purchase-details", "Purchase details") withRequests (PurchaseRequests.AddPurchaseJourney: _*)
   setup("import-details", "Import details") withRequests (ImportRequests.AddImportJourney: _*)
-  setup("bank-details", "Bank details") withRequests (BankDetailsRequests.AddBankDetailsJourney: _*)
+  setup("bank-details", "Bank details") withRequests (BankDetailsRequests.ChangeBankDetailsJourney: _*)
   setup(
     "supporting-documents",
     "Supporting documents"
   ) withRequests (SupportingDocumentsRequests.AddSupportingDocumentsJourney: _*)
+  setup("submit-claim", "Submit claim") withRequests (SubmitClaimRequests.SubmitClaimJourney: _*)
 
   setup(
     "claim-details-germany",
@@ -43,6 +44,12 @@ trait NewClaimSimulation {
     "import-details-germany",
     "Import details for Germany"
   ) withRequests (ImportRequests.AddImportJourneyGermany: _*)
+  setup("bank-details", "Bank details") withRequests (BankDetailsRequests.AddBankDetailsJourney: _*)
+  setup(
+    "supporting-documents",
+    "Supporting documents"
+  ) withRequests (SupportingDocumentsRequests.NoSupportingDocumentsJourney: _*)
+  setup("submit-claim", "Submit claim") withRequests (SubmitClaimRequests.SubmitClaimJourney: _*)
 
   setup("delete-claim-details", "Delete claim details") withRequests (ClaimDetailsRequests.DeleteClaimDetails: _*)
   setup("delete-draft-claim", "Delete draft claim") withRequests (ClaimDetailsRequests.DeleteDraftClaim: _*)

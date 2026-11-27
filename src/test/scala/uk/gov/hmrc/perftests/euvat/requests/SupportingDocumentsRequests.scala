@@ -111,7 +111,7 @@ object SupportingDocumentsRequests extends ServicesConfiguration with EUVATPerfo
 //    getUpscanUploadResponse
   )
 
-  val DoNotAddSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
+  val NoSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartSupportingDocuments,
     postBeforeYouStartSupportingDocuments,
     getAnySupportingDocuments,

@@ -20,7 +20,8 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests.{getAddPurchaseImport, getYourPurchaseImportSummary, postAddPurchaseImport}
+import uk.gov.hmrc.perftests.euvat.requests.ClaimDetailsRequests.getMakeANewEUVATClaimPage
+import uk.gov.hmrc.perftests.euvat.requests.PurchaseRequests._
 
 object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -461,6 +462,19 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
       .check(status.is(200))
       .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
 
+  val getRemoveYourImportAnswers: HttpRequestBuilder =
+    http("[get ] Remove item page")
+      .get(euvatFilingFrontendUrl + "/purchases-imports/remove-item/P/4")
+      .check(status.is(200))
+      .check(css("input[name=csrfToken]", "value").saveAs("csrfToken"))
+
+  def postRemoveYourImportAnswers(option: String): HttpRequestBuilder =
+    http("[post] Remove item page")
+      .post(euvatFilingFrontendUrl + "/purchases-imports/remove-item")
+      .formParam("value", option)
+      .formParam("csrfToken", f"#{csrfToken}")
+      .check(status.is(303))
+
   val AddImportJourney: List[HttpRequestBuilder] = List(
     getAddPurchaseImport,
     postAddPurchaseImport("import"),
@@ -473,7 +487,7 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getAddSADRefNumber,
     postAddSADRefNumber("true"),
     getWhatIsTheSADReferenceNumber,
-    postWhatIsTheSADReferenceNumber("98765"),
+    postWhatIsTheSADReferenceNumber("SAD1234567890"),
     getWhenIsTheImportDate,
     postWhenIsTheImportDate("01", "01", "2026"),
     getSupplierName,
@@ -532,7 +546,10 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     postCheckYourImportDetails,
     getYourPurchaseImportSummary,
     getChangeYourImportAnswers,
-    postCheckYourImportDetails
+    postCheckYourImportDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false"),
+    getMakeANewEUVATClaimPage
   )
 
   val AddImportJourneyGermany: List[HttpRequestBuilder] = List(
@@ -564,8 +581,51 @@ object ImportRequests extends ServicesConfiguration with EUVATPerformanceTestBas
     getChangeAddSADRefNumber,
     postChangeAddSADRefNumber("true"),
     getChangeWhatIsTheSADReferenceNumber,
-    postChangeWhatIsTheSADReferenceNumber("98765"),
-    getCheckYourImportDetails
+    postChangeWhatIsTheSADReferenceNumber("SAD1234567890"),
+    getCheckYourImportDetails,
+    postCheckYourImportDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("false"),
+    getMakeANewEUVATClaimPage
+  )
+
+  val DeleteSummaryPurchaseImportJourney: List[HttpRequestBuilder] = List(
+    getAddPurchaseImport,
+    postAddPurchaseImport("import"),
+    getImportType,
+    postImportType("foodAndDrink"),
+    getImportFoodType,
+    postImportFoodType("7.1"),
+    getImportSubCategoryFood,
+    postImportSubCategoryFood("7.1.2"),
+    getAddSADRefNumber,
+    postAddSADRefNumber("true"),
+    getWhatIsTheSADReferenceNumber,
+    postWhatIsTheSADReferenceNumber("SAD1234567890"),
+    getWhenIsTheImportDate,
+    postWhenIsTheImportDate("01", "01", "2026"),
+    getSupplierName,
+    postSubmitSupplierName("Test Supplier"),
+    getImportSupplierAddress,
+    postImportSupplierAddress("Test Address 1", "", "Address Line 3", "BQ"),
+    getImportCurrency,
+    postImportCurrency("euro"),
+    getTotalImportAmount,
+    postTotalImportAmount("1000.01"),
+    getTotalImportVATPaid,
+    postTotalImportVATPaid("200.01"),
+    getTotalImportVATClaim,
+    postTotalImportVATClaim("100.01"),
+    getCheckYourImportDetails,
+    postCheckYourImportDetails,
+    getYourPurchaseImportSummary,
+    getRemoveYourPurchaseAnswers,
+    postRemoveYourPurchaseAnswers("true"),
+    getYourPurchaseImportSummary,
+    getRemoveYourImportAnswers,
+    postRemoveYourImportAnswers("true"),
+    getYourPurchaseImportSummary,
+    getMakeANewEUVATClaimPage
   )
 
 }

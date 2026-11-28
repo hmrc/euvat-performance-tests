@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.euvat.requests.ClaimDetailsRequests.getMakeANewEUVATClaimPage
 
 object SupportingDocumentsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -122,14 +123,16 @@ object SupportingDocumentsRequests extends ServicesConfiguration with EUVATPerfo
 //    postUploadFile("data/Test1MbPDF.pdf"),
 //    getUpscanUploadResponse
     getUploadedFiles,
-    postUploadedFiles
+    postUploadedFiles,
+    getMakeANewEUVATClaimPage
   )
 
   val NoSupportingDocumentsJourney: List[HttpRequestBuilder] = List(
     getBeforeYouStartSupportingDocuments,
     postBeforeYouStartSupportingDocuments,
     getAnySupportingDocuments,
-    postAnySupportingDocuments("false")
+    postAnySupportingDocuments("false"),
+    getMakeANewEUVATClaimPage
   )
 
 }

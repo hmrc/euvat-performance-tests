@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.euvat.requests.ClaimDetailsRequests.getMakeANewEUVATClaimPage
 
 object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -127,7 +128,8 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
     getChangeAccountHolder,
     postChangeAccountHolder,
     getChangeBankDetails,
-    postChangeBankDetails("ACCOUNTNAME 123456798", "FAKEGB21XOO", "GB00TEST00000000000012", "GBP")
+    postChangeBankDetails("ACCOUNTNAME 123456798", "FAKEGB21XOO", "GB00TEST00000000000012", "GBP"),
+    getMakeANewEUVATClaimPage
   )
 
   val AddBankDetailsJourney: List[HttpRequestBuilder] = List(
@@ -138,7 +140,8 @@ object BankDetailsRequests extends ServicesConfiguration with EUVATPerformanceTe
     getBankDetailsForm,
     postBankDetailsForm("ACCOUNTNAME 123456789", "FAKEGB21XXX", "GB00TEST00000000000000", "EUR"),
     postCheckYourBankDetails,
-    getCheckYourBankDetails
+    getCheckYourBankDetails,
+    getMakeANewEUVATClaimPage
   )
 
 }

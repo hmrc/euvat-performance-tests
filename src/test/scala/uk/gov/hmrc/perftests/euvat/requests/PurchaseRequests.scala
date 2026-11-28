@@ -20,6 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
+import uk.gov.hmrc.perftests.euvat.requests.ClaimDetailsRequests.getMakeANewEUVATClaimPage
 
 object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestBase {
 
@@ -700,10 +701,10 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postChangeWhatIsTheInvoiceDate("01", "01", "2026"),
     getCheckYourPurchaseDetails,
     getChangeWhatIsTheSuppliersName,
-    postChangeWhatIsTheSuppliersName("Change supplier name"),
+    postChangeWhatIsTheSuppliersName("Update Test Supplier Name"),
     getCheckYourPurchaseDetails,
     getChangeWhatIsTheSuppliersAddress,
-    postChangeWhatIsTheSuppliersAddress("Change Address Line 1", "Change Address Line 2", "Change Address Line 3"),
+    postChangeWhatIsTheSuppliersAddress("Updated Street", "Updated City", "Updated Country"),
     getCheckYourPurchaseDetails,
     getChangeAddVATRegistration,
     postChangeAddVATRegistration("true"),
@@ -729,7 +730,10 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     postCheckYourPurchaseDetails,
     getYourPurchaseImportSummary,
     getChangeYourPurchaseAnswers,
-    postCheckYourPurchaseDetails
+    postCheckYourPurchaseDetails,
+    getYourPurchaseImportSummary,
+    postYourPurchaseImportSummary("true"),
+    getMakeANewEUVATClaimPage
   )
 
   val AddPurchaseJourneyForGermany: List[HttpRequestBuilder] = List(
@@ -779,8 +783,8 @@ object PurchaseRequests extends ServicesConfiguration with EUVATPerformanceTestB
     getCheckYourPurchaseDetails,
     postCheckYourPurchaseDetails,
     getYourPurchaseImportSummary,
-    getRemoveYourPurchaseAnswers,
-    postRemoveYourPurchaseAnswers("true")
+    postYourPurchaseImportSummary("true"),
+    getMakeANewEUVATClaimPage
   )
 
 }
